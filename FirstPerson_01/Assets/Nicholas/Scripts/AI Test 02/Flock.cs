@@ -9,6 +9,8 @@ public class Flock : MonoBehaviour
     [SerializeField] private int flockSize;
     [SerializeField] private Vector3 spawnBound;
 
+
+
     [Header("Speed Setup")]
     [Range(0, 10)]
     [SerializeField] private float _minSpeed;
@@ -17,11 +19,51 @@ public class Flock : MonoBehaviour
     [SerializeField] private float _maxSpeed;
     public float maxSpeed { get { return _maxSpeed; } }
 
+
+
     [Header("Detection Distance")]
     [Range(0, 10)]
     [SerializeField] private float _cohesionDist;
-
     public float cohesionDistance { get { return _cohesionDist; } }
+
+    [Range(0, 10)]
+    [SerializeField] private float _avoidanceDist;
+    public float avoidanceDistance { get { return _avoidanceDist; } }
+
+    [Range(0, 10)]
+    [SerializeField] private float _alignmentDist;
+    public float alignmentDistance { get { return _alignmentDist; } }
+
+    [Range(0, 100)]
+    [SerializeField] private float _boundsDist;
+    public float boundsDistance { get { return _boundsDist; } }
+
+    [Range(0, 10)]
+    [SerializeField] private float _obstacleDist;
+    public float obstacleDistance { get { return _obstacleDist; } }
+
+
+
+    [Header("Behavior Weights")]
+    [Range(0, 10)]
+    [SerializeField] private float _cohesionWeight;
+    public float cohesionWeight { get { return _cohesionWeight; } }
+
+    [Range(0, 10)]
+    [SerializeField] private float _avoidanceWeight;
+    public float avoidanceWeight { get { return _avoidanceWeight; } }
+
+    [Range(0, 10)]
+    [SerializeField] private float _alignmentWeight;
+    public float alignmentWeight { get { return _alignmentWeight; } }
+
+    [Range(0, 10)]
+    [SerializeField] private float _boundsWeight;
+    public float boundsWeight { get { return _boundsWeight; } }
+
+    [Range(0, 10)]
+    [SerializeField] private float _obstacleWeight;
+    public float obstacleWeight { get { return _obstacleWeight; } }
 
     public FlockUnit[] allUnits { get; set; }
 
