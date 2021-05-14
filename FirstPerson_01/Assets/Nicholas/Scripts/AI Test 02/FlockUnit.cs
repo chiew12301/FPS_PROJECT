@@ -8,6 +8,8 @@ public class FlockUnit : MonoBehaviour
 
     [SerializeField] private float FOVAngle;
     [SerializeField] private float smoothDamp;
+    [SerializeField] private LayerMask obstacleMask;
+    [SerializeField] private Vector3[] dirToCheckWhenAvoidingObstacles;
 
     private List<FlockUnit> cohesionNeighbours = new List<FlockUnit>();
     private List<FlockUnit> avoidanceNeighbours = new List<FlockUnit>();
@@ -41,6 +43,7 @@ public class FlockUnit : MonoBehaviour
         var avoidanceVec = CalculateAvoidanceVector() * assignedFlock.avoidanceWeight;
         var alignmentVec = CalculateAlignmentVector() * assignedFlock.alignmentWeight;
         var boundsVec = CalculateBoundsVector() * assignedFlock.boundsWeight;
+        var obstacleVec = CalculateObstacleVector() * assignedFlock.obstacleWeight;
 
         var moveVec = cohesionVec + avoidanceVec + alignmentVec + boundsVec;
         moveVec = Vector3.SmoothDamp(myTransform.forward, moveVec, ref currentVelocity, smoothDamp);
@@ -165,6 +168,38 @@ public class FlockUnit : MonoBehaviour
         var offsetToCentre = assignedFlock.transform.position - myTransform.position;
         bool isNearCentre = (offsetToCentre.magnitude >= assignedFlock.boundsDistance * 0.9);
         return isNearCentre ? offsetToCentre.normalized : Vector3.zero;
+    }
+
+    private Vector3 CalculateObstacleVector()
+    {
+        var obstacleVector = Vector3.zero;
+        RaycastHit hit;
+        if (Physics.Raycast(myTransform.position, myTransform.forward, out hit, assignedFlock.obstacleDistance, obstacleMask))
+        {
+            obstacleVector = FindDirToAvoidObstacle();
+        }
+        return obstacleVector;
+    }
+
+    private Vector3 FindDirToAvoidObstacle()
+    {
+        float maxDistance = int.MinValue;
+        var selectedDir = Vector3.zero;
+        for (int i = 0; i < dirToCheckWhenAvoidingObstacles.Length; i++)
+        {
+            RaycastHit hit;
+            var currentDir = myTransform.TransformDirection(dirToCheckWhenAvoidingObstacles[i].normalized);
+            if (Physics.Raycast(myTransform.position, currentDir, out hit, assignedFlock.obstacleDistance, obstacleMask))
+            {
+                float currentDist = (hit.point - myTransform.position).sqrMagnitude;
+                if (currentDist > maxDistance)
+                {
+                    maxDistance = currentDist;
+                    selectedDir = currentDir;
+                }
+            }
+        }
+        return selectedDir.normalized;
     }
 
     private bool IsInFOV(Vector3 pos)
