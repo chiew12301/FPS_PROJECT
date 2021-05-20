@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &267038075 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3729064787921035041, guid: 2ee1a756414171b4a9ccc75f6a368ed6, type: 3}
-  m_PrefabInstance: {fileID: 3729064788058943165}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1053997069
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,16 +245,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1053997069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0676a45a12b9e3547890db4df00964e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b4f1bba24d378d4aa9f3e7324cdb820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 267038075}
-  groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 512
-  isMoving: 0
-  isJump: 0
 --- !u!1 &1194945022
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +261,7 @@ GameObject:
   - component: {fileID: 1194945025}
   - component: {fileID: 1194945024}
   - component: {fileID: 1194945023}
+  - component: {fileID: 1194945028}
   m_Layer: 0
   m_Name: enemy (2)
   m_TagString: Untagged
@@ -372,6 +361,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1194945028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194945022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4f1bba24d378d4aa9f3e7324cdb820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1848144567
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +479,7 @@ GameObject:
   - component: {fileID: 1861591963}
   - component: {fileID: 1861591962}
   - component: {fileID: 1861591961}
+  - component: {fileID: 1861591966}
   m_Layer: 0
   m_Name: enemy (1)
   m_TagString: Untagged
@@ -577,6 +579,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1861591966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861591960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4f1bba24d378d4aa9f3e7324cdb820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3729064788058943165
 PrefabInstance:
   m_ObjectHideFlags: 0
