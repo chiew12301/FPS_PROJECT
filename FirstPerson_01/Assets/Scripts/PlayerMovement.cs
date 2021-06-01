@@ -14,7 +14,9 @@ public enum PLAYER_STATUS
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PLAYER_STATUS p_Direction;
+    public PLAYER_STATUS p_Direction;
+    public Animator p_animator;
+
     private float p_Speed = 2.0f;
     private float p_JumpHeight = 5.0f;
 
@@ -26,6 +28,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isMoving = false;
     public bool isJump = false;
 
+    //Animation Name
+    const string IDLE_ANIMATION = "idle";
+    const string RUN_ANIMATION = "Run";
+    const string RUN_LEFT_ANIMATION = "RunLeft";
+    const string RUN_RIGHT_ANIMATION = "RunRight";
+    const string RUN_BACK_ANIMATION = "Backward";
 
     // Start is called before the first frame update
     void Start()
@@ -85,24 +93,40 @@ public class PlayerMovement : MonoBehaviour
             //move forward
             transform.position += transform.forward * Time.deltaTime * p_Speed;
             isMoving = true;
+            if (p_animator.GetCurrentAnimatorStateInfo(0).IsName(RUN_ANIMATION) != true)
+            {
+                p_animator.Play(RUN_ANIMATION);
+            }
         }
         else if (p_Direction == PLAYER_STATUS.P_BACKWARD)
         {
             //Move Backward
             transform.position -= transform.forward * Time.deltaTime * p_Speed;
             isMoving = true;
+            if (p_animator.GetCurrentAnimatorStateInfo(0).IsName(RUN_BACK_ANIMATION) != true)
+            {
+                p_animator.Play(RUN_BACK_ANIMATION);
+            }
         }
         else if (p_Direction == PLAYER_STATUS.P_LEFT)
         {
             //Move Left
             transform.position -= transform.right * Time.deltaTime * p_Speed;
             isMoving = true;
+            if (p_animator.GetCurrentAnimatorStateInfo(0).IsName(RUN_LEFT_ANIMATION) != true)
+            {
+                p_animator.Play(RUN_LEFT_ANIMATION);
+            }
         }
         else if (p_Direction == PLAYER_STATUS.P_RIGHT)
         {
             //Move Right
             transform.position += transform.right * Time.deltaTime * p_Speed;
             isMoving = true;
+            if (p_animator.GetCurrentAnimatorStateInfo(0).IsName(RUN_RIGHT_ANIMATION) != true)
+            {
+                p_animator.Play(RUN_RIGHT_ANIMATION);
+            }
         }
         else if (p_Direction == PLAYER_STATUS.P_JUMP)
         {
@@ -123,6 +147,10 @@ public class PlayerMovement : MonoBehaviour
         {
             //IDLE
             isMoving = false;
+            if (p_animator.GetCurrentAnimatorStateInfo(0).IsName(IDLE_ANIMATION) != true)
+            {
+                p_animator.Play(IDLE_ANIMATION);
+            }
         }
     }
 
