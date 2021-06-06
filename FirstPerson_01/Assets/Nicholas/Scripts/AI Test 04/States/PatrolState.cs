@@ -45,6 +45,7 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.States
 
                     SetDestination(connectedWaypoints[waypointIndex]);
                     EnteredState = true;
+                    Debug.Log("Entered Patrol State");
                 }
             }
      
@@ -53,14 +54,23 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.States
 
         public override void UpdateState()
         {
-            if (EnteredState)
+            Debug.Log("test update");
+            if (EnteredState == true)
             {
-                if (Vector3.Distance(navMeshAgent.transform.position, connectedWaypoints[waypointIndex].transform.position) <= 1.0f)    // check if ai is at the waypoint
+                if (navMeshAgent.remainingDistance <= 1.0f) // check to see if it reach the waypoint
                 {
                     fsm.EnterState(FSMStateType.IDLE);
                 }
             }
 
+        }
+
+        public override bool ExitState()
+        {
+            base.ExitState();
+            Debug.Log("Exiting Patrol State");
+
+            return true;
         }
 
         private void SetDestination(ConnectedWaypoint destination)

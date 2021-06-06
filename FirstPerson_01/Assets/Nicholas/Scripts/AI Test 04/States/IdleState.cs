@@ -10,7 +10,7 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.States
     [CreateAssetMenu(fileName = "IdleState", menuName = "FSM/States/Idle", order = 1 )]
     public class IdleState : AbstractFSMState
     {
-        [SerializeField] private float idleDuration = 1.5f;
+        [SerializeField] private float idleDuration = 2f;
         private float totalDuration;
 
         public override void OnEnable()
@@ -38,7 +38,7 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.States
             if (EnteredState)
             {
                 totalDuration += Time.deltaTime;
-                Debug.Log("Updating Idle State: " + totalDuration);
+                Debug.Log("Updating Idle State");
 
                 if (totalDuration >= idleDuration)
                 {
