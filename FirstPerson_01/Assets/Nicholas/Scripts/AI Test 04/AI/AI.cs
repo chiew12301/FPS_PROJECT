@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Nicholas.Scripts.AI_Test_04.AI
+namespace Assets.Nicholas.Scripts.AI_Test_04.AICode
 {
     [RequireComponent(typeof(NavMeshAgent), typeof(FiniteStateMachine))]
     public class AI : MonoBehaviour
     {
+        [SerializeField] private ConnectedWaypoint[] connectedWaypoints;
+
         private NavMeshAgent NavMeshAgent;
         private FiniteStateMachine fsm;
+
 
         public void Awake()
         {
@@ -28,6 +31,14 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.AI
         public void Update()
         {
             
+        }
+
+        public ConnectedWaypoint[] ConnectedWaypoints
+        {
+            get
+            {
+                return connectedWaypoints;
+            }
         }
     }
 }
