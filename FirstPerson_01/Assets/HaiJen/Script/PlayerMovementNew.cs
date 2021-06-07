@@ -2,8 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PLAYER_STATE
+{
+    P_IDLE = 0,
+    P_FORWARD,
+    P_BACKWARD,
+    P_LEFT,
+    P_RIGHT,
+    P_LEFTFOWARD,
+    P_RIGHTFORWARD,
+    P_LEFTBACKWARD,
+    P_RIGHTBACKWARD,
+    P_JUMP
+}
+
 public class PlayerMovementNew : MonoBehaviour
 {
+    public PLAYER_STATE p_Direction;
     public CharacterController controller;
 
     public float speed = 12f;
@@ -19,9 +34,16 @@ public class PlayerMovementNew : MonoBehaviour
     public float standingHeight = 2f;
 
     Vector3 velocity;
+    bool isForward;
+    bool isBackward;
     bool isGrounded;
     public bool isWalking;
     public bool isCrouching;
+    
+    void Start()
+    {
+        p_Direction = 0;
+    }
 
     // Update is called once per frame
     void Update()
@@ -80,5 +102,45 @@ public class PlayerMovementNew : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void CheckInput()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            p_Direction = PLAYER_STATE.P_FORWARD;
+            isForward = true;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            p_Direction = PLAYER_STATE.P_BACKWARD;
+            isBackward = true;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            p_Direction = PLAYER_STATE.P_LEFT;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            p_Direction = PLAYER_STATE.P_RIGHT;
+        }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            p_Direction = PLAYER_STATE.P_JUMP;
+        }
+        else
+        {
+            p_Direction = PLAYER_STATE.P_IDLE;
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            isForward = false;
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            isBackward = false;
+        }
+
     }
 }

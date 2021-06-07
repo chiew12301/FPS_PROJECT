@@ -43,7 +43,14 @@ public class Gun : MonoBehaviour
     void Shoot()
     {
         RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        //bloom
+        Vector3 bloom = fpsCam.transform.position + fpsCam.transform.forward * 500f;
+        bloom += Random.Range(-8f, 8f) * fpsCam.transform.up;
+        bloom += Random.Range(-8f, 8f) * fpsCam.transform.right;
+        bloom -= fpsCam.transform.position;
+        bloom.Normalize();
+
+        if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
             Debug.Log(hit.transform.name);
             GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
