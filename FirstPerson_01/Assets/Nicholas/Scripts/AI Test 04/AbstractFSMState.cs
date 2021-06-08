@@ -16,7 +16,8 @@ public enum ExecutionState
 public enum FSMStateType
 {
     IDLE = 0,
-    PATROL
+    PATROL,
+    CHASE,
 };
 
 public abstract class AbstractFSMState : ScriptableObject
@@ -24,6 +25,7 @@ public abstract class AbstractFSMState : ScriptableObject
     protected NavMeshAgent navMeshAgent;
     protected AI ai;
     protected FiniteStateMachine fsm;
+    protected float distance = 5.0f;
 
     public ExecutionState ExecutionState { get; protected set; }
     public FSMStateType StateType { get; protected set; }

@@ -15,7 +15,7 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.AICode
 
         private NavMeshAgent NavMeshAgent;
         private FiniteStateMachine fsm;
-
+        private GameObject ai;
 
         public void Awake()
         {
@@ -40,5 +40,6 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.AICode
                 return connectedWaypoints;
             }
         }
+
     }
 }

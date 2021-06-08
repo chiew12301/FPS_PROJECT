@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: IdleState
   m_EditorClassIdentifier: 
   idleDuration: 3
+  target: {fileID: 8808767718376077017, guid: b5e0995a86aae5640bf739b2ddd14778, type: 3}

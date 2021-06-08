@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &238535302
 Transform:
   m_ObjectHideFlags: 0
@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &753157797
 Transform:
   m_ObjectHideFlags: 0
@@ -882,7 +882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &771371782
 Transform:
   m_ObjectHideFlags: 0
@@ -1005,8 +1005,8 @@ GameObject:
   - component: {fileID: 827876466}
   - component: {fileID: 827876465}
   - component: {fileID: 827876469}
-  - component: {fileID: 827876471}
   - component: {fileID: 827876470}
+  - component: {fileID: 827876471}
   m_Layer: 0
   m_Name: EnemyAI
   m_TagString: Untagged
@@ -1112,30 +1112,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &827876470
-MonoBehaviour:
+--- !u!95 &827876470
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827876464}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54ec20dd324abe9408a446bb37560476, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  connectedWaypoints:
-  - {fileID: 1847898777}
-  - {fileID: 771371781}
-  - {fileID: 1599557178}
-  - {fileID: 1905455632}
-  - {fileID: 1126516813}
-  - {fileID: 753157796}
-  - {fileID: 238535301}
-  - {fileID: 1389270352}
-  - {fileID: 1270075957}
-  - {fileID: 2056544849}
-  - {fileID: 1369970713}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d13b03aa425fc1842965dd98a0f47b6f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &827876471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,13 +1140,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 827876464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4032a7f764a357419ac5cc2f3eb3d47, type: 3}
+  m_Script: {fileID: 11500000, guid: cfada9d66da8e074f9b59465c0481591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _validStates:
-  - {fileID: 11400000, guid: 89f2d87a5c8d45d4fad63b307be89487, type: 2}
-  - {fileID: 11400000, guid: c5d4c77ec53ff094092f652d8e3fd791, type: 2}
-  - {fileID: 11400000, guid: b2ad631e74b32e6458005a099bdab3dc, type: 2}
 --- !u!1 &917436806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,7 +1363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &1126516814
 Transform:
   m_ObjectHideFlags: 0
@@ -1381,7 +1372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126516812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.24, y: 0, z: 19.22}
+  m_LocalPosition: {x: 21.24, y: 0, z: 8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 632628889}
@@ -1512,7 +1503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &1270075958
 Transform:
   m_ObjectHideFlags: 0
@@ -1653,7 +1644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &1369970714
 Transform:
   m_ObjectHideFlags: 0
@@ -1698,7 +1689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &1389270353
 Transform:
   m_ObjectHideFlags: 0
@@ -1743,7 +1734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &1599557179
 Transform:
   m_ObjectHideFlags: 0
@@ -1853,23 +1844,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651321863}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1749706624 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8808767718376077017, guid: b5e0995a86aae5640bf739b2ddd14778, type: 3}
-  m_PrefabInstance: {fileID: 8808767718782243161}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1749706625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749706624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76aab8da3ffdaf3439dd1ad7d5b34392, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1847898775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,7 +1888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!1 &1905455631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,7 +1919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &1905455633
 Transform:
   m_ObjectHideFlags: 0
@@ -2307,7 +2281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugDrawRadius: 1
-  connectivityRadius: 12
+  connectivityRadius: 20
 --- !u!4 &2056544850
 Transform:
   m_ObjectHideFlags: 0

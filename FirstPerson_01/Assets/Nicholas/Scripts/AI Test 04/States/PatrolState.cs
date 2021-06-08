@@ -13,6 +13,8 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.States
         private ConnectedWaypoint[] connectedWaypoints;
         private int waypointIndex;
 
+        //private Player target;
+
         public override void OnEnable()
         {
             base.OnEnable();
@@ -54,15 +56,20 @@ namespace Assets.Nicholas.Scripts.AI_Test_04.States
 
         public override void UpdateState()
         {
-            Debug.Log("test update");
-            if (EnteredState == true)
+            if (EnteredState)
             {
-                if (navMeshAgent.remainingDistance <= 1.0f) // check to see if it reach the waypoint
-                {
-                    fsm.EnterState(FSMStateType.IDLE);
-                }
+                //if (Vector3.Distance(ai.transform.position, target.transform.position) <= distance)
+                //{
+                //    fsm.EnterState(FSMStateType.CHASE);
+                //}
+                //else
+                //{
+                    if (navMeshAgent.remainingDistance <= 1.0f) // check to see if it reach the waypoint
+                    {
+                        fsm.EnterState(FSMStateType.IDLE);
+                    }
+                //}               
             }
-
         }
 
         public override bool ExitState()
