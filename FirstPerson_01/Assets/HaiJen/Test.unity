@@ -812,6 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befa8c70eb0e50743be4bed0b8a52a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p_Direction: 0
   controller: {fileID: 1392644476}
   speed: 12
   gravity: -9.81
@@ -846,7 +847,7 @@ MonoBehaviour:
   unZoomValue: 0
   isZoom: 0
   fpsCam: {fileID: 963194227}
-  impactEffect: {fileID: 1839526218123983007, guid: 0529a00aea496a84ca48c32a310a63b0, type: 3}
+  impactEffect: {fileID: 6513396991642171666, guid: ff60db3f86242e24fb354cf6083b8a00, type: 3}
 --- !u!1 &1756685557
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,8 @@ public enum PLAYER_STATE
     P_RIGHTFORWARD,
     P_LEFTBACKWARD,
     P_RIGHTBACKWARD,
-    P_JUMP
+    P_JUMP,
+    P_CROUCH
 }
 
 public class PlayerMovementNew : MonoBehaviour
@@ -48,6 +49,7 @@ public class PlayerMovementNew : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        InputState();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
@@ -104,17 +106,31 @@ public class PlayerMovementNew : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    private void CheckInput()
+    private void InputState()
     {
         if (Input.GetKey(KeyCode.W))
         {
             p_Direction = PLAYER_STATE.P_FORWARD;
-            isForward = true;
+            if(Input.GetKey(KeyCode.A))
+            {
+                p_Direction = PLAYER_STATE.P_LEFTFOWARD;
+            }
+            if(Input.GetKey(KeyCode.D))
+            {
+                p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
+            }
         }
         else if (Input.GetKey(KeyCode.S))
         {
             p_Direction = PLAYER_STATE.P_BACKWARD;
-            isBackward = true;
+            if (Input.GetKey(KeyCode.A))
+            {
+                p_Direction = PLAYER_STATE.P_LEFTBACKWARD;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                p_Direction = PLAYER_STATE.P_RIGHTBACKWARD;
+            }
         }
         else if (Input.GetKey(KeyCode.A))
         {
@@ -124,7 +140,7 @@ public class PlayerMovementNew : MonoBehaviour
         {
             p_Direction = PLAYER_STATE.P_RIGHT;
         }
-        else if (Input.GetKey(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.Space) || !isGrounded)
         {
             p_Direction = PLAYER_STATE.P_JUMP;
         }
@@ -132,15 +148,5 @@ public class PlayerMovementNew : MonoBehaviour
         {
             p_Direction = PLAYER_STATE.P_IDLE;
         }
-
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            isForward = false;
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            isBackward = false;
-        }
-
     }
 }

@@ -11,6 +11,7 @@ public class Gun : MonoBehaviour
 
     public Camera fpsCam;
     public GameObject impactEffect;
+    PlayerMovementNew player;
 
     private float nextFire = 0f;
 
