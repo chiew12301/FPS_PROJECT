@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Patrol : StateMachineBehaviour
+public class Patrol : NPCBaseFSM
 {
-    private GameObject NPC;
     private ConnectedWaypoint _currentWaypoint;
     private ConnectedWaypoint _previousWaypoint;
     private int waypointIndex;
     private bool travelling;
+    private float patrolSpeed = 5.0f;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        NPC = animator.gameObject;
-        waypointIndex = -1;
+        base.OnStateEnter(animator, stateInfo, layerIndex);
+        waypointIndex = -1;       
 
-        if (NPC.GetComponent<NavMeshAgent>() == null)
+        if (navMeshAgent == null)
         {
             Debug.LogError("No nav mesh agent");
         }
@@ -54,9 +54,7 @@ public class Patrol : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-
-        if (travelling && NPC.GetComponent<NavMeshAgent>().remainingDistance <= 1.0f)
+        if (travelling && navMeshAgent.remainingDistance <= 1.0f)
         {
             travelling = false;
             waypointIndex++;
@@ -82,7 +80,8 @@ public class Patrol : StateMachineBehaviour
         }
 
         Vector3 targetVector = _currentWaypoint.transform.position;
-        NPC.GetComponent<NavMeshAgent>().SetDestination(targetVector);
+        navMeshAgent.SetDestination(targetVector);
+        navMeshAgent.speed = patrolSpeed;
         travelling = true;
     }
 }
