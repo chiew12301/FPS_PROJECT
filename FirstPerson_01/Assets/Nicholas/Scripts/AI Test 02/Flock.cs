@@ -80,6 +80,12 @@ public class Flock : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireCube(transform.position, spawnBound);
+    }
+
     private void SpawnUnits()
     {
         allUnits = new FlockUnit[flockSize];
@@ -87,7 +93,7 @@ public class Flock : MonoBehaviour
         for (int i = 0; i < flockSize; i++)
         {
             var randVector = UnityEngine.Random.insideUnitSphere;
-            randVector = new Vector3(randVector.x * spawnBound.x, randVector.y * spawnBound.y, randVector.z * spawnBound.z);
+            randVector = new Vector3(randVector.x * spawnBound.x, Mathf.Abs(randVector.y * spawnBound.y), randVector.z * spawnBound.z);
 
             var spawnPos = transform.position + randVector;
             var rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
@@ -95,6 +101,7 @@ public class Flock : MonoBehaviour
             allUnits[i] = Instantiate(flockUnitPrefab, spawnPos, rotation);
             allUnits[i].AssignFlock(this);
             allUnits[i].InitialiseSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
+            allUnits[i].transform.parent = gameObject.transform;
         }
     }
 }

@@ -110,3 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FOVAngle: 270
   smoothDamp: 1
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  dirToCheckWhenAvoidingObstacles: []
