@@ -39,6 +39,11 @@ public class MainMenu : MonoBehaviour
             {
                 MM_animator.Play(MM_ANIMATION_FADEIN);
             }
+            if(AudioManager.instance.FindIsPlaying("MainMenuBGM", "BGM") == false)
+            {
+                AudioManager.instance.StopAll();
+                AudioManager.instance.Play("MainMenuBGM", "BGM");
+            }
         }
         else 
         {
@@ -46,6 +51,7 @@ public class MainMenu : MonoBehaviour
             {
                 MM_animator.Play(MM_ANIMATION_FADEOUT);
             }
+            AudioManager.instance.StopAll();
         }
     }
 
@@ -67,6 +73,7 @@ public class MainMenu : MonoBehaviour
         {
             MM_animator.Play(SETTING_IN);
         }
+        AudioManager.instance.Play("GameBGM", "BGM");
     }
 
     public void CreditButton()
@@ -77,6 +84,7 @@ public class MainMenu : MonoBehaviour
         {
             MM_animator.Play(CREDIT_IN);
         }
+        AudioManager.instance.Play("GameBGM", "BGM");
     }
 
     public void BackToMainMenu()
@@ -86,6 +94,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitButton()
     {
+        AudioManager.instance.StopAll();
         Application.Quit();
     }
 
