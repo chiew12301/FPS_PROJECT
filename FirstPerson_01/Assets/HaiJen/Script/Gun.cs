@@ -51,11 +51,19 @@ public class Gun : MonoBehaviour
         bloom -= fpsCam.transform.position;
         bloom.Normalize();
 
-        if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
+        /*if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
             Debug.Log(hit.transform.name);
             GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 2f);
+        }*/
+
+        if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
+        {
+            GameObject obj = ObjectPooling.current.GetPooledObject();
+            if (obj == null) return;
+            obj.transform.position = hit.point;
+            obj.SetActive(true);
         }
     }
 
