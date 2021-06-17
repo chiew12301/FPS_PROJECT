@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Animator MM_animator;
     [SerializeField] GameObject Creadit;
     [SerializeField] GameObject Setting;
+    [SerializeField] LevelLoader LV_loader;
 
     const string MM_ANIMATION_FADEIN = "FadeIn";
     const string MM_ANIMATION_FADEOUT = "FadeOut";
@@ -58,6 +59,7 @@ public class MainMenu : MonoBehaviour
     public void StartGameButton()
     {
         MainMenuStatus(false);
+        LV_loader.LoadLevel(1);
     }
 
     public void LoadGameButton()
