@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public float damage = 10f;
+    public float damage = 5f;
     public float range = 100f;
     public float fireRate = 15f;
     public float zoomValue = 15f;
@@ -64,6 +64,11 @@ public class Gun : MonoBehaviour
             if (obj == null) return;
             obj.transform.position = hit.point;
             obj.SetActive(true);
+            TargetScript target = hit.transform.GetComponent<TargetScript>();
+            if (target != null)
+            {
+                target.TakeDamage(damage);
+            }
         }
     }
 
