@@ -7,6 +7,9 @@ public class DialogueManager : MonoBehaviour
 {
     private AudioClip dialogueAudio;
 
+    //Bitrate of audio 
+    private const float _RATE = 44100.0f;
+
     private string[] fileLines;
 
     //Subtitle variables
@@ -19,6 +22,8 @@ public class DialogueManager : MonoBehaviour
 
     private int nextSubtitle = 0;
 
+    private string displaySubtitle;
+
     //Triggers
     private List<string> triggerLines = new List<string>();
 
@@ -30,6 +35,9 @@ public class DialogueManager : MonoBehaviour
     public List<string> triggerMethodNames = new List<string>();
 
     private int nextTrigger = 0;
+
+    //GUI
+    private GUIStyle subtitleStyle = new GUIStyle();
 
     //Singleton
     public static DialogueManager Instance { get; private set; }
@@ -48,7 +56,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void BeginDialogue(AudioClip dialogueClip)
-    {
+    {       
         dialogueAudio = dialogueClip;
 
         //Reset Lists
@@ -68,7 +76,7 @@ public class DialogueManager : MonoBehaviour
         nextTrigger = 0;
 
         //Get strings from text file
-        TextAsset temp = Resources.Load("Dialogue/" + "Dialogue Scripts") as TextAsset;
+        TextAsset temp = Resources.Load("Dialogue/" + "DialogueScripts") as TextAsset;
         fileLines = temp.text.Split('\n');
 
         //Split subtitle and trigger lines into different lists
@@ -94,11 +102,23 @@ public class DialogueManager : MonoBehaviour
         }
 
         //Split trigger elements
-        for(int i = 0; i < subtitleLines.Count; i++)
+        for(int i = 0; i < triggerLines.Count; i++)
         {
             string[] splitTemp1 = triggerLines[i].Split('|');
             triggerTimingStrings.Add(splitTemp1[0]);
             triggerTimings.Add(float.Parse(CleanTimeString(triggerTimingStrings[i])));
+            triggers.Add(splitTemp1[1]);
+
+            string[] splitTemp2 = triggers[i].Split('-');
+            splitTemp2[0] = splitTemp2[0].Replace("<trigger/>", "");
+            triggerObjectNames.Add(splitTemp2[0]);
+            triggerMethodNames.Add(splitTemp2[1]);
+        }
+
+        //sett initial subtitle text
+        if(subtitleText[0] != null)
+        {
+            displaySubtitle = subtitleText[0];
         }
 
         //Set and Play Audio Clip
@@ -114,5 +134,52 @@ public class DialogueManager : MonoBehaviour
         //If things fk up it's this line.
         Regex digitsOnly = new Regex(@"[^\d+(\.\d+)*s]");
         return digitsOnly.Replace(timeString, "");
+    }
+
+    private void OnGUI()
+    {
+        //check if dialogueAudio is there
+        if(dialogueAudio != null && GetComponent<AudioSource>().clip.name == dialogueAudio.name)
+        {
+            //Check for <break/> or negative nextSubtitle
+            if (nextSubtitle > 0 && !subtitleText[nextSubtitle - 1].Contains("<break/"))
+            {
+                //Create GUI
+                GUI.depth = -1001;
+                subtitleStyle.fixedWidth = Screen.width / 1.5f;
+                subtitleStyle.wordWrap = true;
+                subtitleStyle.alignment = TextAnchor.MiddleCenter;
+                subtitleStyle.normal.textColor = Color.white;
+                subtitleStyle.fontSize = Mathf.FloorToInt(Screen.height * 0.0225f);
+
+                Vector2 size = subtitleStyle.CalcSize(new GUIContent());
+                //Create highlight for text
+                GUI.contentColor = Color.black;
+                GUI.Label(new Rect(Screen.width / 2 - size.x / 2 + 1, Screen.height / 1.25f - size.y + 1, size.x, size.y), displaySubtitle, subtitleStyle);
+                GUI.contentColor = Color.white;
+                GUI.Label(new Rect(Screen.width / 2 - size.x / 2, Screen.height / 1.25f - size.y, size.x, size.y), displaySubtitle, subtitleStyle);
+            }
+
+            //Next Subtitle when time point is hit
+            if (nextSubtitle < subtitleText.Count)
+            {
+                AudioSource audio = GetComponent<AudioSource>();
+                if (audio.timeSamples / _RATE > subtitleTimings[nextSubtitle])
+                {
+                    displaySubtitle = subtitleText[nextSubtitle];
+                    nextSubtitle++;
+                }
+            }
+
+            if (nextTrigger < triggers.Count)
+            {
+                AudioSource audio = GetComponent<AudioSource>();
+                if (audio.timeSamples / _RATE > subtitleTimings[nextSubtitle])
+                {
+                    GameObject.Find(triggerObjectNames[nextTrigger]).SendMessage(triggerMethodNames[nextTrigger]);
+                    nextTrigger++;
+                }
+            }
+        }        
     }
 }
