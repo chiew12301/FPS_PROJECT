@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
@@ -36,7 +37,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
@@ -46,7 +47,7 @@ public class DialogueManager : MonoBehaviour
         gameObject.AddComponent<AudioSource>();
     }
 
-    public void BeginDialogue (AudioClip dialogueClip)
+    public void BeginDialogue(AudioClip dialogueClip)
     {
         dialogueAudio = dialogueClip;
 
@@ -67,12 +68,51 @@ public class DialogueManager : MonoBehaviour
         nextTrigger = 0;
 
         //Get strings from text file
-        TextAsset temp = Resources.Load("Dialogue/" + dialogueAudio.name) as TextAsset;
+        TextAsset temp = Resources.Load("Dialogue/" + "Dialogue Scripts") as TextAsset;
+        fileLines = temp.text.Split('\n');
+
+        //Split subtitle and trigger lines into different lists
+        foreach (string line in fileLines)
+        {
+            if (line.Contains("<trigger/>"))
+            {
+                triggerLines.Add(line);
+            }
+            else
+            {
+                subtitleLines.Add(line);
+            }
+        }
+
+        //Split subtitle elements
+        for (int i = 0; i < subtitleLines.Count; i++)
+        {
+            string[] splitTemp = subtitleLines[i].Split('|');
+            subtitleTimingStrings.Add(splitTemp[0]);
+            subtitleTimings.Add(float.Parse(CleanTimeString(subtitleTimingStrings[i])));
+            subtitleText.Add(splitTemp[1]);
+        }
+
+        //Split trigger elements
+        for(int i = 0; i < subtitleLines.Count; i++)
+        {
+            string[] splitTemp1 = triggerLines[i].Split('|');
+            triggerTimingStrings.Add(splitTemp1[0]);
+            triggerTimings.Add(float.Parse(CleanTimeString(triggerTimingStrings[i])));
+        }
 
         //Set and Play Audio Clip
         AudioSource audio = GetComponent<AudioSource>();
         audio.clip = dialogueAudio;
         audio.Play();
-        
+
+    }
+
+    //Remove characters that are not timing 
+    private string CleanTimeString(string timeString)
+    {
+        //If things fk up it's this line.
+        Regex digitsOnly = new Regex(@"[^\d+(\.\d+)*s]");
+        return digitsOnly.Replace(timeString, "");
     }
 }
