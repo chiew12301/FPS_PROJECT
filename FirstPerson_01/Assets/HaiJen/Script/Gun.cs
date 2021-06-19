@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Gun : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class Gun : MonoBehaviour
     public float unZoomValue;
     public bool isZoom = false;
 
+    public int maxAmmo = 30;
+    public int curAmmo;
+    public float reloadTime = 2.6f;
+    private bool isReloading = false;
+
     public Camera fpsCam;
     public GameObject impactEffect;
     PlayerMovementNew player;
@@ -18,11 +24,19 @@ public class Gun : MonoBehaviour
     private void Start()
     {
         unZoomValue = Camera.main.fieldOfView;
+        curAmmo = maxAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isReloading)
+            return;
+        if(curAmmo<=0||Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+            return;
+        }
         if(Input.GetKeyDown(KeyCode.Mouse1) && !isZoom)
         {
             Zoom();
@@ -39,6 +53,14 @@ public class Gun : MonoBehaviour
             nextFire = Time.time + 1f / fireRate;
             Shoot();
         }
+    }
+
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(reloadTime);
+        curAmmo = maxAmmo;
+        isReloading = false;
     }
 
     void Shoot()
@@ -65,6 +87,7 @@ public class Gun : MonoBehaviour
             obj.transform.position = hit.point;
             obj.SetActive(true);
             TargetScript target = hit.transform.GetComponent<TargetScript>();
+            curAmmo--;
             if (target != null)
             {
                 target.TakeDamage(damage);

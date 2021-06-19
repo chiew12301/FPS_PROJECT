@@ -1144,6 +1144,9 @@ MonoBehaviour:
   zoomValue: 15
   unZoomValue: 0
   isZoom: 0
+  maxAmmo: 30
+  curAmmo: 0
+  reloadTime: 2.6
   fpsCam: {fileID: 963194227}
   impactEffect: {fileID: 6513396991642171666, guid: ff60db3f86242e24fb354cf6083b8a00, type: 3}
 --- !u!1 &1679513631
