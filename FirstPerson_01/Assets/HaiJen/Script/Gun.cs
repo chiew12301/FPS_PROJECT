@@ -21,10 +21,14 @@ public class Gun : MonoBehaviour
 
     private float nextFire = 0f;
 
+    private UIManager ui;
+
     private void Start()
     {
         unZoomValue = Camera.main.fieldOfView;
         curAmmo = maxAmmo;
+
+        ui = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -60,6 +64,7 @@ public class Gun : MonoBehaviour
         isReloading = true;
         yield return new WaitForSeconds(reloadTime);
         curAmmo = maxAmmo;
+        ui.UpdateAmmo(curAmmo);
         isReloading = false;
     }
 
@@ -88,6 +93,7 @@ public class Gun : MonoBehaviour
             obj.SetActive(true);
             TargetScript target = hit.transform.GetComponent<TargetScript>();
             curAmmo--;
+            ui.UpdateAmmo(curAmmo);
             if (target != null)
             {
                 target.TakeDamage(damage);
