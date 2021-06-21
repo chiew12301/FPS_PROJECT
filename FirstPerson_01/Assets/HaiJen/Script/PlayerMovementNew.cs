@@ -6,11 +6,16 @@ public enum PLAYER_STATE
 {
     P_IDLE = 0,
     P_FORWARD,
+    P_WALKFORWARD,
     P_BACKWARD,
     P_LEFT,
+    P_WALKLEFT,
     P_RIGHT,
+    P_WALKRIGHT,
     P_LEFTFOWARD,
+    P_WALKLEFTFOWARD,
     P_RIGHTFORWARD,
+    P_WALKRIGHTFORWARD,
     P_LEFTBACKWARD,
     P_RIGHTBACKWARD,
     P_JUMP,
@@ -108,16 +113,35 @@ public class PlayerMovementNew : MonoBehaviour
 
     private void InputState()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.Space) || !isGrounded)
         {
-            p_Direction = PLAYER_STATE.P_FORWARD;
-            if(Input.GetKey(KeyCode.A))
+            p_Direction = PLAYER_STATE.P_JUMP;
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            if(isWalking)
             {
-                p_Direction = PLAYER_STATE.P_LEFTFOWARD;
+                p_Direction = PLAYER_STATE.P_WALKFORWARD;
+                if (Input.GetKey(KeyCode.A))
+                {
+                    p_Direction = PLAYER_STATE.P_WALKLEFTFOWARD;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
+                }
             }
-            if(Input.GetKey(KeyCode.D))
+            else
             {
-                p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
+                p_Direction = PLAYER_STATE.P_FORWARD;
+                if (Input.GetKey(KeyCode.A))
+                {
+                    p_Direction = PLAYER_STATE.P_LEFTFOWARD;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
+                }
             }
         }
         else if (Input.GetKey(KeyCode.S))
@@ -134,15 +158,25 @@ public class PlayerMovementNew : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            p_Direction = PLAYER_STATE.P_LEFT;
+            if (isWalking)
+            {
+                p_Direction = PLAYER_STATE.P_WALKLEFT;
+            }
+            else
+            {
+                p_Direction = PLAYER_STATE.P_LEFT;
+            }
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            p_Direction = PLAYER_STATE.P_RIGHT;
-        }
-        else if (Input.GetKey(KeyCode.Space) || !isGrounded)
-        {
-            p_Direction = PLAYER_STATE.P_JUMP;
+            if (isWalking)
+            {
+                p_Direction = PLAYER_STATE.P_WALKRIGHT;
+            }
+            else
+            {
+                p_Direction = PLAYER_STATE.P_RIGHT;
+            }
         }
         else
         {
