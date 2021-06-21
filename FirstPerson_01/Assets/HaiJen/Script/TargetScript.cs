@@ -17,6 +17,7 @@ public class TargetScript : MonoBehaviour
     
     void Die()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

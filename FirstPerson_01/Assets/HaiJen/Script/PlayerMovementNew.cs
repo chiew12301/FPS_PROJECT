@@ -32,7 +32,7 @@ public class PlayerMovementNew : MonoBehaviour
     public float jumpHeight = 3f;
 
     public Transform groundCheck;
-    public float groundDistance = 0.4f;
+    public float groundDistance = 200.0f;
     public LayerMask groundMask;
     public float walkMultiply = 0.001f;
     public float crouchingHeight = 1f;
@@ -56,7 +56,7 @@ public class PlayerMovementNew : MonoBehaviour
     {
         InputState();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded && velocity.y < 0)
+        if (!isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }

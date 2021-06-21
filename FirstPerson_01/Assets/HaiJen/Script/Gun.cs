@@ -61,7 +61,9 @@ public class Gun : MonoBehaviour
 
     IEnumerator Reload()
     {
+        UnZoom();
         isReloading = true;
+        isZoom = false;
         yield return new WaitForSeconds(reloadTime);
         curAmmo = maxAmmo;
         ui.UpdateAmmo(curAmmo);
