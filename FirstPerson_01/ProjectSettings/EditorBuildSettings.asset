@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Chiew's/Main Menu UI.unity
     guid: a4951e55a203ad1488ff26252a161dda
   - enabled: 1
-    path: Assets/HaiJen/Test.unity
-    guid: adb91a5b887d03645894a479258a6ac6
+    path: Assets/Scenes/Main Game Scene/Main Game Scene.unity
+    guid: 68bb0625838b00a40bd40fe45174f467
   m_configObjects: {}

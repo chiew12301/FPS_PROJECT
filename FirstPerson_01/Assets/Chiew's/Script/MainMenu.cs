@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Image MM_bg;
     [SerializeField] TextMeshProUGUI MM_title;
     [SerializeField] GameObject MM_buttonParent;
+    [SerializeField] Button LoadButton;
     [SerializeField] Animator MM_animator;
     [SerializeField] GameObject Creadit;
     [SerializeField] GameObject Setting;
@@ -28,7 +29,7 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckSaveFile();
     }
 
     public void MainMenuStatus(bool stat)
@@ -53,6 +54,7 @@ public class MainMenu : MonoBehaviour
                 MM_animator.Play(MM_ANIMATION_FADEOUT);
             }
             AudioManager.instance.StopAll();
+            AudioManager.instance.Play("MainMenuBGM", "GameBGM");
         }
     }
 
@@ -64,7 +66,7 @@ public class MainMenu : MonoBehaviour
 
     public void LoadGameButton()
     {
-        MainMenuStatus(false);
+        //MainMenuStatus(false);
     }
 
     public void SettingButton()
@@ -98,6 +100,14 @@ public class MainMenu : MonoBehaviour
     {
         AudioManager.instance.StopAll();
         Application.Quit();
+    }
+
+    public void CheckSaveFile()
+    {
+        //a save methods is implemented then will recode it
+
+        //as placeholder done by 21/6/2021 will be unable to interact it because there's no save file.
+        LoadButton.interactable = false;
     }
 
 }
