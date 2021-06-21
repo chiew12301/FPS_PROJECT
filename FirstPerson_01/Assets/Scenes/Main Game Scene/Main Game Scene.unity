@@ -8638,7 +8638,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.7169812, g: 0.18179874, b: 0.1318975, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -16068,7 +16068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   p_Direction: 0
   controller: {fileID: 1392644476}
-  speed: 12
+  speed: 8
   gravity: -9.81
   jumpHeight: 1.4
   groundCheck: {fileID: 2126078205}
@@ -17079,7 +17079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 27, y: 49}
+  m_AnchoredPosition: {x: 595, y: 10}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1494606232
