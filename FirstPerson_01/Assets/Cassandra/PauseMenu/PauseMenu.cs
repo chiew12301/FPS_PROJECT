@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [SerializeField] LevelLoader LV_loader;
+
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
@@ -46,7 +48,8 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Debug.Log("Loading Menu");
-        SceneManager.LoadScene("Main Menu UI");
+        //SceneManager.LoadScene("Main Menu UI");
+        LV_loader.LoadLevel(0);
     }
 
     public void QuitGame()
