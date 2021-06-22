@@ -62,6 +62,11 @@ public class MainMenu : MonoBehaviour
     {
         MainMenuStatus(false);
         LV_loader.LoadLevel(1);
+        if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(SETTING_IN) != true)
+        {
+            MM_animator.Play(SETTING_IN);
+        }
+        AudioManager.instance.Play("GameBGM", "BGM");
     }
 
     public void LoadGameButton()
