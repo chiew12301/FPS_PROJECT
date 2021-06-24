@@ -1031,5 +1031,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
+      propertyPath: flockSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
+      propertyPath: _boundsDist
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
+      propertyPath: _alignmentWeight
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de71d3a68a921734dac10d84ee241992, type: 3}
