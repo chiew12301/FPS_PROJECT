@@ -14,6 +14,8 @@ public enum PLAYER_STATUS
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Interactable focus;
+
     private PLAYER_STATUS p_Direction;
     private float p_Speed = 2.0f;
     private float p_JumpHeight = 5.0f;
@@ -37,6 +39,66 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckInput(); //Trigger Once
+
+        //if left mouse pressed
+        if (Input.GetMouseButton(0))//can change any button/key
+        {
+            //create ray cast
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            //if ray hit
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    RemoveFocus();
+                }
+            }
+        }
+
+        //if right mouse pressed
+        if (Input.GetMouseButton(1))//can change any button/key
+        {
+            //create ray cast
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            //if ray hit
+            if(Physics.Raycast(ray, out hit, 100))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if(interactable != null)
+                {
+                    SetFocus(interactable);
+                }
+            }
+        }
+    }
+
+    void SetFocus(Interactable newFocus)
+    {
+        if(newFocus != focus)
+        {
+            if(focus != null)
+            {
+                focus.OnDefocused();
+            }
+            focus = newFocus;
+        }
+
+        focus = newFocus;
+        newFocus.OnFocused(transform);
+    }
+
+    void RemoveFocus()
+    {
+        if (focus != null)
+        {
+            focus.OnDefocused();
+        }
+        focus = null;
     }
 
     private void CheckInput()
