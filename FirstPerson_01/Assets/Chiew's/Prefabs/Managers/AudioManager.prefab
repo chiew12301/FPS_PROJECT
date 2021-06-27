@@ -45,32 +45,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGMsounds:
   - name: MainMenuBGM
-    clip: {fileID: 8300000, guid: 961f005d4a7724448875b2250a9f29d7, type: 3}
+    clip: {fileID: 8300000, guid: 024777e422e61dd4ba0107ed74bd582f, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: GameBGM
-    clip: {fileID: 8300000, guid: 62a8134b6b093d246a12a2e5b2833a8f, type: 3}
+    clip: {fileID: 8300000, guid: faf7dee8866d5d44e8e94e8739e0b0e2, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   SFXsounds:
-  - name: BallJump
-    clip: {fileID: 8300000, guid: 9cd1928f867914243a662d432a08ae3a, type: 3}
+  - name: Breathing
+    clip: {fileID: 8300000, guid: 8df339996f5a6f0498330a778a943005, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Crow
+    clip: {fileID: 8300000, guid: b4e09d93e216bed4eb3118a33780d7b6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Footstep
+    clip: {fileID: 8300000, guid: f97f3ab1a11bfb84cb80d1ecb38d8d86, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: HeavyEquipment
+    clip: {fileID: 8300000, guid: 84e6391aa0e0dbb40bb463a7de3ec512, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Button
-    clip: {fileID: 8300000, guid: 99a3a5aceb11f494a81d3622d88b8b1d, type: 3}
+  - name: Running
+    clip: {fileID: 8300000, guid: c0d676623db126340a72057912371b19, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Reload
+    clip: {fileID: 8300000, guid: c62ae7d7b15c44448a1ca0de28ccd0f5, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Swipe
-    clip: {fileID: 8300000, guid: dec9510ddabf09942b44c01971e4c2a9, type: 3}
+  - name: Shooting
+    clip: {fileID: 8300000, guid: 87c45ccccc193bf4298d4b2b1ec97c9d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Windblow
+    clip: {fileID: 8300000, guid: 2f52c564a00211148884b8f347c31854, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
