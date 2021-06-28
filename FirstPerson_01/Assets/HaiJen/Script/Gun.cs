@@ -62,7 +62,8 @@ public class Gun : MonoBehaviour
     {
         UnZoom();
         isReloading = true;
-        UnZoom();
+        isZoom = false;
+        AudioManager.instance.Play("Reload", "SFX");
         yield return new WaitForSeconds(reloadTime);
         curAmmo = maxAmmo;
         ui.UpdateAmmo(curAmmo);
@@ -88,6 +89,7 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
+            AudioManager.instance.Play("Shooting", "SFX");
             GameObject obj = ObjectPooling.current.GetPooledObject();
             if (obj == null) return;
             obj.transform.position = hit.point;
