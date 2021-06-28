@@ -71,13 +71,13 @@ public class PlayerMovement : MonoBehaviour
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
                 if(interactable != null)
                 {
-                    SetFocus(interactable);
+                    SetFocus(interactable, false);
                 }
             }
         }
     }
 
-    void SetFocus(Interactable newFocus)
+    void SetFocus(Interactable newFocus,bool ispressed)
     {
         if(newFocus != focus)
         {
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         focus = newFocus;
-        newFocus.OnFocused(transform);
+        newFocus.OnFocused(transform,ispressed);
     }
 
     void RemoveFocus()

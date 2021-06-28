@@ -117,44 +117,36 @@ public class Animation : MonoBehaviour
 
         #endregion IF_CHANGE_ANIMATION
 
-        //if left mouse pressed
-        if (Input.GetKeyUp(KeyCode.E))//can change any button/key
+        //create ray cast
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        bool isPressed = false;
+        //if ray hit
+        if (Physics.Raycast(ray, out hit, 100))
         {
-            //create ray cast
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
 
-            //if ray hit
-            if (Physics.Raycast(ray, out hit, 100))
+            if (Input.GetKeyUp(KeyCode.E))//can change any button/key
             {
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
                 if (interactable != null)
                 {
                     RemoveFocus();
                 }
             }
-        }
 
-        //if right mouse pressed
-        if (Input.GetKeyDown(KeyCode.E))//can change any button/key
-        {
-            //create ray cast
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            //if ray hit
-            if (Physics.Raycast(ray, out hit, 100))
+            if (Input.GetKeyDown(KeyCode.E))//can change any button/key
             {
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
-                if (interactable != null)
-                {
-                    SetFocus(interactable);
-                }
+                isPressed = true;
             }
-        }
+
+            if (interactable != null)
+            {
+                SetFocus(interactable, isPressed);
+            }
+        }   
     }
 
-    void SetFocus(Interactable newFocus)
+    void SetFocus(Interactable newFocus, bool isPressed)
     {
         if (newFocus != focus)
         {
@@ -166,7 +158,7 @@ public class Animation : MonoBehaviour
         }
 
         focus = newFocus;
-        newFocus.OnFocused(transform);
+        newFocus.OnFocused(transform,isPressed);
     }
 
     void RemoveFocus()

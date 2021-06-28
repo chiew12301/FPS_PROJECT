@@ -14,8 +14,10 @@ public class InventoryUI : MonoBehaviour
     {
         inventory = Inventory.instance;
         inventory.onItemChangedCallBack += UpdateUI;
+        inventoryUI.SetActive(false);
 
         slots = itemParents.GetComponentsInChildren<InventorySlot>();
+        UpdateUI();
     }
 
     // Update is called once per frame
@@ -44,14 +46,15 @@ public class InventoryUI : MonoBehaviour
     {
         for(int i = 0; i < slots.Length; i++)
         {
-            if(i < inventory.items.Count)
+            if (i < inventory.items.Count)
             {
-                slots[i].AddItem(inventory.items[i]);
+                slots[i].AddItem(inventory.items[i].item, inventory.items[i].curAmount);
             }
             else
             {
                 slots[i].ClearSlot();
             }
+                
         }
     }
 }
