@@ -10,6 +10,7 @@ public class Gun : MonoBehaviour
     public float unZoomValue;
     public bool isZoom = false;
 
+    public float bloomRange = 8f;
     public int maxAmmo = 30;
     public int curAmmo;
     public float reloadTime = 2.6f;
@@ -41,15 +42,13 @@ public class Gun : MonoBehaviour
             StartCoroutine(Reload());
             return;
         }
-        if(Input.GetKeyDown(KeyCode.Mouse1) && !isZoom)
+        if(Input.GetKey(KeyCode.Mouse1))
         {
             Zoom();
-            isZoom = true;
         }
-        else if(Input.GetKeyDown(KeyCode.Mouse1) && isZoom)
+        else 
         {
             UnZoom();
-            isZoom = false;
         }
 
         if(Input.GetKey(KeyCode.Mouse0)&& Time.time >= nextFire)
@@ -76,8 +75,8 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         //bloom
         Vector3 bloom = fpsCam.transform.position + fpsCam.transform.forward * 500f;
-        bloom += Random.Range(-8f, 8f) * fpsCam.transform.up;
-        bloom += Random.Range(-8f, 8f) * fpsCam.transform.right;
+        bloom += Random.Range(-bloomRange, bloomRange) * fpsCam.transform.up;
+        bloom += Random.Range(-bloomRange, bloomRange) * fpsCam.transform.right;
         bloom -= fpsCam.transform.position;
         bloom.Normalize();
 
