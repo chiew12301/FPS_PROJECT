@@ -7,6 +7,8 @@ public class Animation : MonoBehaviour
     [SerializeField] Animator obj_Animator;
     [SerializeField] PlayerMovementNew playerMovement_Script;
 
+    public Interactable focus;
+
     //Animation Name (Get your animation here)
     //Example to call it, In your own script call the function, and pass the const string into the function
     //================Example=================
@@ -14,6 +16,7 @@ public class Animation : MonoBehaviour
     //public Animation animationSCript;
     //then when assigning call this below:
     //animationScript.ChangeAnimationState(animationScript.IDLE_ANIMATION);
+    #region ANIMATION_NAMES
     public const string IDLE_ANIMATION = "idle";
     public const string JUMP_ANIMATION = "Jump";
     public const string RUN_ANIMATION = "Run";
@@ -25,9 +28,12 @@ public class Animation : MonoBehaviour
     public const string RUN_RIGHTFORWARD_ANIMATION = "RIGHTFORWARD";
     public const string RUN_RIGHTBACKWARD_ANIMATION = "RIGHTBACKWARD";
 
+    #endregion ANIMATION_NAMES
+
     public void Update()
     {
-        switch(playerMovement_Script.p_Direction)
+        #region CASE_CHANGE_ANIMATION
+        switch (playerMovement_Script.p_Direction)
         {
             case PLAYER_STATE.P_IDLE:
                 ChangeAnimationState(IDLE_ANIMATION);
@@ -62,7 +68,10 @@ public class Animation : MonoBehaviour
             default:
                 break;
         }
-           
+
+        #endregion CASE_CHANGE_ANIMATION
+
+        #region IF_CHANGE_ANIMATION
         //if (playerMovement_Script.p_Direction == PLAYER_STATE.P_IDLE)
         //{
         //    ChangeAnimationState(IDLE_ANIMATION);
@@ -96,7 +105,7 @@ public class Animation : MonoBehaviour
         //{
         //    ChangeAnimationState(RUN_LEFTBACKWARD_ANIMATION);
         //}
-        
+
         //if (playerMovement_Script.p_Direction == PLAYER_STATE.P_RIGHTFORWARD)
         //{
         //    ChangeAnimationState(RUN_RIGHTFORWARD_ANIMATION);
@@ -105,7 +114,70 @@ public class Animation : MonoBehaviour
         //{
         //    ChangeAnimationState(RUN_RIGHTBACKWARD_ANIMATION);
         //}
+
+        #endregion IF_CHANGE_ANIMATION
+
+        //if left mouse pressed
+        if (Input.GetKeyUp(KeyCode.E))//can change any button/key
+        {
+            //create ray cast
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            //if ray hit
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    RemoveFocus();
+                }
+            }
+        }
+
+        //if right mouse pressed
+        if (Input.GetKeyDown(KeyCode.E))//can change any button/key
+        {
+            //create ray cast
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            //if ray hit
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    SetFocus(interactable);
+                }
+            }
+        }
     }
+
+    void SetFocus(Interactable newFocus)
+    {
+        if (newFocus != focus)
+        {
+            if (focus != null)
+            {
+                focus.OnDefocused();
+            }
+            focus = newFocus;
+        }
+
+        focus = newFocus;
+        newFocus.OnFocused(transform);
+    }
+
+    void RemoveFocus()
+    {
+        if (focus != null)
+        {
+            focus.OnDefocused();
+        }
+        focus = null;
+    }
+
 
     public void ChangeAnimationState(string AniState) //Remember to use Const String
     {

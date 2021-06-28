@@ -7,7 +7,7 @@ public class ItemPickUp : Interactable
     public override void Interact()
     {
         base.Interact();
-
+        Debug.Log("Overwrite the interact");
         PickUp();
     }
 
