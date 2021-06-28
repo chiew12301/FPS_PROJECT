@@ -44,8 +44,9 @@ public class FlockUnit : MonoBehaviour
         var alignmentVec = CalculateAlignmentVector() * assignedFlock.alignmentWeight;
         var boundsVec = CalculateBoundsVector() * assignedFlock.boundsWeight;
         var obstacleVec = CalculateObstacleVector() * assignedFlock.obstacleWeight;
+        var targetVec = CalculateTargetVector();
 
-        var moveVec = cohesionVec + avoidanceVec + alignmentVec + boundsVec;
+        var moveVec = targetVec + cohesionVec + avoidanceVec + alignmentVec + boundsVec;
         moveVec = Vector3.SmoothDamp(myTransform.forward, moveVec, ref currentVelocity, smoothDamp);
         moveVec = moveVec.normalized * speed;
         myTransform.forward = moveVec;
@@ -94,6 +95,31 @@ public class FlockUnit : MonoBehaviour
         }
         speed /= cohesionNeighbours.Count;
         speed = Mathf.Clamp(speed, assignedFlock.minSpeed, assignedFlock.maxSpeed);
+    }
+
+    private Vector3 CalculateTargetVector()
+    {
+        var targetVector = assignedFlock.GetTarget().transform.position;
+        if (assignedFlock.GetTarget() == null)
+        {
+            return Vector3.zero;
+        }
+        else
+        {
+            var dir = targetVector - myTransform.position;           
+
+            if (dir.magnitude <= 20.0f)
+            {
+                Debug.DrawRay(myTransform.position, dir, Color.green);
+                return dir;
+            }
+            else
+            {
+                var dir2 = assignedFlock.transform.position - myTransform.position;
+                Debug.DrawRay(myTransform.position, dir2, Color.red);
+                return dir2;
+            }
+        }       
     }
 
     private Vector3 CalculateCohesionVector()

@@ -8,6 +8,7 @@ public class Flock : MonoBehaviour
     [SerializeField] private FlockUnit flockUnitPrefab;
     [SerializeField] private int flockSize;
     [SerializeField] private Vector3 spawnBound;
+    [SerializeField] private GameObject target;
 
 
 
@@ -103,5 +104,10 @@ public class Flock : MonoBehaviour
             allUnits[i].InitialiseSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
             //allUnits[i].transform.parent = gameObject.transform;
         }
+    }
+
+    public GameObject GetTarget()
+    {
+        return target;
     }
 }
