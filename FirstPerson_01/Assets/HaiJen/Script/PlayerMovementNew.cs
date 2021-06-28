@@ -27,14 +27,15 @@ public class PlayerMovementNew : MonoBehaviour
     public PLAYER_STATE p_Direction;
     public CharacterController controller;
 
-    public float speed = 12f;
+    public float speed = 3f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
 
+    public GameObject eqMenu;
     public Transform groundCheck;
     public float groundDistance = 200.0f;
     public LayerMask groundMask;
-    public float walkMultiply = 0.001f;
+    public float walkMultiply = 2.0f;
     public float crouchingHeight = 1f;
     public float crouchingMultiply = 0.001f;
     public float standingHeight = 2f;
@@ -43,7 +44,7 @@ public class PlayerMovementNew : MonoBehaviour
     bool isForward;
     bool isBackward;
     bool isGrounded;
-    public bool isWalking;
+    public bool isRunning;
     public bool isCrouching;
     
     void Start()
@@ -63,20 +64,35 @@ public class PlayerMovementNew : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && isCrouching == false)
         {
-            isWalking = true;
+            isRunning = true;
         }
         else
         {
-            isWalking = false;
+            isRunning = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.Tab))
         {
-            isCrouching = true;
+            eqMenu.SetActive(true);
         }
         else
         {
-            isCrouching = false;
+            eqMenu.SetActive(false);
+        }
+
+        if(!isCrouching)
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                isCrouching = true;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                isCrouching = false;
+            }
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -84,7 +100,7 @@ public class PlayerMovementNew : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         
-        if (isWalking && isGrounded)
+        if (isRunning && isGrounded)
         {
             move *= walkMultiply;
         }
@@ -113,34 +129,39 @@ public class PlayerMovementNew : MonoBehaviour
 
     private void InputState()
     {
+        speed = 3f;
         if (Input.GetKey(KeyCode.Space) || !isGrounded)
         {
             p_Direction = PLAYER_STATE.P_JUMP;
         }
         else if (Input.GetKey(KeyCode.W))
         {
-            if(isWalking)
-            {
-                p_Direction = PLAYER_STATE.P_WALKFORWARD;
-                if (Input.GetKey(KeyCode.A))
-                {
-                    p_Direction = PLAYER_STATE.P_WALKLEFTFOWARD;
-                }
-                if (Input.GetKey(KeyCode.D))
-                {
-                    p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
-                }
-            }
-            else
+            if(isRunning)
             {
                 p_Direction = PLAYER_STATE.P_FORWARD;
                 if (Input.GetKey(KeyCode.A))
                 {
                     p_Direction = PLAYER_STATE.P_LEFTFOWARD;
+                    speed = 3 * 1.5f;
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
                     p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
+                    speed = 3 * 1.5f;
+                }
+            }
+            else
+            {
+                p_Direction = PLAYER_STATE.P_WALKFORWARD;
+                if (Input.GetKey(KeyCode.A))
+                {
+                    p_Direction = PLAYER_STATE.P_WALKLEFTFOWARD;
+                    speed = 3 * 1.5f;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
+                    speed = 3 * 1.5f;
                 }
             }
         }
@@ -158,24 +179,24 @@ public class PlayerMovementNew : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            if (isWalking)
+            if (isRunning)
             {
-                p_Direction = PLAYER_STATE.P_WALKLEFT;
+                p_Direction = PLAYER_STATE.P_LEFT;
             }
             else
             {
-                p_Direction = PLAYER_STATE.P_LEFT;
+                p_Direction = PLAYER_STATE.P_WALKLEFT;
             }
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            if (isWalking)
+            if (isRunning)
             {
-                p_Direction = PLAYER_STATE.P_WALKRIGHT;
+                p_Direction = PLAYER_STATE.P_RIGHT;
             }
             else
             {
-                p_Direction = PLAYER_STATE.P_RIGHT;
+                p_Direction = PLAYER_STATE.P_WALKRIGHT;
             }
         }
         else
