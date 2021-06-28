@@ -109,6 +109,10 @@ public class PlayerMovementNew : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        if(p_Direction != PLAYER_STATE.P_IDLE || p_Direction != PLAYER_STATE.P_JUMP)
+        {
+            AudioManager.instance.Play("Footstep", "SFX");
+        }
     }
 
     private void InputState()
