@@ -11,7 +11,7 @@ public class Item : ScriptableObject
     {
         //use the item
         //some thing might happen
-
+        //purposely to commit it so it update on github
         Debug.Log("Using" + name); 
     }
 
