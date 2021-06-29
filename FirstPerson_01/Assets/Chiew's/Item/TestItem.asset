@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TestItem
   m_EditorClassIdentifier: 
   name: TestItem
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: a16be3a9fbe42e44195b8352ab15e439, type: 3}
   isDefaultItem: 0
+  description: Is a test item that kill you
+  maxStackAmount: 5

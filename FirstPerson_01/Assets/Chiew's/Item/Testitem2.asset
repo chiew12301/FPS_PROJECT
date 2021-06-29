@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Testitem2
   m_EditorClassIdentifier: 
   name: BOOM
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: acc4fdbddcaec1745997c83b67a5d8ce, type: 3}
   isDefaultItem: 0
+  description: is a boom
   maxStackAmount: 2

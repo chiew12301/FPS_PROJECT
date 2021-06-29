@@ -7,7 +7,17 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI amount;
 
+    [Header("DESCRIPTION")]
+    public Image image_Icon;
+    public TextMeshProUGUI name_item;
+    public TextMeshProUGUI description_item;
+
     Item item;
+
+    private void Start()
+    {
+        setDescriptionActiveState(false);
+    }
 
     public void AddItem(Item newItem, int itemAmount)
     {
@@ -35,14 +45,31 @@ public class InventorySlot : MonoBehaviour
 
     public void UseItem()
     {
-        OnRemoveItem();
-
-
+        //OnRemoveItem();
+        if (item != null)
+        {
+            setDescriptionActiveState(true);
+            displayDescription();
+        }
         //if (item != null)
         //{
         //    Debug.Log(item.name);
         //    item.Use();
-            
+
         //}
+    }
+
+    public void setDescriptionActiveState(bool activeState)
+    {
+        image_Icon.gameObject.SetActive(activeState);
+        name_item.gameObject.SetActive(activeState);
+        description_item.gameObject.SetActive(activeState);
+    }
+
+    void displayDescription()
+    {
+        image_Icon.sprite = item.Icon;
+        name_item.text = "Item Name: " + item.name;
+        description_item.text = "Item Description: " + item.description;
     }
 }

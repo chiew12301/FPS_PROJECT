@@ -51,6 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 6870041353838890913}
   amount: {fileID: 6463764914744666446}
+  image_Icon: {fileID: 0}
+  name_item: {fileID: 0}
+  description_item: {fileID: 0}
 --- !u!1 &5146826516896524547
 GameObject:
   m_ObjectHideFlags: 0
