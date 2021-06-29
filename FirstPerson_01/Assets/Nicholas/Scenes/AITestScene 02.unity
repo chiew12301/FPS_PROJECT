@@ -309,7 +309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &135328877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -380,7 +380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135328876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.3, y: -2.97, z: -6.9}
+  m_LocalPosition: {x: -6.3, y: -2.97, z: 20.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1109,12 +1109,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 135328876}
     - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
+      propertyPath: _maxSpeed
+      value: 2.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
+      propertyPath: _minSpeed
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
       propertyPath: flockSize
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
       propertyPath: _boundsDist
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
+      propertyPath: spawnBound.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 239710338697224339, guid: de71d3a68a921734dac10d84ee241992, type: 3}
       propertyPath: _alignmentWeight

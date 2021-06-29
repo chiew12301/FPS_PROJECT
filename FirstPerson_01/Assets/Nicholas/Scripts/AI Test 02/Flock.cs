@@ -94,7 +94,8 @@ public class Flock : MonoBehaviour
         for (int i = 0; i < flockSize; i++)
         {
             var randVector = UnityEngine.Random.insideUnitSphere;
-            randVector = new Vector3(randVector.x * spawnBound.x, Mathf.Abs(randVector.y * spawnBound.y), randVector.z * spawnBound.z);
+            //randVector = new Vector3(randVector.x * spawnBound.x, Mathf.Abs(randVector.y * spawnBound.y), randVector.z * spawnBound.z);
+            randVector = new Vector3(randVector.x * spawnBound.x, 10, randVector.z * spawnBound.z);
 
             var spawnPos = transform.position + randVector;
             var rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
@@ -102,7 +103,6 @@ public class Flock : MonoBehaviour
             allUnits[i] = Instantiate(flockUnitPrefab, spawnPos, rotation, gameObject.transform);
             allUnits[i].AssignFlock(this);
             allUnits[i].InitialiseSpeed(UnityEngine.Random.Range(minSpeed, maxSpeed));
-            //allUnits[i].transform.parent = gameObject.transform;
         }
     }
 
