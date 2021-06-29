@@ -4,6 +4,8 @@ public class InventoryUI : MonoBehaviour
 {
     public Transform itemParents;
     public GameObject inventoryUI;
+    public GameObject inventoryUIForButton;
+    public GameObject[] buttonObject;
 
     Inventory inventory;
 
@@ -15,7 +17,10 @@ public class InventoryUI : MonoBehaviour
         inventory = Inventory.instance;
         inventory.onItemChangedCallBack += UpdateUI;
         inventoryUI.SetActive(false);
-
+        for (int i = 0; i < buttonObject.Length; i++)
+        {
+            buttonObject[i].gameObject.SetActive(false);
+        }
         slots = itemParents.GetComponentsInChildren<InventorySlot>();
         UpdateUI();
     }
@@ -25,6 +30,10 @@ public class InventoryUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
+            for (int i = 0; i < buttonObject.Length; i++)
+            {
+                buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
+            }
             inventoryUI.SetActive(!inventoryUI.activeSelf);
             if (inventoryUI.activeSelf == false)
             {
@@ -32,7 +41,7 @@ public class InventoryUI : MonoBehaviour
                 {
                     slots[i].setDescriptionActiveState(false);
                 }
-            }
+            }     
         }
 
         if(inventoryUI.activeSelf == true)
@@ -46,6 +55,26 @@ public class InventoryUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1f;
+        }
+    }
+
+    public void OnInventoryButton()
+    {
+        if(inventoryUIForButton.activeSelf == false)
+        {
+            inventoryUIForButton.SetActive(true);
+        }
+    }
+
+    public void OnCraftingButton()
+    {
+        if (inventoryUIForButton.activeSelf == true)
+        {
+            inventoryUIForButton.SetActive(false);
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].setDescriptionActiveState(false);
+            }
         }
     }
 
