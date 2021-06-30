@@ -108,6 +108,13 @@ public class Flock : MonoBehaviour
 
     public GameObject GetTarget()
     {
-        return target;
+        if (target != null)
+        {
+            return target;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
