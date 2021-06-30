@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6194ee95dedb4d71a8fe738abba0f47, type: 3}
   m_Name: Settings 1
   m_EditorClassIdentifier: 
-  minSpeed: 5
+  minSpeed: 8
   maxSpeed: 10
   perceptionRadius: 2.5
   avoidanceRadius: 1
@@ -27,4 +27,4 @@ MonoBehaviour:
     m_Bits: 1536
   boundsRadius: 0.27
   avoidCollisionWeight: 100
-  collisionAvoidDst: 5
+  collisionAvoidDst: 10
