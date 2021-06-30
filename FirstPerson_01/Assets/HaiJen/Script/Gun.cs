@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
 
     public Camera fpsCam;
     public GameObject impactEffect;
-    PlayerMovementNew player;
+    public Transform player;
 
     private float nextFire = 0f;
 
@@ -35,6 +35,18 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player.GetComponent<PlayerMovementNew>().isRunning)
+        {
+            bloomRange = 16f;
+        }
+        else if (player.GetComponent<PlayerMovementNew>().isWalking)
+        {
+            bloomRange = 12f;
+        }
+        else
+        {
+            bloomRange = 8f;
+        }
         if (isReloading)
             return;
         if(curAmmo<=0||Input.GetKeyDown(KeyCode.R))
