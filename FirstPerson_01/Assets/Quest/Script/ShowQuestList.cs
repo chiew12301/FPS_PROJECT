@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class ShowQuestList : MonoBehaviour
 {
-    //public QuestList scrollView ;
+    private Canvas QuestCanvas;
+
+    void Start()
+    {
+        QuestCanvas = GetComponent<Canvas>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Q))
-        //{
-            
-        //}
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if(Input.GetKeyUp(KeyCode.Q))
+        {
+            QuestCanvas.enabled = !QuestCanvas.enabled;
+        }
     }
 }
