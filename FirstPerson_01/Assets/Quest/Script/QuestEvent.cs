@@ -12,6 +12,7 @@ public class QuestEvent
     public string id;
     public int order = -1;
     public EventStatus status;
+    public QuestButton button;
 
     public List<QuestPath> pathlist = new List<QuestPath>();
 
@@ -26,6 +27,7 @@ public class QuestEvent
     public void UpdateQuestEvent(EventStatus es)
     {
         status = es;
+        button.UpdateButton(es);
     }
 
     public string GetId()
