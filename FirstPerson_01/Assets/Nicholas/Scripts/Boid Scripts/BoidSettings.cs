@@ -18,9 +18,15 @@ public class BoidSettings : ScriptableObject {
     public float targetWeight = 1;
     public float detectionRange = 10.0f;
 
+    //public GameObject boundTarget;
+    //public float boidBoundsRadius = 40.0f;
+
     [Header ("Collisions")]
     public LayerMask obstacleMask;
     public float boundsRadius = .27f;
     public float avoidCollisionWeight = 10;
     public float collisionAvoidDst = 5;
+
+    [Header("Attack")]
+    public float attackRange = 1.0f;
 }

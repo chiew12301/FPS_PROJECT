@@ -14,7 +14,8 @@ public class Boid : MonoBehaviour {
     Vector3 velocity;
 
     // To update:
-    Vector3 acceleration;
+    [HideInInspector]
+    public Vector3 acceleration;
     [HideInInspector]
     public Vector3 avgFlockHeading;
     [HideInInspector]
@@ -29,8 +30,9 @@ public class Boid : MonoBehaviour {
     Transform cachedTransform;  // this boid 
     Transform target;
 
-    void Awake () {
-        material = transform.GetComponentInChildren<MeshRenderer> ().material;
+    void Awake()
+    {
+        material = transform.GetComponentInChildren<MeshRenderer>().material;
         cachedTransform = transform;
     }
 
@@ -52,11 +54,23 @@ public class Boid : MonoBehaviour {
     }
 
     public void UpdateBoid () {
-        Vector3 acceleration = Vector3.zero;
+        acceleration = Vector3.zero;
 
-        if (target != null && IsInRange()) {
+        if (target != null && IsInRange())
+        {
+            SetColour(Color.yellow);
             Vector3 offsetToTarget = (target.position - position);
-            acceleration = SteerTowards (offsetToTarget) * settings.targetWeight;
+            //Debug.DrawRay(position, offsetToTarget, Color.black);
+            acceleration = SteerTowards(offsetToTarget) * settings.targetWeight;
+
+            if (IsInAttackRange())
+            {
+                SetColour(Color.red);
+            }
+        }
+        else
+        {
+            SetColour(Color.blue);
         }
 
         if (numPerceivedFlockmates != 0) {
@@ -78,6 +92,19 @@ public class Boid : MonoBehaviour {
             Vector3 collisionAvoidForce = SteerTowards (collisionAvoidDir) * settings.avoidCollisionWeight;
             acceleration += collisionAvoidForce;
         }
+
+        //var offsetToCentre = settings.boundTarget.transform.position - position;
+        ////Debug.DrawRay(settings.boundTarget.transform.position, position, Color.black);
+        //if (offsetToCentre.magnitude >= settings.boidBoundsRadius)
+        //{
+        //    Vector3 move = SteerTowards(offsetToCentre.normalized);
+        //    acceleration += move;           
+        //}
+        //else
+        //{
+        //    Vector3 move = SteerTowards(forward);
+        //    acceleration += move;
+        //}
 
         velocity += acceleration * Time.deltaTime;
         float speed = velocity.magnitude;
@@ -134,4 +161,14 @@ public class Boid : MonoBehaviour {
         Vector3 v = vector.normalized * settings.maxSpeed - velocity;
         return Vector3.ClampMagnitude (v, settings.maxSteerForce);
     }   
+
+    public bool IsInAttackRange()
+    {
+        if (Vector3.Distance(target.position, position) <= settings.attackRange)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

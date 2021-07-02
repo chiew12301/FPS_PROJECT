@@ -95,7 +95,7 @@ public class Flock : MonoBehaviour
         {
             var randVector = UnityEngine.Random.insideUnitSphere;
             //randVector = new Vector3(randVector.x * spawnBound.x, Mathf.Abs(randVector.y * spawnBound.y), randVector.z * spawnBound.z);
-            randVector = new Vector3(randVector.x * spawnBound.x, 10, randVector.z * spawnBound.z);
+            randVector = new Vector3(randVector.x * spawnBound.x, randVector.y * spawnBound.y, randVector.z * spawnBound.z);
 
             var spawnPos = transform.position + randVector;
             var rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);

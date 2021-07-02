@@ -49,12 +49,12 @@ public class FlockUnit : MonoBehaviour
 
         var moveVec = cohesionVec + avoidanceVec + alignmentVec + boundsVec;
 
-        if (IsHeadingForCollision())
-        {
-            Vector3 collisionAvoidDir = ObstacleRays();
-            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * 10;
-            moveVec += collisionAvoidForce;
-        }
+        //if (IsHeadingForCollision())
+        //{
+        //    Vector3 collisionAvoidDir = ObstacleRays();
+        //    Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * 10;
+        //    moveVec += collisionAvoidForce;
+        //}
 
         moveVec = Vector3.SmoothDamp(myTransform.forward, moveVec, ref currentVelocity, smoothDamp);
         moveVec = moveVec.normalized * speed;
