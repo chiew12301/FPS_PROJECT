@@ -29,8 +29,10 @@ public class Inventory : MonoBehaviour
     public OnItemChanged onItemChangedCallBack;
 
     public int space = 5;
-
+    
     public List<StackItem> items = new List<StackItem>();
+
+    private bool isFull = false;
 
     public bool Add(Item item)
     {
@@ -38,8 +40,13 @@ public class Inventory : MonoBehaviour
         {
             if (items.Count >= space)
             {
+                isFull = true;
                 Debug.Log("Not enough Room.");
                 return false;
+            }
+            else
+            {
+                isFull = false;
             }
 
             StackItem tempitem = new StackItem();
@@ -52,6 +59,7 @@ public class Inventory : MonoBehaviour
                 {
                     if(si.curAmount + tempitem.curAmount > item.maxStackAmount)
                     {
+                        //debug item is max
                         return false;
                     }
                     else
@@ -105,6 +113,35 @@ public class Inventory : MonoBehaviour
         {
             onItemChangedCallBack.Invoke();
         }
+    }
+
+    public bool CheckIsFull()
+    {
+        if (items.Count >= space)
+        {
+            isFull = true;
+        }
+        else
+        {
+            isFull = false;
+        }
+        return isFull;
+    }
+
+    public bool CheckStackFull(CraftingItem passInItem)
+    {
+        foreach (StackItem si in items)
+        {
+            if (si.item == passInItem.item)
+            {
+                if(si.curAmount >= si.item.maxStackAmount)
+                {
+                    //means is exceed the stack amount
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
