@@ -142,12 +142,10 @@ public class PlayerMovementNew : MonoBehaviour
                 if (Input.GetKey(KeyCode.A))
                 {
                     p_Direction = PLAYER_STATE.P_LEFTFOWARD;
-                    speed = 3 * 1.5f;
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
                     p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
-                    speed = 3 * 1.5f;
                 }
             }
             else
@@ -156,12 +154,10 @@ public class PlayerMovementNew : MonoBehaviour
                 if (Input.GetKey(KeyCode.A))
                 {
                     p_Direction = PLAYER_STATE.P_WALKLEFTFOWARD;
-                    speed = 3 * 1.5f;
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
                     p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
-                    speed = 3 * 1.5f;
                 }
             }
         }
