@@ -61,7 +61,7 @@ public class Boid : MonoBehaviour {
             SetColour(Color.yellow);
             Vector3 offsetToTarget = (target.position - position);
             //Debug.DrawRay(position, offsetToTarget, Color.black);
-            acceleration = SteerTowards(offsetToTarget) * settings.targetWeight;
+            acceleration += SteerTowards(offsetToTarget) * settings.targetWeight;
 
             if (IsInAttackRange())
             {
@@ -93,16 +93,13 @@ public class Boid : MonoBehaviour {
             acceleration += collisionAvoidForce;
         }
 
-        //var offsetToCentre = settings.boundTarget.transform.position - position;
+        //var offsetToCentre = Vector3.Distance(settings.boundTarget.transform.position, position);
+        ////Debug.Log(offsetToCentre);
         ////Debug.DrawRay(settings.boundTarget.transform.position, position, Color.black);
-        //if (offsetToCentre.magnitude >= settings.boidBoundsRadius)
+        //if (offsetToCentre >= 10)
         //{
-        //    Vector3 move = SteerTowards(offsetToCentre.normalized);
-        //    acceleration += move;           
-        //}
-        //else
-        //{
-        //    Vector3 move = SteerTowards(forward);
+        //    Debug.Log("too far");
+        //    Debug.DrawRay(position, settings.boundTarget.transform.position - position, Color.black);
         //    acceleration += move;
         //}
 
