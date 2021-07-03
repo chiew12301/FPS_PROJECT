@@ -12,6 +12,7 @@ public class QuestButton : MonoBehaviour
     public Sprite waitingImage;
     public Sprite doneImage;
     public QuestEvent thisEvent;
+    public PointerController pointerController;
 
     QuestEvent.EventStatus status;
 

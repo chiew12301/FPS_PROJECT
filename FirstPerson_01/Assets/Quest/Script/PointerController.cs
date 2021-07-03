@@ -18,6 +18,9 @@ public class PointerController : MonoBehaviour
     void Update()
     {
         Vector3[] v = new Vector3[4];
+
+        target = player.GetComponent<Objectives>().CurrentObjective.Target;
+
         compassLine.GetLocalCorners(v);
         float pointerScale = Vector3.Distance(v[1], v[2]); //both bottom corners
 
