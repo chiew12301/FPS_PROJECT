@@ -23,6 +23,7 @@ public class Gun : MonoBehaviour
     private float nextFire = 0f;
 
     private UIManager ui;
+    private Crosshair ch;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class Gun : MonoBehaviour
         curAmmo = maxAmmo;
 
         ui = GameObject.Find("Canvas").GetComponent<UIManager>();
+        ch = GameObject.Find("Crosshair").GetComponent<Crosshair>();
     }
 
     // Update is called once per frame
@@ -82,6 +84,13 @@ public class Gun : MonoBehaviour
         isReloading = false;
     }
 
+    IEnumerator HitFeedback()
+    {
+        ch.hitFeedback.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        ch.hitFeedback.SetActive(false);
+    }
+
     void Shoot()
     {
         RaycastHit hit;
@@ -98,20 +107,23 @@ public class Gun : MonoBehaviour
             GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 2f);
         }*/
-
         if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
-            AudioManager.instance.Play("Shooting", "SFX");
-            GameObject obj = ObjectPooling.current.GetPooledObject();
-            if (obj == null) return;
-            obj.transform.position = hit.point;
-            obj.SetActive(true);
-            TargetScript target = hit.transform.GetComponent<TargetScript>();
-            curAmmo--;
-            ui.UpdateAmmo(curAmmo);
-            if (target != null)
+            if(hit.transform.tag != "Border")
             {
-                target.TakeDamage(damage);
+                AudioManager.instance.Play("Shooting", "SFX");
+                GameObject obj = ObjectPooling.current.GetPooledObject();
+                if (obj == null) return;
+                obj.transform.position = hit.point;
+                obj.SetActive(true);
+                TargetScript target = hit.transform.GetComponent<TargetScript>();
+                curAmmo--;
+                ui.UpdateAmmo(curAmmo);
+                if (target != null)
+                {
+                    target.TakeDamage(damage);
+                    StartCoroutine(HitFeedback());
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ public class Crosshair : MonoBehaviour
 {
     private RectTransform reticle;
     public Transform player;
+    public GameObject hitFeedback;
 
     public float size;
     public float runSize;
