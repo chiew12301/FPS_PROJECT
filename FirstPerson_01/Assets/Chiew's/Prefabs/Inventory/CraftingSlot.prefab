@@ -54,6 +54,7 @@ MonoBehaviour:
   image_Icon: {fileID: 0}
   name_item: {fileID: 0}
   description_item: {fileID: 0}
+  craftingUI_OBJ: {fileID: 0}
   forUI: 0
 --- !u!1 &4875518763186121001
 GameObject:

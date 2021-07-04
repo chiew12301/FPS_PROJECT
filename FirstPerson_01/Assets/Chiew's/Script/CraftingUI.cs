@@ -11,6 +11,7 @@ public class CraftingUI : MonoBehaviour
     public List<CraftingRecipes> listOfReceipes;
 
     CraftingSlot[] slots;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,41 +21,59 @@ public class CraftingUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AssignToSlots();
+        //AssignToSlots();
     }
 
-    void AssignToSlots()
+    public void AssignToSlots()
     {
         for(int i = 0; i < maxSlots; i++)
         {
+            slots[i].ClearSlot();
             if(listOfReceipes[i] != null)
             {
-                if(listOfReceipes[i].CanCraft() == true)
+                slots[i].AddItem(listOfReceipes[i].Results.item, listOfReceipes[i].Results.amount, listOfReceipes[i]);
+                if (listOfReceipes[i].CanCraft() == true)
                 {
-                    slots[i].AddItem(listOfReceipes[i].Results.item, listOfReceipes[i].Results.amount);
-                    slots[i].GetComponentInChildren<Button>().interactable = true;
+                    if (Inventory.instance.CheckIsFull() == false && Inventory.instance.CheckStackFull(listOfReceipes[i].Results) == false)
+                    {
+                        slots[i].craft_Button.interactable = true;
+                        //slots[i].GetComponentInChildren<Button>().interactable = true;
+                    }
+                    else
+                    {
+                        slots[i].craft_Button.interactable = false;
+                        //slots[i].GetComponentInChildren<Button>().interactable = false;
+                    }
+                }
+                else
+                {
+                    slots[i].craft_Button.interactable = false;
+                    //slots[i].GetComponentInChildren<Button>().interactable = false;
                 }
             }
             else
             {
-                slots[i].GetComponentInChildren<Button>().interactable = false;
+                slots[i].craft_Button.interactable = false;
+                //slots[i].GetComponentInChildren<Button>().interactable = false;
+                slots[i].ClearSlot();
             }
         }
-        for (int i = 0; i < maxSlots; i++)
-        {
-            if (listOfReceipes[i] != null)
-            {
-                if (listOfReceipes[i].CanCraft() == false)
-                {
-                    slots[i].AddItem(listOfReceipes[i].Results.item, listOfReceipes[i].Results.amount);
-                    slots[i].GetComponentInChildren<Button>().interactable = false;
-                }
-            }
-            else
-            {
-                slots[i].GetComponentInChildren<Button>().interactable = false;
-            }
-        }
+        //for (int i = 0; i < maxSlots; i++)
+        //{
+        //    if (listOfReceipes[i] != null)
+        //    {
+        //        if (listOfReceipes[i].CanCraft() == false)
+        //        {
+        //            slots[i].AddItem(listOfReceipes[i].Results.item, listOfReceipes[i].Results.amount, listOfReceipes[i]);
+        //            slots[i].GetComponentInChildren<Button>().interactable = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        slots[i].GetComponentInChildren<Button>().interactable = false;
+        //        slots[i].ClearSlot();
+        //    }
+        //}
     }
-
+    
 }

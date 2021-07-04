@@ -19,28 +19,55 @@ public class CraftingRecipes : ScriptableObject
 
     public bool CanCraft()
     {
-        foreach(StackItem si in Inventory.instance.items)
+        bool isContain = false;
+        bool isEnough = true;
+        for (int i = 0; i < Materials.Count; i++)
         {
-            foreach(CraftingItem ci in Materials)
+            bool DoIHaveTheItem = false;
+            CraftingItem tempmat = Materials[i];
+            for(int j = 0; j < Inventory.instance.items.Count; j++)
             {
-                if (si.item.name == ci.item.name)
+                StackItem temp = Inventory.instance.items[j];
+                Debug.Log("MATITEM " + i + " for " + Results.item.name + " :" + tempmat.item.name);
+                Debug.Log("ITEM " + j + " for " + Results.item.name + " :" + temp.item.name);
+                if (temp.item.name == tempmat.item.name)
                 {
-                    if(si.curAmount >= ci.amount)
+                    isContain = true;
+                    DoIHaveTheItem = true;
+                    if (temp.curAmount < tempmat.amount)
                     {
-                        //enough materials
-                        return true;
-                    }
-                    else
-                    {
-                        Debug.Log("NOT ENOUGH MATERIAL");
-                        //not enough
-                        return false;
+                        isEnough = false;
                     }
                 }
+                else if (temp.item.name != tempmat.item.name)
+                {
+                    //not the item
+                }
+            }
+            if(DoIHaveTheItem == false)
+            {
+                isContain = false;
+                //means i dont have the item
             }
         }
-        Debug.Log("NOT ENOUGH MATERIAL OUTER");
-        return false;
+
+        if (isEnough == false)
+        {
+            Debug.Log(Results.item.name + " NOT ENOUGH MATERIAL");
+            //not enough
+        }
+
+        if (isContain == true && isEnough == true)
+        {
+            //enough materials
+            Debug.Log( Results.item.name + " MATERIAL ENOUGH");
+            return true;
+        }
+        else
+        {
+            Debug.Log(Results.item.name + " NOT CONTAIN");
+            return false;
+        }
     }
 
     public void Craft()
@@ -51,26 +78,16 @@ public class CraftingRecipes : ScriptableObject
             if(Inventory.instance.CheckIsFull() == false && Inventory.instance.CheckStackFull(Results) == false) //check inventorty is full? then stack is full?
             {
                 //craft and calculation
-                //Add Material into inventory (Because inventory has a check system ald)
-                Inventory.instance.Add(Results.item);
-
                 //minus amount in inventory
-                foreach (StackItem si in Inventory.instance.items)
+                foreach(CraftingItem ci in Materials)
                 {
-                    foreach (CraftingItem ci in Materials)
+                    for (int count = 0; count < ci.amount; count++)
                     {
-                        if (si.item.name == ci.item.name)
-                        {
-                            if (si.curAmount >= ci.amount)
-                            {
-                                for (int count = 0; count < ci.amount; count++)
-                                {
-                                    Inventory.instance.Remove(ci.item);
-                                }
-                            }
-                        }
+                        Inventory.instance.Remove(ci.item);
                     }
                 }
+                //Add Material into inventory (Because inventory has a check system ald)
+                Inventory.instance.Add(Results.item);
                 Debug.Log("CRAFTED");
                 //update the inventory ui (INVENTORY ADD AND REMOVE PROVIDED ON CALL TO UPDATE UI)
             }

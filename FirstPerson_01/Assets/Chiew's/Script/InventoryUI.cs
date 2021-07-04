@@ -4,7 +4,7 @@ public class InventoryUI : MonoBehaviour
 {
     public Transform itemParents;
     public GameObject inventoryUI;
-    public GameObject CraftingUI;
+    public GameObject CraftingUI_OBJ;
     public GameObject inventoryUIForButton;
     public GameObject[] buttonObject;
 
@@ -18,7 +18,7 @@ public class InventoryUI : MonoBehaviour
         inventory = Inventory.instance;
         inventory.onItemChangedCallBack += UpdateUI;
         inventoryUI.SetActive(false);
-        CraftingUI.SetActive(false);
+        CraftingUI_OBJ.SetActive(false);
         for (int i = 0; i < buttonObject.Length; i++)
         {
             buttonObject[i].gameObject.SetActive(false);
@@ -37,7 +37,11 @@ public class InventoryUI : MonoBehaviour
                 buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
             }
             inventoryUI.SetActive(!inventoryUI.activeSelf);
-            CraftingUI.SetActive(!CraftingUI.activeSelf);
+            CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
+            if(CraftingUI_OBJ.activeSelf == true)
+            {
+                CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
+            }
             if (inventoryUI.activeSelf == false)
             {
                 for (int i = 0; i < slots.Length; i++)

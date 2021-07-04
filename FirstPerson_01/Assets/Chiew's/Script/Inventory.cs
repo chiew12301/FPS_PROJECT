@@ -132,16 +132,16 @@ public class Inventory : MonoBehaviour
     {
         foreach (StackItem si in items)
         {
-            if (si.item == passInItem.item)
+            if (si.item.name == passInItem.item.name)
             {
                 if(si.curAmount >= si.item.maxStackAmount)
                 {
                     //means is exceed the stack amount
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
 }
