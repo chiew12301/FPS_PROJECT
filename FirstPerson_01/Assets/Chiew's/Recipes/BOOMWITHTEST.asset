@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67983e3a3e4b8da408881ebaaedff4ee, type: 3}
+  m_Name: BOOMWITHTEST
+  m_EditorClassIdentifier: 
+  Materials:
+  - item: {fileID: 11400000, guid: de3c64f5c75601045b1577ccc084bae4, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: 68a123ba44d64924e8787b64710631f9, type: 2}
+    amount: 1
+  Results:
+    item: {fileID: 11400000, guid: d337a9350060b724db05c83b62ec20c2, type: 2}
+    amount: 1
