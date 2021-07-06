@@ -54,14 +54,14 @@ public class PauseMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Time.timeScale = 1f;
+        PauseManager.instance.setIsPause(false);
     }
 
     void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Time.timeScale = 0f;
+        PauseManager.instance.setIsPause(true);
     }
 
     public void ResumeButton()
@@ -73,8 +73,10 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Loading Menu");
         //SceneManager.LoadScene("Main Menu UI");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        PauseManager.instance.setIsPause(false);
         LV_loader.LoadLevel(0);
-        Time.timeScale = 1.0f;
     }
 
     public void QuitGame()
