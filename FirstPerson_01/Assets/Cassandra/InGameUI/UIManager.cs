@@ -7,19 +7,11 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private Text TxtAmmo;
-    public GameObject player;
 
     //updating ammo count
-    public void UpdateAmmo(int Count, bool isReloading)
+    public void UpdateAmmo(int Count)
     {
-        if (isReloading)
-        {
-            TxtAmmo.text = "Reloading...";
-        }
-        else
-        {
-            TxtAmmo.text = "Ammo: " + Count;
-        }
+        TxtAmmo.text = "Ammo: " + Count; 
     }
 
 
@@ -32,6 +24,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateAmmo(player.GetComponent<Gun>().curAmmo, player.GetComponent<Gun>().isReloading);
+        
     }
 }

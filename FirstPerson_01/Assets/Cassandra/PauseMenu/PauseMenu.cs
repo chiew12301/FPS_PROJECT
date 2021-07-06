@@ -7,15 +7,9 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] LevelLoader LV_loader;
 
-    public bool GameIsPaused = false;
-    public GameObject invUI;
+    public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-
-    private void Start()
-    {
-        GameIsPaused = false;
-    }
 
     // Update is called once per frame
     void Update()
@@ -24,29 +18,12 @@ public class PauseMenu : MonoBehaviour
         {
             if(GameIsPaused)
             {
-                GameIsPaused = false;
+                Resume();
             }
             else
             {
-                GameIsPaused = true;
+                Pause();
             }
-        }
-
-        if (GameIsPaused || invUI.activeSelf)
-        {
-            if(GameIsPaused)
-            {
-                pauseMenuUI.SetActive(true);
-            }
-            Pause();
-        }
-        else
-        {
-            if (!GameIsPaused)
-            {
-                pauseMenuUI.SetActive(false);
-            }
-            Resume();
         }
     }
 
@@ -54,27 +31,26 @@ public class PauseMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
+        GameIsPaused = false;
     }
 
     void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-    }
-
-    public void ResumeButton()
-    {
-        GameIsPaused = false;
+        GameIsPaused = true;
     }
 
     public void LoadMenu()
     {
         Debug.Log("Loading Menu");
         //SceneManager.LoadScene("Main Menu UI");
-        LV_loader.LoadLevel(0);
         Time.timeScale = 1.0f;
+        LV_loader.LoadLevel(0);
     }
 
     public void QuitGame()

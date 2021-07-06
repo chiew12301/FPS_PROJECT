@@ -7,8 +7,6 @@ public class Animation : MonoBehaviour
     [SerializeField] Animator obj_Animator;
     [SerializeField] PlayerMovementNew playerMovement_Script;
 
-    Interactable focus;
-
     //Animation Name (Get your animation here)
     //Example to call it, In your own script call the function, and pass the const string into the function
     //================Example=================
@@ -29,8 +27,7 @@ public class Animation : MonoBehaviour
 
     public void Update()
     {
-        #region CASE_ANIMATION
-        switch (playerMovement_Script.p_Direction)
+        switch(playerMovement_Script.p_Direction)
         {
             case PLAYER_STATE.P_IDLE:
                 ChangeAnimationState(IDLE_ANIMATION);
@@ -65,9 +62,7 @@ public class Animation : MonoBehaviour
             default:
                 break;
         }
-        #endregion CASE_ANIMATION
-
-        #region IF_ANIMATION
+           
         //if (playerMovement_Script.p_Direction == PLAYER_STATE.P_IDLE)
         //{
         //    ChangeAnimationState(IDLE_ANIMATION);
@@ -101,7 +96,7 @@ public class Animation : MonoBehaviour
         //{
         //    ChangeAnimationState(RUN_LEFTBACKWARD_ANIMATION);
         //}
-
+        
         //if (playerMovement_Script.p_Direction == PLAYER_STATE.P_RIGHTFORWARD)
         //{
         //    ChangeAnimationState(RUN_RIGHTFORWARD_ANIMATION);
@@ -110,60 +105,6 @@ public class Animation : MonoBehaviour
         //{
         //    ChangeAnimationState(RUN_RIGHTBACKWARD_ANIMATION);
         //}
-        #endregion IF_ANIMATION
-
-        //create ray cast
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        bool isPressed = false;
-        //if ray hit
-        if (Physics.Raycast(ray, out hit, 100))
-        {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-
-            if (Input.GetKeyUp(KeyCode.E))//can change any button/key
-            {
-                if (interactable != null)
-                {
-                    RemoveFocus();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))//can change any button/key
-            {
-                isPressed = true;
-            }
-
-            if (interactable != null)
-            {
-                SetFocus(interactable, isPressed);
-            }
-        }
-
-    }
-
-    void SetFocus(Interactable newFocus, bool isPressed)
-    {
-        if (newFocus != focus)
-        {
-            if (focus != null)
-            {
-                focus.OnDefocused();
-            }
-            focus = newFocus;
-        }
-
-        focus = newFocus;
-        newFocus.OnFocused(transform, isPressed);
-    }
-
-    void RemoveFocus()
-    {
-        if (focus != null)
-        {
-            focus.OnDefocused();
-        }
-        focus = null;
     }
 
     public void ChangeAnimationState(string AniState) //Remember to use Const String

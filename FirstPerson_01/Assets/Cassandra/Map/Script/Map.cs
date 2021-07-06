@@ -21,7 +21,7 @@ public class Map : MonoBehaviour
 
             if(Time.timeScale >= 1.0f)
             {
-                Time.timeScale = 0.0f;
+                Time.timeScale = 0.0001f;
             }
             else
             {

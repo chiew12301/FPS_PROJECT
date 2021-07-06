@@ -14,16 +14,15 @@ public class Gun : MonoBehaviour
     public int maxAmmo = 30;
     public int curAmmo;
     public float reloadTime = 2.6f;
-    public bool isReloading = false;
+    private bool isReloading = false;
 
     public Camera fpsCam;
     public GameObject impactEffect;
-    public Transform player;
+    PlayerMovementNew player;
 
-    private float nextFire = 0.5f;
+    private float nextFire = 0f;
 
     private UIManager ui;
-    private Crosshair ch;
 
     private void Start()
     {
@@ -31,24 +30,11 @@ public class Gun : MonoBehaviour
         curAmmo = maxAmmo;
 
         ui = GameObject.Find("Canvas").GetComponent<UIManager>();
-        ch = GameObject.Find("Crosshair").GetComponent<Crosshair>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(player.GetComponent<PlayerMovementNew>().isRunning)
-        {
-            bloomRange = 16f;
-        }
-        else if (player.GetComponent<PlayerMovementNew>().isWalking)
-        {
-            bloomRange = 12f;
-        }
-        else
-        {
-            bloomRange = 8f;
-        }
         if (isReloading)
             return;
         if(curAmmo<=0||Input.GetKeyDown(KeyCode.R))
@@ -76,19 +62,11 @@ public class Gun : MonoBehaviour
     {
         UnZoom();
         isReloading = true;
-        isZoom = false;
-        //AudioManager.instance.Play("Reload", "SFX");
+        UnZoom();
         yield return new WaitForSeconds(reloadTime);
         curAmmo = maxAmmo;
-        //ui.UpdateAmmo(curAmmo);
+        ui.UpdateAmmo(curAmmo);
         isReloading = false;
-    }
-
-    IEnumerator HitFeedback()
-    {
-        ch.hitFeedback.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        ch.hitFeedback.SetActive(false);
     }
 
     void Shoot()
@@ -107,23 +85,19 @@ public class Gun : MonoBehaviour
             GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 2f);
         }*/
+
         if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
-            //AudioManager.instance.Play("Shooting", "SFX");
             GameObject obj = ObjectPooling.current.GetPooledObject();
             if (obj == null) return;
-            if (hit.transform.tag != "Border")
-            {
-                obj.transform.position = hit.point;
-                obj.SetActive(true);
-            }
+            obj.transform.position = hit.point;
+            obj.SetActive(true);
             TargetScript target = hit.transform.GetComponent<TargetScript>();
             curAmmo--;
-            //ui.UpdateAmmo(curAmmo);
+            ui.UpdateAmmo(curAmmo);
             if (target != null)
             {
                 target.TakeDamage(damage);
-                StartCoroutine(HitFeedback());
             }
         }
     }

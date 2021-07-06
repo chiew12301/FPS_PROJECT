@@ -35,15 +35,16 @@ public class PlayerMovementNew : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 200.0f;
     public LayerMask groundMask;
-    public float runMultiply = 2.0f;
+    public float walkMultiply = 2.0f;
     public float crouchingHeight = 1f;
     public float crouchingMultiply = 0.001f;
     public float standingHeight = 2f;
 
     Vector3 velocity;
+    bool isForward;
+    bool isBackward;
     bool isGrounded;
     public bool isRunning;
-    public bool isWalking;
     public bool isCrouching;
     
     void Start()
@@ -64,7 +65,6 @@ public class PlayerMovementNew : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && isCrouching == false)
         {
             isRunning = true;
-            isWalking = false;
         }
         else
         {
@@ -102,7 +102,7 @@ public class PlayerMovementNew : MonoBehaviour
         
         if (isRunning && isGrounded)
         {
-            move *= runMultiply;
+            move *= walkMultiply;
         }
 
         if(isCrouching)
@@ -125,10 +125,6 @@ public class PlayerMovementNew : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        if(p_Direction != PLAYER_STATE.P_IDLE || p_Direction != PLAYER_STATE.P_JUMP)
-        {
-            //AudioManager.instance.Play("Footstep", "SFX");
-        }
     }
 
     private void InputState()
@@ -163,7 +159,6 @@ public class PlayerMovementNew : MonoBehaviour
                 {
                     p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
                 }
-                isWalking = true;
             }
         }
         else if (Input.GetKey(KeyCode.S))
@@ -177,7 +172,6 @@ public class PlayerMovementNew : MonoBehaviour
             {
                 p_Direction = PLAYER_STATE.P_RIGHTBACKWARD;
             }
-            isWalking = true;
         }
         else if (Input.GetKey(KeyCode.A))
         {
@@ -188,7 +182,6 @@ public class PlayerMovementNew : MonoBehaviour
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKLEFT;
-                isWalking = true;
             }
         }
         else if (Input.GetKey(KeyCode.D))
@@ -200,13 +193,11 @@ public class PlayerMovementNew : MonoBehaviour
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKRIGHT;
-                isWalking = true;
             }
         }
         else
         {
             p_Direction = PLAYER_STATE.P_IDLE;
-            isWalking = false;
         }
     }
 }
