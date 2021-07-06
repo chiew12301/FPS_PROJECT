@@ -15,7 +15,9 @@ public class CrowSound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AudioManager.instance.Play("Crow", "SFX");
-        
+        if(AudioManager.instance.FindIsPlaying("Crow", "SFX") == false)
+        {
+            AudioManager.instance.Play("Crow", "SFX");
+        }     
     }
 }
