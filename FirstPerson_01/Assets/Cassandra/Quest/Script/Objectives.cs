@@ -33,7 +33,7 @@ public class Objectives : MonoBehaviour
         }
     }
 
-    void OnGUI()
+    void Update()
     {
         this.CurrentObjectiveDescription.text = this.CurrentObjective.Description;
     }
