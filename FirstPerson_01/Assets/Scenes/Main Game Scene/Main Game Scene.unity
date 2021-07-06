@@ -8645,7 +8645,7 @@ RectTransform:
   m_GameObject: {fileID: 551030057}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 404668548}
   m_RootOrder: 0
@@ -20730,13 +20730,45 @@ PrefabInstance:
       propertyPath: compassLine
       value: 
       objectReference: {fileID: 558537727}
+    - target: {fileID: 6454146063055366172, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454146063055366172, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454146063055366172, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454146063055366172, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454146063055366172, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454146063055366172, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454146063055366175, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454146063055366175, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6454146063055366175, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 16.6
       objectReference: {fileID: 0}
     - target: {fileID: 6454146063055366175, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 68.1
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6454146063684386500, guid: 4d112b514ad60cf4b9c4d9301a8f7c53, type: 3}
       propertyPath: m_Enabled
@@ -21428,7 +21460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LV_loader: {fileID: 453516207}
-  invUI: {fileID: 0}
+  GameIsPaused: 0
+  invUI: {fileID: 107279274}
   pauseMenuUI: {fileID: 929514114}
 --- !u!114 &1668852393
 MonoBehaviour:
