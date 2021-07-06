@@ -17,15 +17,17 @@ public class Map : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.M))
         {
-            MapCanvas.enabled = !MapCanvas.enabled;
+            //MapCanvas.enabled = !MapCanvas.enabled;
 
-            if(Time.timeScale >= 1.0f)
+            if(PauseManager.instance.getIsPause() == true)
             {
-                Time.timeScale = 0.0f;
+                PauseManager.instance.setIsPause(false);
+                MapCanvas.enabled = false;
             }
             else
             {
-                Time.timeScale = 1f;
+                PauseManager.instance.setIsPause(true);
+                MapCanvas.enabled = true;
             }
 
         }

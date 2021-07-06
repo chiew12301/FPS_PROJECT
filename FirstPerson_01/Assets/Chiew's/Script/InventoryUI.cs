@@ -8,6 +8,9 @@ public class InventoryUI : MonoBehaviour
     public GameObject inventoryUIForButton;
     public GameObject[] buttonObject;
 
+    [Header("This is for Quest Pointer Objects")]
+    public GameObject[] questObjects;
+
     Inventory inventory;
 
     InventorySlot[] slots;
@@ -41,12 +44,22 @@ public class InventoryUI : MonoBehaviour
             if(CraftingUI_OBJ.activeSelf == true)
             {
                 CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
+                PauseManager.instance.setIsPause(true);
+                for (int j = 0; j < questObjects.Length; j++)
+                {
+                    questObjects[j].SetActive(false);
+                }
             }
             if (inventoryUI.activeSelf == false)
             {
                 for (int i = 0; i < slots.Length; i++)
                 {
                     slots[i].setDescriptionActiveState(false);
+                }
+                PauseManager.instance.setIsPause(false);
+                for(int j = 0; j < questObjects.Length; j++)
+                {
+                    questObjects[j].SetActive(true);
                 }
             }     
         }
