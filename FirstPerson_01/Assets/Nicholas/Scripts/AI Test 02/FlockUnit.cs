@@ -16,6 +16,7 @@ public class FlockUnit : MonoBehaviour
     private List<FlockUnit> alignmentNeighbours = new List<FlockUnit>();
     private Flock assignedFlock;
     private Vector3 currentVelocity;
+    private Vector3 currentObstacleAvoidanceVector;
     private float speed;
 
     private void Awake()
@@ -44,12 +45,22 @@ public class FlockUnit : MonoBehaviour
         var alignmentVec = CalculateAlignmentVector() * assignedFlock.alignmentWeight;
         var boundsVec = CalculateBoundsVector() * assignedFlock.boundsWeight;
         var obstacleVec = CalculateObstacleVector() * assignedFlock.obstacleWeight;
+        var targetVec = CalculateTargetVector();
 
         var moveVec = cohesionVec + avoidanceVec + alignmentVec + boundsVec;
+
+        //if (IsHeadingForCollision())
+        //{
+        //    Vector3 collisionAvoidDir = ObstacleRays();
+        //    Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * 10;
+        //    moveVec += collisionAvoidForce;
+        //}
+
         moveVec = Vector3.SmoothDamp(myTransform.forward, moveVec, ref currentVelocity, smoothDamp);
         moveVec = moveVec.normalized * speed;
         myTransform.forward = moveVec;
         myTransform.position += moveVec * Time.deltaTime;
+
     }
 
     private void FindNeighbourUnits()
@@ -94,6 +105,31 @@ public class FlockUnit : MonoBehaviour
         }
         speed /= cohesionNeighbours.Count;
         speed = Mathf.Clamp(speed, assignedFlock.minSpeed, assignedFlock.maxSpeed);
+    }
+
+    private Vector3 CalculateTargetVector()
+    {
+        var targetVector = assignedFlock.GetTarget().transform.position;
+        if (assignedFlock.GetTarget() == null)
+        {
+            return Vector3.zero;
+        }
+        else
+        {
+            var dir = targetVector - myTransform.position;           
+
+            if (dir.magnitude <= 20.0f)
+            {
+                Debug.DrawRay(myTransform.position, dir, Color.green);
+                return dir;
+            }
+            else
+            {
+                var dir2 = assignedFlock.transform.position - myTransform.position;
+                //Debug.DrawRay(myTransform.position, dir2, Color.red);
+                return dir2;
+            }
+        }       
     }
 
     private Vector3 CalculateCohesionVector()
@@ -170,6 +206,33 @@ public class FlockUnit : MonoBehaviour
         return isNearCentre ? offsetToCentre.normalized : Vector3.zero;
     }
 
+    bool IsHeadingForCollision()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(myTransform.position, assignedFlock.boundsDistance, myTransform.forward, out hit, assignedFlock.obstacleDistance, obstacleMask))
+        {
+            return true;
+        }
+        else { }
+        return false;
+    }
+    Vector3 ObstacleRays()
+    {
+        Vector3[] rayDirections = BoidHelper.directions;
+
+        for (int i = 0; i < rayDirections.Length; i++)
+        {
+            Vector3 dir = myTransform.TransformDirection(rayDirections[i]);
+            Ray ray = new Ray(myTransform.position, dir);
+            if (!Physics.SphereCast(ray, assignedFlock.boundsDistance, assignedFlock.obstacleDistance, obstacleMask))
+            {
+                return dir;
+            }
+        }
+
+        return myTransform.forward;
+    }
+
     private Vector3 CalculateObstacleVector()
     {
         var obstacleVector = Vector3.zero;
@@ -178,11 +241,24 @@ public class FlockUnit : MonoBehaviour
         {
             obstacleVector = FindDirToAvoidObstacle();
         }
+        else
+        {
+            currentObstacleAvoidanceVector = Vector3.zero;
+        }
         return obstacleVector;
     }
 
     private Vector3 FindDirToAvoidObstacle()
     {
+        if (currentObstacleAvoidanceVector != Vector3.zero)
+        {
+            RaycastHit hit;
+            if (!Physics.Raycast(myTransform.position, myTransform.forward, out hit, assignedFlock.obstacleDistance, obstacleMask))
+            {
+                return currentObstacleAvoidanceVector;
+            }
+        }
+
         float maxDistance = int.MinValue;
         var selectedDir = Vector3.zero;
         for (int i = 0; i < dirToCheckWhenAvoidingObstacles.Length; i++)
@@ -198,6 +274,12 @@ public class FlockUnit : MonoBehaviour
                     selectedDir = currentDir;
                 }
             }
+            else
+            {
+                selectedDir = currentDir;
+                currentObstacleAvoidanceVector = currentDir.normalized;
+                return selectedDir.normalized;
+            }
         }
         return selectedDir.normalized;
     }
@@ -205,5 +287,11 @@ public class FlockUnit : MonoBehaviour
     private bool IsInFOV(Vector3 pos)
     {
         return Vector3.Angle(myTransform.forward, pos - myTransform.position) <= FOVAngle;
+    }
+
+    Vector3 SteerTowards(Vector3 vector)
+    {
+        Vector3 v = vector.normalized * assignedFlock.minSpeed - (myTransform.forward * assignedFlock.minSpeed);
+        return Vector3.ClampMagnitude(v, 5);
     }
 }
