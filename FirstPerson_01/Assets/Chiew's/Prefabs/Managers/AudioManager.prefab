@@ -45,32 +45,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGMsounds:
   - name: MainMenuBGM
-    clip: {fileID: 8300000, guid: 961f005d4a7724448875b2250a9f29d7, type: 3}
+    clip: {fileID: 8300000, guid: a9bc4e5503d011b41a4f439808aedb00, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: GameBGM
-    clip: {fileID: 8300000, guid: 62a8134b6b093d246a12a2e5b2833a8f, type: 3}
+    clip: {fileID: 8300000, guid: e10c07e9d3a24144e93b92c61e0bafc2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: InCombatBGM
+    clip: {fileID: 8300000, guid: 5f25b0ea219595f48b6f73cda44432c3, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   SFXsounds:
-  - name: BallJump
-    clip: {fileID: 8300000, guid: 9cd1928f867914243a662d432a08ae3a, type: 3}
+  - name: Walk
+    clip: {fileID: 8300000, guid: 1ee53c4239e9fa244aabae9273fecec0, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Button
-    clip: {fileID: 8300000, guid: 99a3a5aceb11f494a81d3622d88b8b1d, type: 3}
+  - name: Run
+    clip: {fileID: 8300000, guid: d70b65ec0fb3d0445b11a7aeae106287, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Swipe
-    clip: {fileID: 8300000, guid: dec9510ddabf09942b44c01971e4c2a9, type: 3}
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 8a92a43e9648833469099d6ec549f408, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Windblow
+    clip: {fileID: 8300000, guid: b0cdb01a1df63a54ba39934212b9e119, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Reload
+    clip: {fileID: 8300000, guid: 1282bee9585365a408ae880af7ae17dc, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HeavyEquipment
+    clip: {fileID: 8300000, guid: a72610e75820ce64b9f707b5b6fb806a, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Crow
+    clip: {fileID: 8300000, guid: d96f23923fc7c3d489dc95a461698c3f, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Breathing
+    clip: {fileID: 8300000, guid: 275560f6fd63f354e8dfb2f6ecadc2dd, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
