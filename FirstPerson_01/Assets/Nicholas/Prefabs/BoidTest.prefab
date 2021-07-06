@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7175186117813602051}
   - component: {fileID: 7175186117813602048}
   - component: {fileID: 7175186117813602052}
+  - component: {fileID: 1794628569112562526}
   m_Layer: 0
   m_Name: BoidTest
   m_TagString: Untagged
@@ -92,7 +93,7 @@ BoxCollider:
   m_GameObject: {fileID: 7175186117813602049}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -110,7 +111,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0, z: 0}
   forward: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
   avgFlockHeading: {x: 0, y: 0, z: 0}
   avgAvoidanceHeading: {x: 0, y: 0, z: 0}
   centreOfFlockmates: {x: 0, y: 0, z: 0}
   numPerceivedFlockmates: 0
+--- !u!114 &1794628569112562526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175186117813602049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d725f6303334349a36949a5af281e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

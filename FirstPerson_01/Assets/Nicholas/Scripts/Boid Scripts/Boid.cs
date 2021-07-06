@@ -130,7 +130,7 @@ public class Boid : MonoBehaviour {
         return false;
     }
 
-    bool IsInRange()
+    public bool IsInRange()
     {
         if (Vector3.Distance(position, target.position) <= settings.detectionRange)
         {
