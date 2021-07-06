@@ -51,7 +51,7 @@ public class InventoryUI : MonoBehaviour
             }     
         }
 
-        if(inventoryUI.activeSelf == true)
+        /*if(inventoryUI.activeSelf == true)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -62,7 +62,7 @@ public class InventoryUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1f;
-        }
+        }*/
     }
 
     public void OnInventoryButton()

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AI
   - Waypoint
+  - Border
   layers:
   - Default
   - TransparentFX

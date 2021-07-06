@@ -521,7 +521,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7573096552335840723, guid: cadb74b3f39d7244d8c95854ba5d3b05, type: 3}
       propertyPath: SFXsounds.Array.size
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573096552335840723, guid: cadb74b3f39d7244d8c95854ba5d3b05, type: 3}
+      propertyPath: SFXsounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 254963e1d534be74e833d576dc477168, type: 3}
+    - target: {fileID: 7573096552335840723, guid: cadb74b3f39d7244d8c95854ba5d3b05, type: 3}
+      propertyPath: SFXsounds.Array.data[1].name
+      value: Shooting
       objectReference: {fileID: 0}
     - target: {fileID: 7573096552335840732, guid: cadb74b3f39d7244d8c95854ba5d3b05, type: 3}
       propertyPath: m_RootOrder

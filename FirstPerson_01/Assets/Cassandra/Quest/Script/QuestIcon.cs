@@ -12,6 +12,6 @@ public class QuestIcon : MonoBehaviour
     {
         target = player.GetComponent<Objectives>().CurrentObjective.Target;
         this.transform.position = target.transform.position;
-         
+        //this.transform.position = new Vector3(target.transform.position.x, 168, target.transform.position.z);
     }
 }
