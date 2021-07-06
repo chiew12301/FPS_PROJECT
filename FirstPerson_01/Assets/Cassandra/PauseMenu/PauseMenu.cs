@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] LevelLoader LV_loader;
 
     //public bool GameIsPaused = false;
-    public GameObject invUI;
+    //public GameObject invUI;
 
     public GameObject pauseMenuUI;
 

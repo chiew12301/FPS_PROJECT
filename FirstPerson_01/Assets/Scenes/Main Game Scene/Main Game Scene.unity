@@ -17474,7 +17474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1212645967}
   m_Layer: 0
-  m_Name: Objective
+  m_Name: ObjectiveCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22047,7 +22047,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LV_loader: {fileID: 453516207}
-  invUI: {fileID: 107279274}
   pauseMenuUI: {fileID: 929514114}
 --- !u!114 &1668852393
 MonoBehaviour:
@@ -22676,6 +22675,7 @@ MonoBehaviour:
   - {fileID: 1556820581}
   - {fileID: 109039620156660504}
   - {fileID: 109039618329008707}
+  PauseMenuCanvas: {fileID: 1668852395}
 --- !u!1 &1758430471
 GameObject:
   m_ObjectHideFlags: 0

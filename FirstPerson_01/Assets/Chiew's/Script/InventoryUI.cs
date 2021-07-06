@@ -11,6 +11,8 @@ public class InventoryUI : MonoBehaviour
     [Header("This is for Quest Pointer Objects")]
     public GameObject[] questObjects;
 
+    public Canvas PauseMenuCanvas;
+
     Inventory inventory;
 
     InventorySlot[] slots;
@@ -48,6 +50,7 @@ public class InventoryUI : MonoBehaviour
                 for (int j = 0; j < questObjects.Length; j++)
                 {
                     questObjects[j].SetActive(false);
+                    PauseMenuCanvas.enabled = false;
                 }
             }
             if (inventoryUI.activeSelf == false)
@@ -60,6 +63,7 @@ public class InventoryUI : MonoBehaviour
                 for(int j = 0; j < questObjects.Length; j++)
                 {
                     questObjects[j].SetActive(true);
+                    PauseMenuCanvas.enabled = true;
                 }
             }     
         }
