@@ -77,7 +77,7 @@ public class Gun : MonoBehaviour
         UnZoom();
         isReloading = true;
         isZoom = false;
-        //AudioManager.instance.Play("Reload", "SFX");
+        AudioManager.instance.Play("Reload", "SFX");
         yield return new WaitForSeconds(reloadTime);
         curAmmo = maxAmmo;
         //ui.UpdateAmmo(curAmmo);
@@ -109,7 +109,7 @@ public class Gun : MonoBehaviour
         }*/
         if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
-            //AudioManager.instance.Play("Shooting", "SFX");
+            AudioManager.instance.Play("Shoot", "SFX");
             GameObject obj = ObjectPooling.current.GetPooledObject();
             if (obj == null) return;
             if (hit.transform.tag != "Border")
