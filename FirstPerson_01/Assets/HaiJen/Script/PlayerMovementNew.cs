@@ -36,9 +36,9 @@ public class PlayerMovementNew : MonoBehaviour
     public float groundDistance = 200.0f;
     public LayerMask groundMask;
     public float runMultiply = 2.0f;
-    public float crouchingHeight = 1f;
+    public float crouchingHeight = 0.5f;
     public float crouchingMultiply = 0.001f;
-    public float standingHeight = 2f;
+    public float standingHeight = 1.5f;
 
     Vector3 velocity;
     bool isGrounded;
@@ -49,6 +49,7 @@ public class PlayerMovementNew : MonoBehaviour
     void Start()
     {
         p_Direction = 0;
+        controller.GetComponent<CharacterController>().detectCollisions = false;
     }
 
     // Update is called once per frame
