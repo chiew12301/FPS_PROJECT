@@ -9,15 +9,19 @@ public class CrowSound : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        boid = GetComponent<Boid>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(AudioManager.instance.FindIsPlaying("Crow", "SFX") == false)
+        if (boid.IsInRange())
         {
-            AudioManager.instance.Play("Crow", "SFX");
-        }     
+            Debug.Log("Player in range. Playing Crow sound");
+            if (AudioManager.instance.FindIsPlaying("Crow", "SFX") == false)
+            {
+                AudioManager.instance.Play("Crow", "SFX");
+            }
+        }
     }
 }
