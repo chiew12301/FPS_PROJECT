@@ -20,33 +20,40 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.SETTINGUI)
         {
-            if(PauseManager.instance.getIsPause() == true)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                PauseManager.instance.setIsPause(false);
+                if (PauseManager.instance.getIsPause() == true)
+                {
+                    PauseManager.instance.setIsPause(false);
+                }
+                else
+                {
+                    PauseManager.instance.setIsPause(true);
+                }
+
+            }
+
+            if (PauseManager.instance.getIsPause() == true)
+            {
+                if (PauseManager.instance.getIsPause() == true)
+                {
+                    pauseMenuUI.SetActive(true);
+                }
+                Pause();
+                PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
             }
             else
             {
-                PauseManager.instance.setIsPause(true);
-            }
-        }
+                if (PauseManager.instance.getIsPause() == false)
+                {
+                    pauseMenuUI.SetActive(false);
+                }
+                Resume();
 
-        if (PauseManager.instance.getIsPause() == true)
-        {
-            if(PauseManager.instance.getIsPause() == true)
-            {
-                pauseMenuUI.SetActive(true);
+                PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
             }
-            Pause();
-        }
-        else
-        {
-            if (PauseManager.instance.getIsPause() == false)
-            {
-                pauseMenuUI.SetActive(false);
-            }
-            Resume();
         }
     }
 

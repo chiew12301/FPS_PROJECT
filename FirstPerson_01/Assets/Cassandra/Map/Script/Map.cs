@@ -15,22 +15,32 @@ public class Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.M))
+        if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.MAPUI)
         {
-            //MapCanvas.enabled = !MapCanvas.enabled;
-
-            if(PauseManager.instance.getIsPause() == true)
+            if (Input.GetKeyDown(KeyCode.M))
             {
-                PauseManager.instance.setIsPause(false);
-                MapCanvas.enabled = false;
-            }
-            else
-            {
-                PauseManager.instance.setIsPause(true);
-                MapCanvas.enabled = true;
-            }
+                if (PauseManager.instance.getIsPause() == true)
+                {
+                    PauseManager.instance.setIsPause(false);
+                    MapCanvas.enabled = false;
 
+                    PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
+                }
+                else
+                {
+                    PauseManager.instance.setIsPause(true);
+                    MapCanvas.enabled = true;
+
+                    PauseManager.instance.ChangeUISTATE(PAUSEUI.MAPUI);
+                }
+            }
         }
 
     }
+
+
+            
+
 }
+            
+
