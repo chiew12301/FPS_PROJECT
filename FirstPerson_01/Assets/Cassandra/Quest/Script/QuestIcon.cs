@@ -10,7 +10,16 @@ public class QuestIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        target = player.GetComponent<Objectives>().CurrentObjective.Target;
+        if (player.GetComponent<Objectives>().CurrentObjective == null)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            target = player.GetComponent<Objectives>().CurrentObjective.Target;
+        }
+
         //this.transform.position = target.transform.position;
 
         this.transform.position = new Vector3(target.transform.position.x, 168, target.transform.position.z);

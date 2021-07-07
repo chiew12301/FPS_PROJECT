@@ -49,7 +49,7 @@ public class PlayerMovementNew : MonoBehaviour
     void Start()
     {
         p_Direction = 0;
-        controller.GetComponent<CharacterController>().detectCollisions = false;
+        //controller.GetComponent<CharacterController>().detectCollisions = false;
     }
 
     // Update is called once per frame

@@ -50,6 +50,7 @@ public class Objective : MonoBehaviour
            // this.NextObjective.Target.GetComponentInParent<animator>().SetTrigger(this.TriggerName);
 
         a.CurrentObjective = this.NextObjective;
+        
     }
 
     private void PlayAnimation()

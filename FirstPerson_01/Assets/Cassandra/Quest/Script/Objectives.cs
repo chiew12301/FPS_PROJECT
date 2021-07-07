@@ -35,6 +35,13 @@ public class Objectives : MonoBehaviour
 
     void Update()
     {
-        this.CurrentObjectiveDescription.text = this.CurrentObjective.Description;
+        if(this.CurrentObjective == null)
+        {
+            this.CurrentObjectiveDescription.text = "Complete";
+        }
+        else
+        {
+            this.CurrentObjectiveDescription.text = this.CurrentObjective.Description;
+        }
     }
 }
