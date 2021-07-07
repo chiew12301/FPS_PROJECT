@@ -17027,7 +17027,7 @@ PrefabInstance:
     - target: {fileID: 7573096552335840723, guid: cadb74b3f39d7244d8c95854ba5d3b05, type: 3}
       propertyPath: SFXsounds.Array.data[2].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 254963e1d534be74e833d576dc477168, type: 3}
+      objectReference: {fileID: 8300000, guid: 01d34508f91cb8e4783d730af301c6cc, type: 3}
     - target: {fileID: 7573096552335840723, guid: cadb74b3f39d7244d8c95854ba5d3b05, type: 3}
       propertyPath: SFXsounds.Array.data[6].loop
       value: 1
@@ -20382,7 +20382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   range: 100
-  fireRate: 15
+  fireRate: 5
   zoomValue: 15
   unZoomValue: 0
   isZoom: 0
