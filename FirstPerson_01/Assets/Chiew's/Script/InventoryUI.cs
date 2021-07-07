@@ -35,37 +35,42 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if(PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.INVENTORYUI)
         {
-            for (int i = 0; i < buttonObject.Length; i++)
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
-            }
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-            CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
-            if(CraftingUI_OBJ.activeSelf == true)
-            {
-                CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
-                PauseManager.instance.setIsPause(true);
-                for (int j = 0; j < questObjects.Length; j++)
+                for (int i = 0; i < buttonObject.Length; i++)
                 {
-                    questObjects[j].SetActive(false);
-                    PauseMenuCanvas.enabled = false;
+                    buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
+                }
+                inventoryUI.SetActive(!inventoryUI.activeSelf);
+                CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
+                if (CraftingUI_OBJ.activeSelf == true)
+                {
+                    CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
+                    PauseManager.instance.setIsPause(true);
+                    for (int j = 0; j < questObjects.Length; j++)
+                    {
+                        questObjects[j].SetActive(false);
+                        PauseMenuCanvas.enabled = false;
+                    }
+                    PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
+                }
+                if (inventoryUI.activeSelf == false)
+                {
+                    for (int i = 0; i < slots.Length; i++)
+                    {
+                        slots[i].setDescriptionActiveState(false);
+                    }
+                    PauseManager.instance.setIsPause(false);
+                    for (int j = 0; j < questObjects.Length; j++)
+                    {
+                        questObjects[j].SetActive(true);
+                        PauseMenuCanvas.enabled = true;
+                    }
+                    PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                 }
             }
-            if (inventoryUI.activeSelf == false)
-            {
-                for (int i = 0; i < slots.Length; i++)
-                {
-                    slots[i].setDescriptionActiveState(false);
-                }
-                PauseManager.instance.setIsPause(false);
-                for(int j = 0; j < questObjects.Length; j++)
-                {
-                    questObjects[j].SetActive(true);
-                    PauseMenuCanvas.enabled = true;
-                }
-            }     
         }
 
         /*if(inventoryUI.activeSelf == true)
