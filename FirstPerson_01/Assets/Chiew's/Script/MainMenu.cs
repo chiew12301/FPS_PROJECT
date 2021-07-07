@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Animator MM_animator;
     [SerializeField] GameObject Creadit;
     [SerializeField] GameObject Setting;
+    [SerializeField] GameObject instruction_OBJ;
     [SerializeField] LevelLoader LV_loader;
 
     const string MM_ANIMATION_FADEIN = "FadeIn";
@@ -39,7 +40,7 @@ public class MainMenu : MonoBehaviour
     {
         if(stat == true)//turn on all the main menu assets, and play fade in
         {
-            MM_bg.gameObject.SetActive(true); MM_buttonParent.SetActive(true); MM_title.gameObject.SetActive(true); Creadit.SetActive(false);
+            MM_bg.gameObject.SetActive(true); MM_buttonParent.SetActive(true); MM_title.gameObject.SetActive(true); Creadit.SetActive(false); instruction_OBJ.SetActive(false);
             if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(MM_ANIMATION_FADEIN) != true)
             {
                 MM_animator.Play(MM_ANIMATION_FADEIN);
@@ -97,6 +98,12 @@ public class MainMenu : MonoBehaviour
             MM_animator.Play(CREDIT_IN);
         }
         AudioManager.instance.Play("GameBGM", "BGM");
+    }
+
+    public void InstructionButtom()
+    {
+        MainMenuStatus(false);
+        instruction_OBJ.SetActive(true);
     }
 
     public void BackToMainMenu()
