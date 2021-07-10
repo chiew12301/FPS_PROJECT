@@ -21,6 +21,8 @@ public class BoidSettings : ScriptableObject {
     public GameObject boundTarget;
     //public float boidBoundsRadius = 40.0f;
 
+    public Vector3 yMinMax;
+
     [Header ("Collisions")]
     public LayerMask obstacleMask;
     public float boundsRadius = .27f;

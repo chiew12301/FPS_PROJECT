@@ -23,6 +23,7 @@ MonoBehaviour:
   targetWeight: 3
   detectionRange: 20
   boundTarget: {fileID: 3559297176007848099, guid: 4cde6ba5a87074e8a973d577574f33c1, type: 3}
+  yMinMax: {x: 0, y: 20, z: 0}
   obstacleMask:
     serializedVersion: 2
     m_Bits: 1536

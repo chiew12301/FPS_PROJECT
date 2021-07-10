@@ -71,7 +71,7 @@ public class Boid : MonoBehaviour {
         else
         {
             SetColour(Color.blue);
-        }
+        }       
 
         if (numPerceivedFlockmates != 0) {
             centreOfFlockmates /= numPerceivedFlockmates;
@@ -102,6 +102,14 @@ public class Boid : MonoBehaviour {
         //    Debug.DrawRay(position, settings.boundTarget.transform.position - position, Color.black);
         //    acceleration += move;
         //}
+        if (position.y < settings.yMinMax.x || position.y > settings.yMinMax.y)
+        {
+            var newPos = position;
+            newPos.y = Mathf.Clamp(newPos.y, settings.yMinMax.x, settings.yMinMax.y);
+            position = newPos;           
+        }
+
+        //Debug.Log("Pos Y = " + position.y + ". Cached Y = " + cachedTransform.position.y);
 
         velocity += acceleration * Time.deltaTime;
         float speed = velocity.magnitude;
@@ -111,8 +119,9 @@ public class Boid : MonoBehaviour {
 
         if (cachedTransform != null)
         {
+            cachedTransform.position = position;
             cachedTransform.position += velocity * Time.deltaTime;
-            cachedTransform.forward = dir;
+            cachedTransform.forward = dir;                     
             position = cachedTransform.position;
             forward = dir;
         }
