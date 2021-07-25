@@ -12,6 +12,7 @@ public class Boid : MonoBehaviour {
     [HideInInspector]
     public Vector3 forward;
     Vector3 velocity;
+    bool isIdle;
 
     // To update:
     [HideInInspector]
@@ -34,6 +35,7 @@ public class Boid : MonoBehaviour {
     {
         material = transform.GetComponentInChildren<MeshRenderer>().material;
         cachedTransform = transform;
+        isIdle = false;
     }
 
     public void Initialize (BoidSettings settings, Transform target) {
@@ -117,8 +119,10 @@ public class Boid : MonoBehaviour {
         speed = Mathf.Clamp (speed, settings.minSpeed, settings.maxSpeed);
         velocity = dir * speed;
 
-        if (cachedTransform != null)
-        {
+        //RandomIdle();
+
+        if (cachedTransform != null && isIdle == false)
+        {         
             cachedTransform.position = position;
             cachedTransform.position += velocity * Time.deltaTime;
             cachedTransform.forward = dir;                     
@@ -127,7 +131,9 @@ public class Boid : MonoBehaviour {
         }
         else
         {
-            return;
+            velocity = Vector3.zero;
+            position += velocity * Time.deltaTime;
+            
         }       
     }
 
@@ -168,6 +174,20 @@ public class Boid : MonoBehaviour {
         return Vector3.ClampMagnitude (v, settings.maxSteerForce);
     }   
 
+    public bool RandomIdle()
+    {
+        int randomInt = (Random.Range(0, 50));
+
+        if (randomInt == 2)
+        {
+            return isIdle = true;
+        }
+        else
+        {
+            return isIdle = false;
+        }      
+    }    
+
     public bool IsInAttackRange()
     {
         if (Vector3.Distance(target.position, position) <= settings.attackRange)
@@ -176,5 +196,18 @@ public class Boid : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public bool IsIdle
+    {
+        get
+        {
+            return this.isIdle;
+        }
+
+        set
+        {
+            isIdle = value;
+        }
     }
 }

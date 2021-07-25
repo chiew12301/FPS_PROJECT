@@ -31,4 +31,7 @@ public class BoidSettings : ScriptableObject {
 
     [Header("Attack")]
     public float attackRange = 1.0f;
+
+    [Header("Idle")]
+    public bool isIdle = false;
 }
