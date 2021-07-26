@@ -7,7 +7,7 @@ public class Objectives : MonoBehaviour
 {
     public Objective CurrentObjective;
     private Objective[] PlayerObjectives;
-    public RawImage CurrentObjectiveArrow;
+    //public Image CurrentObjectiveArrow;
 
     public Text CurrentObjectiveDescription;
 
