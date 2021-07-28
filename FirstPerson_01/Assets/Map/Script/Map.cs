@@ -19,13 +19,19 @@ public class Map : MonoBehaviour
         {
             MapCanvas.enabled = !MapCanvas.enabled;
 
-            if(Time.timeScale >= 1.0f)
+            if (Time.timeScale >= 1.0f)
             {
                 Time.timeScale = 0.0001f;
+
+                //Cursor.lockState = CursorLockMode.None;
+                //Cursor.visible = true;
             }
             else
             {
                 Time.timeScale = 1f;
+
+                //Cursor.lockState = CursorLockMode.Locked;
+                //Cursor.visible = false;
             }
 
         }
