@@ -17,8 +17,8 @@ MonoBehaviour:
   perceptionRadius: 2.5
   avoidanceRadius: 2
   maxSteerForce: 8
-  alignWeight: 5
-  cohesionWeight: 2
+  alignWeight: 0
+  cohesionWeight: 1
   seperateWeight: 2
   targetWeight: 3
   detectionRange: 20
@@ -31,3 +31,4 @@ MonoBehaviour:
   avoidCollisionWeight: 8
   collisionAvoidDst: 30
   attackRange: 2.5
+  isIdle: 0
