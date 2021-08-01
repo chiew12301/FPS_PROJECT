@@ -11,9 +11,13 @@ public class Chase : StateMachineBehaviour
     public float avoidanceRadius = 1;
     public float maxSteerForce = 3;
 
+    public float alignWeight = 1;
+    public float cohesionWeight = 1;
+    public float seperateWeight = 1;
+
     [Header("Target Settings")]
-    public GameObject target;
-    public float targetWeight = 1;
+    //public GameObject targetObject;
+    public float targetWeight = 5;
     public float detectionRange = 10.0f;
 
     [Header("Collisions")]
@@ -30,9 +34,18 @@ public class Chase : StateMachineBehaviour
 
     [HideInInspector]
     public Vector3 acceleration;
+    [HideInInspector]
+    public Vector3 avgFlockHeading;
+    [HideInInspector]
+    public Vector3 avgAvoidanceHeading;
+    [HideInInspector]
+    public Vector3 centreOfFlockmates;
+    [HideInInspector]
+    public int numPerceivedFlockmates;   
 
     Material material;
-    Transform cachedTransform;   
+    Transform cachedTransform;
+    Transform target;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -41,8 +54,10 @@ public class Chase : StateMachineBehaviour
         cachedTransform = animator.transform;
         position = cachedTransform.position;
         forward = cachedTransform.forward;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        //target = targetObject.GetComponent<Transform>().transform;
 
-        float startSpeed = maxSpeed;
+        float startSpeed = (minSpeed + maxSpeed) / 2;
         velocity = animator.transform.forward * startSpeed;
     }
 
@@ -51,13 +66,33 @@ public class Chase : StateMachineBehaviour
     {
         if (!IsInRange())
         {
-            animator.SetBool("IsInRange", false);
+            animator.GetComponent<Animator>().SetBool("IsInRange", false);
         }
 
-        if (target != null && IsInRange())
+        ChaseState();
+    }
+
+    void ChaseState()
+    {
+        if (target != null)
         {
             Vector3 offsetToTarget = (target.transform.position - position);
             acceleration += SteerTowards(offsetToTarget) * targetWeight;
+        }
+
+        if (numPerceivedFlockmates != 0)
+        {
+            centreOfFlockmates /= numPerceivedFlockmates;
+
+            Vector3 offsetToFlockmatesCentre = (centreOfFlockmates - position);
+
+            var alignmentForce = SteerTowards(avgFlockHeading) * alignWeight;
+            var cohesionForce = SteerTowards(offsetToFlockmatesCentre) * cohesionWeight;
+            var seperationForce = SteerTowards(avgAvoidanceHeading) * seperateWeight;
+
+            acceleration += alignmentForce;
+            acceleration += cohesionForce;
+            acceleration += seperationForce;
         }
 
         if (IsHeadingForCollision())

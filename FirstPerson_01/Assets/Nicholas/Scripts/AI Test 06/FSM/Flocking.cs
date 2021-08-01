@@ -17,8 +17,6 @@ public class Flocking : StateMachineBehaviour
     public float seperateWeight = 1;
 
     [Header("Target Settings")]
-    public GameObject target;
-    public float targetWeight = 1;
     public float detectionRange = 10.0f;
 
     // for collision purposes
@@ -47,6 +45,7 @@ public class Flocking : StateMachineBehaviour
 
     Material material;
     Transform cachedTransform;  // this boid
+    Transform target;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -56,6 +55,8 @@ public class Flocking : StateMachineBehaviour
 
         position = cachedTransform.position;
         forward = cachedTransform.forward;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        //targetObject = animator.gameObject;
 
         float startSpeed = (minSpeed + maxSpeed) / 2;
         velocity = animator.transform.forward * startSpeed;
@@ -68,9 +69,14 @@ public class Flocking : StateMachineBehaviour
 
         if (IsInRange())
         {
-            animator.SetBool("IsInRange", true);
+            animator.GetComponent<Animator>().SetBool("IsInRange", true);
         }
 
+        FlockState();
+    }
+
+    void FlockState()
+    {
         if (numPerceivedFlockmates != 0)
         {
             centreOfFlockmates /= numPerceivedFlockmates;
@@ -152,10 +158,4 @@ public class Flocking : StateMachineBehaviour
 
         return false;
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
 }

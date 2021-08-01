@@ -20,7 +20,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -73,7 +73,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -93,11 +93,13 @@ MonoBehaviour:
   minSpeed: 8
   maxSpeed: 10
   perceptionRadius: 2.5
-  avoidanceRadius: 1
+  avoidanceRadius: 2
   maxSteerForce: 8
-  target: {fileID: 1326646428424858107, guid: 6e84aebf62a244f41bf3c5e282729da7, type: 3}
-  targetWeight: 3
-  detectionRange: 50
+  alignWeight: 2
+  cohesionWeight: 2
+  seperateWeight: 2
+  targetWeight: 4
+  detectionRange: 20
   obstacleMask:
     serializedVersion: 2
     m_Bits: 1536
@@ -107,6 +109,10 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   forward: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
+  avgFlockHeading: {x: 0, y: 0, z: 0}
+  avgAvoidanceHeading: {x: 0, y: 0, z: 0}
+  centreOfFlockmates: {x: 0, y: 0, z: 0}
+  numPerceivedFlockmates: 0
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -117,6 +123,12 @@ AnimatorController:
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: IsInRange
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: ToChase
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -174,10 +186,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 370219444774128247}
-    m_Position: {x: 320, y: 60, z: 0}
+    m_Position: {x: 310, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8618099180476477143}
-    m_Position: {x: 350, y: 180, z: 0}
+    m_Position: {x: 310, y: 180, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -205,12 +217,10 @@ MonoBehaviour:
   perceptionRadius: 2.5
   avoidanceRadius: 2
   maxSteerForce: 8
-  alignWeight: 2
-  cohesionWeight: 2
-  seperateWeight: 2
-  target: {fileID: 1326646428424858107, guid: 6e84aebf62a244f41bf3c5e282729da7, type: 3}
-  targetWeight: 3
-  detectionRange: 50
+  alignWeight: 3
+  cohesionWeight: 3
+  seperateWeight: 3
+  detectionRange: 20
   obstacleMask:
     serializedVersion: 2
     m_Bits: 1536

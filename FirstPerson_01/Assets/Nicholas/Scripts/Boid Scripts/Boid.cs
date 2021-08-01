@@ -148,6 +148,7 @@ public class Boid : MonoBehaviour {
 
     bool IsInRange()
     {
+        Debug.Log(Vector3.Distance(position, target.position));
         if (Vector3.Distance(position, target.position) <= defaultSettings.detectionRange)
         {
             return true;
