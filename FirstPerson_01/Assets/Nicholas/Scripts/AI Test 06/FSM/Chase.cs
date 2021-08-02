@@ -19,6 +19,7 @@ public class Chase : StateMachineBehaviour
     //public GameObject targetObject;
     public float targetWeight = 5;
     public float detectionRange = 10.0f;
+    public float chaseCooldown = 5.0f;
 
     [Header("Collisions")]
     public LayerMask obstacleMask;
@@ -47,6 +48,8 @@ public class Chase : StateMachineBehaviour
     Transform cachedTransform;
     Transform target;
 
+    float timer;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -57,19 +60,30 @@ public class Chase : StateMachineBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         //target = targetObject.GetComponent<Transform>().transform;
 
+        timer = chaseCooldown;
+
         float startSpeed = (minSpeed + maxSpeed) / 2;
         velocity = animator.transform.forward * startSpeed;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
+    {    
+        ChaseState();
+
         if (!IsInRange())
         {
-            animator.GetComponent<Animator>().SetBool("IsInRange", false);
+            animator.GetComponent<Animator>().SetBool("ToChase", false);
         }
 
-        ChaseState();
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        else if (timer <= 0)
+        {
+            animator.GetComponent<Animator>().SetBool("ToFlee", true);
+        }       
     }
 
     void ChaseState()

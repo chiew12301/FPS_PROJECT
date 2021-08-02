@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flocking : StateMachineBehaviour
+public class Flee : StateMachineBehaviour
 {
-    // all variables that are currently being used for flocking
     [Header("Boid Variables")]
     public float minSpeed = 2;
     public float maxSpeed = 5;
@@ -17,9 +16,10 @@ public class Flocking : StateMachineBehaviour
     public float seperateWeight = 1;
 
     [Header("Target Settings")]
+    public float targetWeight = 5;
     public float detectionRange = 10.0f;
+    public float fleeCooldown = 5.0f;
 
-    // for collision purposes
     [Header("Collisions")]
     public LayerMask obstacleMask;
     public float boundsRadius = .27f;
@@ -44,53 +44,47 @@ public class Flocking : StateMachineBehaviour
     public int numPerceivedFlockmates;
 
     Material material;
-    Transform cachedTransform;  // this boid
+    Transform cachedTransform;
     Transform target;
+
+    float timer;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         material = animator.transform.GetComponentInChildren<MeshRenderer>().material;
         cachedTransform = animator.transform;
-
         position = cachedTransform.position;
         forward = cachedTransform.forward;
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
+        timer = fleeCooldown;
+
         float startSpeed = (minSpeed + maxSpeed) / 2;
         velocity = animator.transform.forward * startSpeed;
-
-        animator.GetComponent<Animator>().SetBool("ToChase", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        acceleration = Vector3.zero;
+        FleeState();
 
-        if (IsInRange())
+        if (timer > 0)
         {
-            animator.GetComponent<Animator>().SetBool("ToChase", true);
+            timer -= Time.deltaTime;
         }
-
-        FlockState();             
+        else if (timer <= 0)
+        {
+            animator.GetComponent<Animator>().SetBool("ToFlee", false);
+        }
     }
 
-    void FlockState()
+    void FleeState()
     {
-        if (numPerceivedFlockmates != 0)
+        if (target != null)
         {
-            centreOfFlockmates /= numPerceivedFlockmates;
-
-            Vector3 offsetToFlockmatesCentre = (centreOfFlockmates - position);
-
-            var alignmentForce = SteerTowards(avgFlockHeading) * alignWeight;
-            var cohesionForce = SteerTowards(offsetToFlockmatesCentre) * cohesionWeight;
-            var seperationForce = SteerTowards(avgAvoidanceHeading) * seperateWeight;
-
-            acceleration += alignmentForce;
-            acceleration += cohesionForce;
-            acceleration += seperationForce;
+            Vector3 offsetToTarget = (position - target.transform.position);
+            acceleration += SteerTowards(offsetToTarget) * targetWeight;
         }
 
         if (IsHeadingForCollision())
@@ -127,6 +121,16 @@ public class Flocking : StateMachineBehaviour
         return false;
     }
 
+    bool IsInRange()
+    {
+        if (Vector3.Distance(position, target.transform.position) <= detectionRange)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     Vector3 ObstacleRays()
     {
         Vector3[] rayDirections = BoidHelper.directions;
@@ -148,15 +152,5 @@ public class Flocking : StateMachineBehaviour
     {
         Vector3 v = vector.normalized * maxSpeed - velocity;
         return Vector3.ClampMagnitude(v, maxSteerForce);
-    }
-
-    bool IsInRange()
-    {
-        if (Vector3.Distance(position, target.transform.position) <= detectionRange)
-        {
-            return true;
-        }
-
-        return false;
     }
 }
