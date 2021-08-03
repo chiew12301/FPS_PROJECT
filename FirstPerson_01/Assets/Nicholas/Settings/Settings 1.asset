@@ -17,12 +17,13 @@ MonoBehaviour:
   perceptionRadius: 2.5
   avoidanceRadius: 3
   maxSteerForce: 8
-  alignWeight: 5
-  cohesionWeight: 2
+  alignWeight: 0
+  cohesionWeight: 1
   seperateWeight: 2
   targetWeight: 3
   detectionRange: 50
   boundTarget: {fileID: 3559297176007848099, guid: 4cde6ba5a87074e8a973d577574f33c1, type: 3}
+  yMinMax: {x: 0, y: 20, z: 0}
   obstacleMask:
     serializedVersion: 2
     m_Bits: 3840
@@ -30,3 +31,4 @@ MonoBehaviour:
   avoidCollisionWeight: 10
   collisionAvoidDst: 30
   attackRange: 2.5
+  isIdle: 0
