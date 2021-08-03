@@ -60,24 +60,31 @@ public class Flocking : StateMachineBehaviour
         float startSpeed = (minSpeed + maxSpeed) / 2;
         velocity = animator.transform.forward * startSpeed;
 
-        animator.GetComponent<Animator>().SetBool("ToChase", false);
+        //animator.GetComponent<Animator>().SetBool("ToChase", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        acceleration = Vector3.zero;
+        acceleration = Vector3.zero;       
+
+        FlockState();
 
         if (IsInRange())
         {
             animator.GetComponent<Animator>().SetBool("ToChase", true);
         }
-
-        FlockState();             
     }
 
     void FlockState()
     {
+        if (IsHeadingForCollision())
+        {
+            Vector3 collisionAvoidDir = ObstacleRays();
+            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * avoidCollisionWeight;
+            acceleration += collisionAvoidForce;
+        }
+
         if (numPerceivedFlockmates != 0)
         {
             centreOfFlockmates /= numPerceivedFlockmates;
@@ -91,14 +98,7 @@ public class Flocking : StateMachineBehaviour
             acceleration += alignmentForce;
             acceleration += cohesionForce;
             acceleration += seperationForce;
-        }
-
-        if (IsHeadingForCollision())
-        {
-            Vector3 collisionAvoidDir = ObstacleRays();
-            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * avoidCollisionWeight;
-            acceleration += collisionAvoidForce;
-        }
+        }       
 
         velocity += acceleration * Time.deltaTime;
         float speed = velocity.magnitude;

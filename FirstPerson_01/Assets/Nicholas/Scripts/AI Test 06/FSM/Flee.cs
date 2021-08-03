@@ -80,18 +80,18 @@ public class Flee : StateMachineBehaviour
     }
 
     void FleeState()
-    {
-        if (target != null)
-        {
-            Vector3 offsetToTarget = (position - target.transform.position);
-            acceleration += SteerTowards(offsetToTarget) * targetWeight;
-        }
-
+    {      
         if (IsHeadingForCollision())
         {
             Vector3 collisionAvoidDir = ObstacleRays();
             Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * avoidCollisionWeight;
             acceleration += collisionAvoidForce;
+        }
+
+        if (target != null)
+        {
+            Vector3 offsetToTarget = (position - target.transform.position);
+            acceleration += SteerTowards(offsetToTarget) * targetWeight;
         }
 
         velocity += acceleration * Time.deltaTime;

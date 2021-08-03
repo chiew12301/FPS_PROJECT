@@ -65,20 +65,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aaae59b161bb504a993c914a79ed574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 5
-  maxSpeed: 8
+  minSpeed: 8
+  maxSpeed: 10
   perceptionRadius: 2.5
   avoidanceRadius: 2
-  maxSteerForce: 6
+  maxSteerForce: 8
   alignWeight: 2
   cohesionWeight: 2
   seperateWeight: 3
-  targetWeight: 4
-  detectionRange: 20
-  fleeCooldown: 5
+  targetWeight: 2
+  detectionRange: 50
+  fleeCooldown: 2
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 3840
   boundsRadius: 0.27
   avoidCollisionWeight: 10
   collisionAvoidDst: 5
@@ -101,22 +101,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d590dd94a19df7408c94c172807dc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 5
-  maxSpeed: 8
+  minSpeed: 8
+  maxSpeed: 10
   perceptionRadius: 2.5
   avoidanceRadius: 2
-  maxSteerForce: 6
+  maxSteerForce: 8
   alignWeight: 2
   cohesionWeight: 2
   seperateWeight: 3
   targetWeight: 4
-  detectionRange: 20
+  detectionRange: 50
   chaseCooldown: 5
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 3840
   boundsRadius: 0.27
-  avoidCollisionWeight: 5
+  avoidCollisionWeight: 10
   collisionAvoidDst: 30
   position: {x: 0, y: 0, z: 0}
   forward: {x: 0, y: 0, z: 0}
@@ -139,13 +139,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: ToFlee
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -232,7 +232,7 @@ AnimatorStateMachine:
     m_Position: {x: 280, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3733141584349202407}
-    m_Position: {x: 530, y: 120, z: 0}
+    m_Position: {x: 540, y: 120, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -305,18 +305,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a749b5b60210b47aaeaaebcc726795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 5
-  maxSpeed: 8
+  minSpeed: 10
+  maxSpeed: 20
   perceptionRadius: 2.5
   avoidanceRadius: 2
-  maxSteerForce: 6
-  alignWeight: 3
-  cohesionWeight: 3
+  maxSteerForce: 8
+  alignWeight: 5
+  cohesionWeight: 5
   seperateWeight: 3
-  detectionRange: 20
+  detectionRange: 50
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 3840
   boundsRadius: 0.27
   avoidCollisionWeight: 10
   collisionAvoidDst: 30
