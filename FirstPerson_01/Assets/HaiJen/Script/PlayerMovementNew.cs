@@ -31,8 +31,11 @@ public class PlayerMovementNew : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
 
+    public ObstacleDetect vaultObject;
+
     public GameObject eqMenu;
     public Transform groundCheck;
+    public Transform endPoint;
     public float groundDistance = 200.0f;
     public LayerMask groundMask;
     public float runMultiply = 2.0f;
@@ -45,7 +48,10 @@ public class PlayerMovementNew : MonoBehaviour
     public bool isRunning;
     public bool isWalking;
     public bool isCrouching;
-    
+
+    private Vector3 RecordedMoveToPosition; 
+    private Vector3 RecordedStartPosition; 
+
     void Start()
     {
         p_Direction = 0;
@@ -116,14 +122,18 @@ public class PlayerMovementNew : MonoBehaviour
             controller.height = standingHeight;
         }
 
+        RecordedMoveToPosition = endPoint.position;
+        RecordedStartPosition = transform.position;
         controller.Move(move * speed * Time.deltaTime);
-
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if (vaultObject.obstruction && Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            //velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            controller.enabled = false;
+            transform.position = (Vector3.Lerp(RecordedStartPosition, RecordedMoveToPosition, 0.1f) * Time.deltaTime);
+            controller.enabled = true;
             isGrounded = false;
         }
-
+        gravity = -25f;
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 

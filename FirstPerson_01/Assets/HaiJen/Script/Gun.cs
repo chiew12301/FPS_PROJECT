@@ -45,10 +45,15 @@ public class Gun : MonoBehaviour
         {
             bloomRange = 12f;
         }
+        else if (player.GetComponent<PlayerMovementNew>().isCrouching)
+        {
+            bloomRange = 4f;
+        }
         else
         {
             bloomRange = 8f;
         }
+
         if (isReloading)
             return;
         if(curAmmo<=0||Input.GetKeyDown(KeyCode.R))

@@ -12,6 +12,7 @@ public class Crosshair : MonoBehaviour
     public float size;
     public float runSize;
     public float walkSize;
+    public float crouchSize;
     public float speed;
     private float currentSize;
     // Start is called before the first frame update
@@ -30,6 +31,10 @@ public class Crosshair : MonoBehaviour
         else if(player.GetComponent<PlayerMovementNew>().isWalking)
         {
             currentSize = Mathf.Lerp(currentSize, walkSize, Time.deltaTime * speed);
+        }
+        else if (player.GetComponent<PlayerMovementNew>().isCrouching)
+        {
+            currentSize = Mathf.Lerp(currentSize, crouchSize, Time.deltaTime * speed);
         }
         else
         {
