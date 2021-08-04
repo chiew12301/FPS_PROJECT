@@ -125,11 +125,13 @@ public class PlayerMovementNew : MonoBehaviour
         RecordedMoveToPosition = endPoint.position;
         RecordedStartPosition = transform.position;
         controller.Move(move * speed * Time.deltaTime);
+        float timer;
         if (vaultObject.obstruction && Input.GetButtonDown("Jump") && isGrounded)
         {
             //velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            timer = Time.deltaTime / 0.1f;
             controller.enabled = false;
-            transform.position = (Vector3.Lerp(RecordedStartPosition, RecordedMoveToPosition, 0.1f) * Time.deltaTime);
+            transform.position = Vector3.Lerp(RecordedStartPosition, RecordedMoveToPosition, timer);
             controller.enabled = true;
             isGrounded = false;
         }
