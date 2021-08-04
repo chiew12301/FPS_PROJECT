@@ -5,7 +5,7 @@ using UnityEngine;
 public class PointerController : MonoBehaviour
 {
     public GameObject pointer;
-    private GameObject target; //where want the pointer point towards
+    public GameObject target; //where want the pointer point towards
     public GameObject player;
     public RectTransform compassLine;
     RectTransform rect;
@@ -19,26 +19,14 @@ public class PointerController : MonoBehaviour
     {
         Vector3[] v = new Vector3[4];
 
-        
-        if(player.GetComponent<Objectives>().CurrentObjective == null)
-        {
-            gameObject.SetActive(false);
-            player.GetComponent<Objectives>().CurrentObjectiveArrow.enabled = false;
-        }
-        else
-        {
-            player.GetComponent<Objectives>().CurrentObjectiveArrow.enabled = true;
-            target = player.GetComponent<Objectives>().CurrentObjective.Target;
-            gameObject.SetActive(true);
-            compassLine.GetLocalCorners(v);
-            float pointerScale = Vector3.Distance(v[1], v[2]); //both bottom corners
+        target = player.GetComponent<Objectives>().CurrentObjective.Target;
 
-            Vector3 direction = target.transform.position - player.transform.position;
-            float angleToTarget = Vector3.SignedAngle(player.transform.forward, direction, player.transform.up);
-            angleToTarget = Mathf.Clamp(angleToTarget, -90, 90) / 180.0f * pointerScale;
+        compassLine.GetLocalCorners(v);
+        float pointerScale = Vector3.Distance(v[1], v[2]); //both bottom corners
 
-            rect.localPosition = new Vector3(angleToTarget, rect.localPosition.y, rect.localPosition.z);
-        }
-        
+        Vector3 direction = target.transform.position - player.transform.position;
+        float angleToTarget = Vector3.SignedAngle(player.transform.forward, direction, player.transform.up);
+        angleToTarget = Mathf.Clamp(angleToTarget, -90, 90) / 180.0f * pointerScale;
+        rect.localPosition = new Vector3(angleToTarget, rect.localPosition.y, rect.localPosition.z);
     }
 }
