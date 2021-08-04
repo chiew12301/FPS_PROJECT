@@ -150,7 +150,7 @@ public class Flocking : StateMachineBehaviour
         return Vector3.ClampMagnitude(v, maxSteerForce);
     }
 
-    bool IsInRange()
+    public bool IsInRange()
     {
         if (Vector3.Distance(position, target.transform.position) <= detectionRange)
         {
