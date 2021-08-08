@@ -115,6 +115,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public bool CheckHaveItem(Item item)
+    {
+        foreach (StackItem si in items)
+        {
+            if(si.item == item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public bool CheckIsFull()
     {
         if (items.Count >= space)
