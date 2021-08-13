@@ -20091,6 +20091,7 @@ GameObject:
   - component: {fileID: 1392644479}
   - component: {fileID: 1392644475}
   - component: {fileID: 1392644480}
+  - component: {fileID: 1392644481}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -20231,6 +20232,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentObjective: {fileID: 614883787}
   CurrentObjectiveDescription: {fileID: 1556820583}
+--- !u!114 &1392644481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392644473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c971a40862a1e4faa50d8e0ca45fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  i: {fileID: 0}
+  MedKit: {fileID: 0}
+  currHealthPoint: 0
 --- !u!1 &1404899734
 GameObject:
   m_ObjectHideFlags: 0
