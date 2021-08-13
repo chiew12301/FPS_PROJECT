@@ -68,7 +68,7 @@ public class Flocking : StateMachineBehaviour
     {
         acceleration = Vector3.zero;
 
-        if (IsInRange())
+        if (target != null && IsInRange())
         {
             animator.GetComponent<Animator>().SetBool("ToChase", true);
         }

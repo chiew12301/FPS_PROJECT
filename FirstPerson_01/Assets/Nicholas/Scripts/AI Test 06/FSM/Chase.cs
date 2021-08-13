@@ -76,19 +76,19 @@ public class Chase : StateMachineBehaviour
             animator.GetComponent<Animator>().SetBool("ToChase", false);
         }
 
-        if (timer > 0)
-        {
-            timer -= Time.deltaTime;
-        }
-        else if (timer <= 0)
-        {
-            animator.GetComponent<Animator>().SetBool("ToFlee", true);
-        }       
+        //if (timer > 0)
+        //{
+        //    timer -= Time.deltaTime;
+        //}
+        //else if (timer <= 0)
+        //{
+        //    animator.GetComponent<Animator>().SetBool("ToFlee", true);
+        //}       
     }
 
     void ChaseState()
     {
-        if (target != null)
+        if (target != null && IsInRange())
         {
             Vector3 offsetToTarget = (target.transform.position - position);
             acceleration += SteerTowards(offsetToTarget) * targetWeight;
