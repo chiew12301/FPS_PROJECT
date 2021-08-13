@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerProfiler : MonoBehaviour
 {
-    public Inventory i;
     public Item MedKit;
     public int currHealthPoint;
     private int maxHealthPoint = 100;
@@ -29,7 +28,7 @@ public class PlayerProfiler : MonoBehaviour
 
     public bool CheckMedKit()
     {
-        if (i.CheckHaveItem(MedKit))
+        if (Inventory.instance.CheckHaveItem(MedKit))
         {
             return true;
         }
@@ -62,5 +61,6 @@ public class PlayerProfiler : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         isHealing = false;
         currHealthPoint += 50;
+        Inventory.instance.Remove(MedKit);
     }
 }
