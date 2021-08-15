@@ -140,6 +140,21 @@ public class Inventory : MonoBehaviour
         return isFull;
     }
 
+    public int getItemStackAmount(Item i)
+    {
+        foreach (StackItem si in items)
+        {   
+            if (si.item.name == i.name)
+            {
+                if(si.curAmount > 0)
+                {
+                    return si.curAmount; //return the amount for item
+                }
+            }
+        }
+        return 0; //NO ITEM DETECTED
+    }
+
     public bool CheckStackFull(CraftingItem passInItem)
     {
         foreach (StackItem si in items)
