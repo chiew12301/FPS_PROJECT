@@ -7,7 +7,7 @@ public class PlayerProfiler : MonoBehaviour
     public Item MedKit;
     public int currHealthPoint;
     private int maxHealthPoint = 100;
-    private int medkitCurrentAmount;
+    public int medkitCurrentAmount;
     private int medkitMaxAmount;
     public bool isHealing;
 
@@ -24,6 +24,7 @@ public class PlayerProfiler : MonoBehaviour
         {
             UseMedkit();
         }
+        CheckMedKitAmount();
     }
 
     public bool CheckMedKit()
@@ -62,5 +63,10 @@ public class PlayerProfiler : MonoBehaviour
         isHealing = false;
         currHealthPoint += 50;
         Inventory.instance.Remove(MedKit);
+    }
+
+    public void CheckMedKitAmount()
+    {
+        medkitCurrentAmount = Inventory.instance.getItemStackAmount(MedKit);
     }
 }
