@@ -6,6 +6,7 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] GameObject FirstStart_OBJ;
     [SerializeField] Image MM_bg;
     [SerializeField] TextMeshProUGUI MM_title;
     [SerializeField] GameObject MM_buttonParent;
@@ -21,19 +22,43 @@ public class MainMenu : MonoBehaviour
     const string CREDIT_IN = "CreditIn";
     const string SETTING_IN = "SettingIn";
 
+    bool isStartOn = false;
+    bool isMMOn = false;
+
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         AudioManager.instance.StopAll();
-        MainMenuStatus(true);
+        MainMenuStatus(false);
+        isStartOn = false;
+        CheckFirstStart();
+        //MainMenuStatus(true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        CheckFirstStart();
         CheckSaveFile();
+    }
+
+    public void CheckFirstStart()
+    {
+        if(isStartOn == false)
+        {
+            FirstStart_OBJ.SetActive(true);
+            Creadit.SetActive(false); instruction_OBJ.SetActive(false);
+            MainMenuStatus(false);
+            if (Input.anyKey)
+            {
+                //turn off the whole objects and set to false
+                FirstStart_OBJ.SetActive(false);
+                MainMenuStatus(true);
+                isStartOn = true;
+            }
+        }
     }
 
     public void MainMenuStatus(bool stat)
@@ -50,6 +75,7 @@ public class MainMenu : MonoBehaviour
                 AudioManager.instance.StopAll();
                 AudioManager.instance.Play("MainMenuBGM", "BGM");
             }
+            isMMOn = true;
         }
         else 
         {
@@ -59,6 +85,7 @@ public class MainMenu : MonoBehaviour
             }
             AudioManager.instance.StopAll();
             AudioManager.instance.Play("MainMenuBGM", "GameBGM");
+            isMMOn = false;
         }
     }
 

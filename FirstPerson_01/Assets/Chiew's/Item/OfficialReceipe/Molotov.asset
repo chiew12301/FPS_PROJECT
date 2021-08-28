@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67983e3a3e4b8da408881ebaaedff4ee, type: 3}
+  m_Name: Molotov
+  m_EditorClassIdentifier: 
+  Materials:
+  - item: {fileID: 11400000, guid: 6a934041e43fa4a4eb29e29d17a0b166, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: c27163a312d15294582ee11b1b5507f2, type: 2}
+    amount: 3
+  - item: {fileID: 11400000, guid: c7c0998ec5a6cfe478976b0ca31acc1b, type: 2}
+    amount: 1
+  Results:
+    item: {fileID: 11400000, guid: f28b3b634180a124f9acc931a7df4352, type: 2}
+    amount: 1
