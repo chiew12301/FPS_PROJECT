@@ -1,10 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
-public class BoidSettings : ScriptableObject {
-    // Settings
+public class DefaultBoidSettings : ScriptableObject
+{
     public float minSpeed = 2;
     public float maxSpeed = 5;
     public float perceptionRadius = 2.5f;
@@ -18,20 +17,11 @@ public class BoidSettings : ScriptableObject {
     public float targetWeight = 1;
     public float detectionRange = 10.0f;
 
-    public GameObject boundTarget;
-    //public float boidBoundsRadius = 40.0f;
+    public GameObject target;
 
-    public Vector3 yMinMax;
-
-    [Header ("Collisions")]
+    [Header("Collisions")]
     public LayerMask obstacleMask;
     public float boundsRadius = .27f;
     public float avoidCollisionWeight = 10;
     public float collisionAvoidDst = 5;
-
-    [Header("Attack")]
-    public float attackRange = 1.0f;
-
-    [Header("Idle")]
-    public bool isIdle = false;
 }

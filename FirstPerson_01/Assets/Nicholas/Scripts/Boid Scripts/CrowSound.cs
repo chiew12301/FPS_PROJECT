@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CrowSound : MonoBehaviour
 {
-    Boid boid;
+    Flocking boid;
 
     // Start is called before the first frame update
     void Start()
     {
-        boid = GetComponent<Boid>();
+        boid = GetComponent<Flocking>();
     }
 
     // Update is called once per frame

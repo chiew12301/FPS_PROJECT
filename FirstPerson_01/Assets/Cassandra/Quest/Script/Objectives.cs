@@ -7,7 +7,7 @@ public class Objectives : MonoBehaviour
 {
     public Objective CurrentObjective;
     private Objective[] PlayerObjectives;
-    public RawImage CurrentObjectiveArrow;
+    //public Image CurrentObjectiveArrow;
 
     public Text CurrentObjectiveDescription;
 
@@ -33,15 +33,18 @@ public class Objectives : MonoBehaviour
         }
     }
 
-    void Update()
+    void OnGUI()
     {
-        if(this.CurrentObjective == null)
+        if(CurrentObjective != null)
         {
-            this.CurrentObjectiveDescription.text = "Complete";
+            CurrentObjectiveDescription.gameObject.SetActive(true);
+
+            CurrentObjectiveDescription.text = CurrentObjective.Description;            
         }
         else
         {
-            this.CurrentObjectiveDescription.text = this.CurrentObjective.Description;
+            CurrentObjectiveDescription.gameObject.SetActive(false);
         }
+
     }
 }
