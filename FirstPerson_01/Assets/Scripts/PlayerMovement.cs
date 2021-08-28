@@ -37,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckInput(); //Trigger Once
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            gameObject.GetComponent<PlayerProfiler>().UseMedkit();
+        }
     }
 
     private void CheckInput()

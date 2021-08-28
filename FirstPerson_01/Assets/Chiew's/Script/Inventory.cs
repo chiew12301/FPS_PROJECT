@@ -115,6 +115,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public bool CheckHaveItem(Item item)
+    {
+        foreach (StackItem si in items)
+        {
+            if(si.item == item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public bool CheckIsFull()
     {
         if (items.Count >= space)
@@ -126,6 +138,21 @@ public class Inventory : MonoBehaviour
             isFull = false;
         }
         return isFull;
+    }
+
+    public int getItemStackAmount(Item i)
+    {
+        foreach (StackItem si in items)
+        {   
+            if (si.item.name == i.name)
+            {
+                if(si.curAmount > 0)
+                {
+                    return si.curAmount; //return the amount for item
+                }
+            }
+        }
+        return 0; //NO ITEM DETECTED
     }
 
     public bool CheckStackFull(CraftingItem passInItem)
