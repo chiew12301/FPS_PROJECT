@@ -4388,7 +4388,8 @@ MonoBehaviour:
   TxtHealth: {fileID: 1062423789}
   Min: 0
   Max: 100
-  health: 0
+  health: 50
+  player: {fileID: 1392644473}
 --- !u!1 &293128326 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6334522115669559555, guid: 22d99a51b234656458dbaa5c63b76732, type: 3}

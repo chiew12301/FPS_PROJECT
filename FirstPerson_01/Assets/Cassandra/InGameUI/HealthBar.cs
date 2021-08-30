@@ -16,6 +16,8 @@ public class HealthBar : MonoBehaviour
 
     public int health;
 
+    [SerializeField]GameObject player;
+
     public void SetHealth(int health)
     {
         if(health != mCurrentValue)
@@ -57,6 +59,6 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        SetHealth(player.GetComponent<PlayerProfiler>().currHealthPoint);
     }
 }
