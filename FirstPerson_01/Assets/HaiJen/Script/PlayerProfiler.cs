@@ -49,20 +49,20 @@ public class PlayerProfiler : MonoBehaviour
         if(currHealthPoint < maxHealthPoint && CheckMedKit())
         {
             StartCoroutine(Heal());
-            if (currHealthPoint >= maxHealthPoint)
-            {
-                currHealthPoint = maxHealthPoint;
-            }
         }
     }
 
     IEnumerator Heal()
     {
+        Inventory.instance.Remove(MedKit);
         isHealing = true;
         yield return new WaitForSeconds(2.0f);
         isHealing = false;
         currHealthPoint += 50;
-        Inventory.instance.Remove(MedKit);
+        if (currHealthPoint >= maxHealthPoint)
+        {
+            currHealthPoint = maxHealthPoint;
+        }
     }
 
     public void CheckMedKitAmount()

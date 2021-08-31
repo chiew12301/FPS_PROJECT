@@ -126,20 +126,6 @@ public class PlayerMovementNew : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
-        if(isRunning)
-        {
-            AudioManager.instance.Play("Run", "SFX");
-        }
-        else if(isWalking)
-        {
-            AudioManager.instance.Play("Walk", "SFX");
-        }
-
-        if(p_Direction != PLAYER_STATE.P_IDLE || p_Direction != PLAYER_STATE.P_JUMP)
-        {
-            //AudioManager.instance.Play("Footstep", "SFX");
-        }
     }
 
     private void InputState()
@@ -162,6 +148,7 @@ public class PlayerMovementNew : MonoBehaviour
                 {
                     p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
                 }
+                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
@@ -175,6 +162,7 @@ public class PlayerMovementNew : MonoBehaviour
                     p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
                 }
                 isWalking = true;
+                AudioManager.instance.Play("Walk", "SFX");
             }
         }
         else if (Input.GetKey(KeyCode.S))
@@ -189,17 +177,20 @@ public class PlayerMovementNew : MonoBehaviour
                 p_Direction = PLAYER_STATE.P_RIGHTBACKWARD;
             }
             isWalking = true;
+            AudioManager.instance.Play("Walk", "SFX");
         }
         else if (Input.GetKey(KeyCode.A))
         {
             if (isRunning)
             {
                 p_Direction = PLAYER_STATE.P_LEFT;
+                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKLEFT;
                 isWalking = true;
+                AudioManager.instance.Play("Walk", "SFX");
             }
         }
         else if (Input.GetKey(KeyCode.D))
@@ -207,17 +198,21 @@ public class PlayerMovementNew : MonoBehaviour
             if (isRunning)
             {
                 p_Direction = PLAYER_STATE.P_RIGHT;
+                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKRIGHT;
                 isWalking = true;
+                AudioManager.instance.Play("Walk", "SFX");
             }
         }
         else
         {
             p_Direction = PLAYER_STATE.P_IDLE;
             isWalking = false;
+            AudioManager.instance.Stop("Walk", "SFX");
+            AudioManager.instance.Stop("Run", "SFX");
         }
     }
 }
