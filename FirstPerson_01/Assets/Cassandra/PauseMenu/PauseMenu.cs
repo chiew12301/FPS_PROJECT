@@ -12,6 +12,8 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+    public Animator canvas_animator;
+
     private void Start()
     {
        // GameIsPaused = false;
@@ -26,33 +28,17 @@ public class PauseMenu : MonoBehaviour
             {
                 if (PauseManager.instance.getIsPause() == true)
                 {
-                    PauseManager.instance.setIsPause(false);
+                    pauseMenuUI.SetActive(false);
+                    Resume();
+
+                    PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                 }
                 else
                 {
-                    PauseManager.instance.setIsPause(true);
-                }
-
-            }
-
-            if (PauseManager.instance.getIsPause() == true)
-            {
-                if (PauseManager.instance.getIsPause() == true)
-                {
                     pauseMenuUI.SetActive(true);
+                    StartCoroutine(playAnimation());
+                    Pause();
                 }
-                Pause();
-                PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
-            }
-            else
-            {
-                if (PauseManager.instance.getIsPause() == false)
-                {
-                    pauseMenuUI.SetActive(false);
-                }
-                Resume();
-
-                PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
             }
         }
     }
@@ -68,7 +54,6 @@ public class PauseMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        PauseManager.instance.setIsPause(true);
     }
 
     public void ResumeButton()
@@ -91,5 +76,15 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Quitting Game");
         Application.Quit();
 
+    }
+    IEnumerator playAnimation()
+    {
+        if (canvas_animator.GetCurrentAnimatorStateInfo(0).IsName("SettingIn") != true)
+        {
+            canvas_animator.Play("SettingIn");
+        }
+        yield return new WaitForSeconds(1.2f);
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
+        PauseManager.instance.setIsPause(true);
     }
 }

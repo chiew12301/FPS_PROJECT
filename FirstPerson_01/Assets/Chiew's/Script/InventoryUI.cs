@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -11,7 +13,9 @@ public class InventoryUI : MonoBehaviour
     [Header("This is for Quest Pointer Objects")]
     public GameObject[] questObjects;
 
-    public Canvas PauseMenuCanvas;
+    public GameObject PauseMenuCanvas;
+
+    public Animator canvas_animator;
 
     Inventory inventory;
 
@@ -48,13 +52,12 @@ public class InventoryUI : MonoBehaviour
                 if (CraftingUI_OBJ.activeSelf == true)
                 {
                     CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
-                    PauseManager.instance.setIsPause(true);
                     for (int j = 0; j < questObjects.Length; j++)
                     {
                         questObjects[j].SetActive(false);
-                        PauseMenuCanvas.enabled = false;
+                        PauseMenuCanvas.gameObject.SetActive(false);
                     }
-                    PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
+                    StartCoroutine(playAnimation());
                 }
                 if (inventoryUI.activeSelf == false)
                 {
@@ -66,7 +69,7 @@ public class InventoryUI : MonoBehaviour
                     for (int j = 0; j < questObjects.Length; j++)
                     {
                         questObjects[j].SetActive(true);
-                        PauseMenuCanvas.enabled = true;
+                        PauseMenuCanvas.gameObject.SetActive(true);
                     }
                     PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                 }
@@ -110,4 +113,16 @@ public class InventoryUI : MonoBehaviour
                 
         }
     }
+
+    IEnumerator playAnimation()
+    {
+        if (canvas_animator.GetCurrentAnimatorStateInfo(0).IsName("InventoryIn") != true)
+        {
+            canvas_animator.Play("InventoryIn");
+        }
+        yield return new WaitForSeconds(1.2f);
+        PauseManager.instance.setIsPause(true);
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
+    }
+
 }
