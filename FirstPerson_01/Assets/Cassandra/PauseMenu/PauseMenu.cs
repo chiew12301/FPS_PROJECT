@@ -16,7 +16,8 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-       // GameIsPaused = false;
+        pauseMenuUI.SetActive(false);
+        Resume();
     }
 
     // Update is called once per frame
@@ -24,20 +25,19 @@ public class PauseMenu : MonoBehaviour
     {
         if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.SETTINGUI)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if(PauseManager.instance.getIsPlayingAni() == false)
             {
-                if (PauseManager.instance.getIsPause() == true)
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    pauseMenuUI.SetActive(false);
-                    Resume();
-
-                    PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
-                }
-                else
-                {
-                    pauseMenuUI.SetActive(true);
-                    StartCoroutine(playAnimation());
-                    Pause();
+                    if (PauseManager.instance.getIsPause() == true)
+                    {
+                        //Comment 25/09, pressing escape the cursor is not locked  and invisible, might need check in build have any problem.
+                        Resume();
+                    }
+                    else
+                    {
+                        Pause();
+                    }
                 }
             }
         }
@@ -45,20 +45,18 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        pauseMenuUI.SetActive(false);
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        PauseManager.instance.setIsPause(false);
     }
 
     void Pause()
     {
+        pauseMenuUI.SetActive(true);
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-    }
-
-    public void ResumeButton()
-    {
-        PauseManager.instance.setIsPause(false);
     }
 
     public void LoadMenu()
@@ -74,17 +72,7 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quitting Game");
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE); //never test yet, but theory wise should be correct 25_09
         Application.Quit();
-
-    }
-    IEnumerator playAnimation()
-    {
-        if (canvas_animator.GetCurrentAnimatorStateInfo(0).IsName("SettingIn") != true)
-        {
-            canvas_animator.Play("SettingIn");
-        }
-        yield return new WaitForSeconds(1.2f);
-        PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
-        PauseManager.instance.setIsPause(true);
     }
 }

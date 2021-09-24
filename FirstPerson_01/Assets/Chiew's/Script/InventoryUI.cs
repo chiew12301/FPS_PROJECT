@@ -41,37 +41,37 @@ public class InventoryUI : MonoBehaviour
     {
         if(PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.INVENTORYUI)
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            if(PauseManager.instance.getIsPlayingAni() == false)
             {
-                for (int i = 0; i < buttonObject.Length; i++)
+                if (Input.GetKeyDown(KeyCode.I))
                 {
-                    buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
-                }
-                inventoryUI.SetActive(!inventoryUI.activeSelf);
-                CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
-                if (CraftingUI_OBJ.activeSelf == true)
-                {
-                    CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
-                    for (int j = 0; j < questObjects.Length; j++)
+                    for (int i = 0; i < buttonObject.Length; i++)
                     {
-                        questObjects[j].SetActive(false);
-                        PauseMenuCanvas.gameObject.SetActive(false);
+                        buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
                     }
-                    StartCoroutine(playAnimation());
-                }
-                if (inventoryUI.activeSelf == false)
-                {
-                    for (int i = 0; i < slots.Length; i++)
+                    inventoryUI.SetActive(!inventoryUI.activeSelf);
+                    CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
+                    if (CraftingUI_OBJ.activeSelf == true)
                     {
-                        slots[i].setDescriptionActiveState(false);
+                        CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
+                        for (int j = 0; j < questObjects.Length; j++)
+                        {
+                            questObjects[j].SetActive(false);
+                        }
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
                     }
-                    PauseManager.instance.setIsPause(false);
-                    for (int j = 0; j < questObjects.Length; j++)
+                    if (inventoryUI.activeSelf == false)
                     {
-                        questObjects[j].SetActive(true);
-                        PauseMenuCanvas.gameObject.SetActive(true);
+                        for (int i = 0; i < slots.Length; i++)
+                        {
+                            slots[i].setDescriptionActiveState(false);
+                        }
+                        for (int j = 0; j < questObjects.Length; j++)
+                        {
+                            questObjects[j].SetActive(true);
+                        }
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                     }
-                    PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                 }
             }
         }
@@ -113,16 +113,4 @@ public class InventoryUI : MonoBehaviour
                 
         }
     }
-
-    IEnumerator playAnimation()
-    {
-        if (canvas_animator.GetCurrentAnimatorStateInfo(0).IsName("InventoryIn") != true)
-        {
-            canvas_animator.Play("InventoryIn");
-        }
-        yield return new WaitForSeconds(1.2f);
-        PauseManager.instance.setIsPause(true);
-        PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
-    }
-
 }

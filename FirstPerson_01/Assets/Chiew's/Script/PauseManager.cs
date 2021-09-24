@@ -25,19 +25,25 @@ public class PauseManager : MonoBehaviour
     }
 
     #endregion SINGLETONS_PAUSE
-
+    public Animator canvas_animator;
     private PAUSEUI UISTAT = PAUSEUI.NONEPAUSE; //change this
 
     private bool isPause = false;
     private bool INV_PAUSE = false;
     private bool SET_PAUSE = false;
     private bool MM_PAUSE = false;
-
+    private bool isPlayingAni = false;
 
     // Start is called before the first frame update
     void Start()
     {
         isPause = false;
+        isPlayingAni = false;
+    }
+
+    public bool getIsPlayingAni()
+    {
+        return isPlayingAni;
     }
 
     public bool getIsPause()
@@ -48,6 +54,24 @@ public class PauseManager : MonoBehaviour
     public void ChangeUISTATE(PAUSEUI uistate)
     {
         UISTAT = uistate;
+        if(UISTAT == PAUSEUI.INVENTORYUI)
+        {
+            StartCoroutine(playAnimation("InventoryIn"));
+        }
+        else if(UISTAT == PAUSEUI.MAPUI)
+        {
+            //play mapui animation;
+        }
+        else if(UISTAT == PAUSEUI.SETTINGUI)
+        {
+            StartCoroutine(playAnimation("SettingIn"));
+        }
+        else //NONEPAUSE
+        {
+            ChangeAnimationState("Empty");
+            setIsPause(false);
+            isPlayingAni = false;
+        }
     }
 
     public PAUSEUI getUISTATE()
@@ -70,6 +94,22 @@ public class PauseManager : MonoBehaviour
             Cursor.visible = true;
             Time.timeScale = 0.000001f; //or 0.0f
         }
+    }
+
+    public void ChangeAnimationState(string AniState) //Remember to use Const String
+    {
+        isPlayingAni = true;
+        if (canvas_animator.GetCurrentAnimatorStateInfo(0).IsName(AniState) != true)
+        {
+            canvas_animator.Play(AniState);
+        }
+    }
+    IEnumerator playAnimation(string AniState)
+    {
+        ChangeAnimationState(AniState);
+        yield return new WaitForSeconds(1.2f);
+        setIsPause(true);
+        isPlayingAni = false;
     }
 
 }

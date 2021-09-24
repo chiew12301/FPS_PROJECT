@@ -12,6 +12,7 @@ public class CraftingSlot : MonoBehaviour
     public Button craft_Button;
 
     [Header("DESCRIPTION")]
+    public GameObject Panel;
     public Image image_Icon;
     public TextMeshProUGUI name_item;
     public TextMeshProUGUI description_item;
@@ -99,6 +100,7 @@ public class CraftingSlot : MonoBehaviour
 
     public void setDescriptionActiveState(bool activeState)
     {
+        Panel.gameObject.SetActive(activeState);
         image_Icon.gameObject.SetActive(activeState);
         name_item.gameObject.SetActive(activeState);
         description_item.gameObject.SetActive(activeState);
