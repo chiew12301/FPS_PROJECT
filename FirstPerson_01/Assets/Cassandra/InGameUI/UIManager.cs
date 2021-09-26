@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject player;
 
     //updating ammo count
-    public void UpdateAmmo(int Count, bool isReloading)
+    public void UpdateAmmo(int Count, int TotalAmmo, bool isReloading)
     {
         if (isReloading)
         {
@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            TxtAmmo.text = "Ammo: " + Count;
+            TxtAmmo.text = "Ammo: " + Count + " | " + TotalAmmo;
         }
     }
 
@@ -32,6 +32,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateAmmo(player.GetComponent<Gun>().curAmmo, player.GetComponent<Gun>().isReloading);
+        UpdateAmmo(player.GetComponent<Gun>().curAmmo,player.GetComponent<Gun>().ammoAmount , player.GetComponent<Gun>().isReloading);
     }
 }

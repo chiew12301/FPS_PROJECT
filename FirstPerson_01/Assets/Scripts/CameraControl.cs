@@ -8,7 +8,7 @@ public class CameraControl : MonoBehaviour
 
     public Transform playerObject;
 
-    float x_Rotation = 0.0f;
+    public float x_Rotation = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,8 @@ public class CameraControl : MonoBehaviour
 
         x_Rotation -= mouseY;
         x_Rotation = Mathf.Clamp(x_Rotation, -90.0f, 90f);
+
+        //playerObject.GetComponent<Gun>().Recoil(playerObject.GetComponent<Gun>().isShooting, x_Rotation, transform);
 
         transform.localRotation = Quaternion.Euler(x_Rotation, 0.0f, 0.0f);
         playerObject.Rotate(Vector3.up * mouseX);
