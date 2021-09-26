@@ -10,6 +10,8 @@ public class CameraControl : MonoBehaviour
 
     public float x_Rotation = 0.0f;
 
+    public Vector3 gunRotation = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +27,21 @@ public class CameraControl : MonoBehaviour
         x_Rotation -= mouseY;
         x_Rotation = Mathf.Clamp(x_Rotation, -90.0f, 90f);
 
-        //playerObject.GetComponent<Gun>().Recoil(playerObject.GetComponent<Gun>().isShooting, x_Rotation, transform);
+        if(gunRotation != Vector3.zero)
+        {
+            transform.localRotation = Quaternion.Euler(x_Rotation + gunRotation.x / 1.2f, gunRotation.y / 1.2f, gunRotation.z / 1.2f);
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Euler(x_Rotation, 0.0f, 0.0f);
+        }
 
-        transform.localRotation = Quaternion.Euler(x_Rotation, 0.0f, 0.0f);
+        //transform.localRotation = Quaternion.Euler(x_Rotation, 0.0f, 0.0f);
         playerObject.Rotate(Vector3.up * mouseX);
+    }
+
+    public void SetGunRotation(Vector3 gR)
+    {
+        gunRotation = gR;
     }
 }

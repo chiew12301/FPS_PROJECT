@@ -27,7 +27,8 @@ public class Gun : MonoBehaviour
     private float nextFire = 0.5f;
     public int bulletCount;
     float tempBloom;
-    Vector3 currRot;
+    //float tempRotX;
+    //Vector3 currRot;
     PauseMenu pM;
 
     private UIManager ui;
@@ -116,12 +117,21 @@ public class Gun : MonoBehaviour
             {
                 nextFire = Time.time + 1f / fireRate;
                 Shoot();
-                isShooting = true;
+                if(isReloading)
+                {
+                    isShooting = false;
+                    fpsCam.GetComponent<CameraControl>().SetGunRotation(Vector3.Lerp(fpsCam.GetComponent<CameraControl>().gunRotation, Vector3.zero, fireRate * Time.deltaTime));
+                }
+                else
+                {
+                    isShooting = true;
+                }
             }
             else if (!Input.GetKey(KeyCode.Mouse0))
             {
                 bulletCount = 0;
                 isShooting = false;
+                fpsCam.GetComponent<CameraControl>().SetGunRotation(Vector3.Lerp(fpsCam.GetComponent<CameraControl>().gunRotation, Vector3.zero, fireRate * Time.deltaTime));
             }
         }
         else
@@ -132,6 +142,7 @@ public class Gun : MonoBehaviour
 
     IEnumerator Reload()
     {
+        bulletCount = 0;
         UnZoom();
         isReloading = true;
         isZoom = false;
@@ -147,6 +158,7 @@ public class Gun : MonoBehaviour
         {
             curAmmo += ammoAmount;
         }
+
         if(ammoAmount > 0)
         {
             ammoAmount -= tempAmmo;
@@ -156,6 +168,7 @@ public class Gun : MonoBehaviour
             ammoAmount = 0;
         }
         isReloading = false;
+        bulletCount = 0;
     }
 
     IEnumerator HitFeedback()
@@ -184,6 +197,10 @@ public class Gun : MonoBehaviour
         //bloom += Random.Range(-bloomRange, bloomRange) * fpsCam.transform.right;
         bloom -= fpsCam.transform.position;
         bloom.Normalize();
+
+        //Recoil
+        fpsCam.GetComponent<CameraControl>().SetGunRotation(fpsCam.GetComponent<CameraControl>().gunRotation + recoilPattern[bulletCount]);
+
         /*if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
             Debug.Log(hit.transform.name);
@@ -226,10 +243,9 @@ public class Gun : MonoBehaviour
 
     /*public void Recoil(bool isShooting,float rotX, Transform cam)
     {
-
-        if(isShooting)
+        if (isShooting)
         {
-            cam.localRotation = Quaternion.Euler(rotX + recoilPattern[bulletCount].x, recoilPattern[bulletCount].y, recoilPattern[bulletCount].z);
+            cam.localRotation = Quaternion.Euler(currRot.x, currRot.y, currRot.z);
         }
         else
         {
