@@ -7,12 +7,12 @@ public class Crow : MonoBehaviour
 {
     [Header("Crow Values")]
     [SerializeField] private float currHealth;
-    [SerializeField] private float maxHealth;
+    //[SerializeField] private float maxHealth;
     [SerializeField] private GameObject explosionPrefab;
+    private TargetScript maxHealth;
 
     [Header("Target Values")]
-    [SerializeField] private Transform childCrowObject;
-    [SerializeField] private Transform target;
+    [SerializeField] private GameObject target;
     [SerializeField] private float targetRange;
 
     [Header("Behaviour Values")]
@@ -31,11 +31,11 @@ public class Crow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = this.GetComponent<NavMeshAgent>();
-        childCrowObject = GetComponentInChildren<Transform>();
         timer = wanderTimer;
-        currHealth = maxHealth;
+        maxHealth = GetComponentInChildren<TargetScript>();    
 
         if (navMeshAgent == null)
             Debug.LogError("No nav mesh agent on " + gameObject.name);
@@ -44,10 +44,12 @@ public class Crow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            childCrowObject.position = transform.forward;
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    childCrowObject.position = transform.forward;
+        //}
+
+        currHealth = maxHealth.health;
 
         if (animator != null)
         {
@@ -64,13 +66,13 @@ public class Crow : MonoBehaviour
             #endregion
 
             #region CHASE AND ATTACK BEHAVIOUR
-            float distance = Vector3.Distance(transform.position, target.position);
+            float distance = Vector3.Distance(transform.position, target.transform.position);
 
             if (distance <= targetRange)
             {
                 isChasing = true;
-                transform.LookAt(target);
-                navMeshAgent.SetDestination(target.position);
+                transform.LookAt(target.transform);
+                navMeshAgent.SetDestination(target.transform.position);
 
                 if (distance <= stoppingDistance)
                 {
@@ -103,10 +105,10 @@ public class Crow : MonoBehaviour
             #endregion
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            currHealth = 2;
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    currHealth = 2;
+        //}
     }
     private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
@@ -123,7 +125,7 @@ public class Crow : MonoBehaviour
 
     private bool IsCurrHealthLessThanHalf()
     {
-        if (currHealth <= maxHealth / 2)
+        if (currHealth <= maxHealth.health / 2)
         {
             return true;
         }
