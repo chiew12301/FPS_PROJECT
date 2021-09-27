@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -14,9 +15,19 @@ public class PauseMenu : MonoBehaviour
 
     public Animator canvas_animator;
 
+    public GameObject BGMSLIDER_PARENT;
+    public GameObject SFXSLIDER_PARENT;
+
+    [Header("Slider")]
+    [SerializeField] Slider BGMslider;
+    [SerializeField] Slider SFXslider;
+
     private void Start()
     {
+        BGMslider.value = AudioManager.instance.allBGMVolume;
+        SFXslider.value = AudioManager.instance.allSFXVolume;
         pauseMenuUI.SetActive(false);
+        AudioPanel(false);
         Resume();
     }
 
@@ -40,12 +51,15 @@ public class PauseMenu : MonoBehaviour
                     }
                 }
             }
+            AudioManager.instance.allBGMVolume = BGMslider.value;
+            AudioManager.instance.allSFXVolume = SFXslider.value;
         }
     }
 
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        AudioPanel(false);
         PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -57,6 +71,17 @@ public class PauseMenu : MonoBehaviour
         PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void onAudioButtonPress()
+    {
+        AudioPanel(true);
+    }
+
+    void AudioPanel(bool activeS)
+    {
+        BGMSLIDER_PARENT.SetActive(activeS);
+        SFXSLIDER_PARENT.SetActive(activeS);
     }
 
     public void LoadMenu()
