@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Molotov
   m_EditorClassIdentifier: 
   name: Molotov
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 9bd0bffbda06caa488fd3dfe773b9126, type: 3}
   isDefaultItem: 0
   description: Fireburning
   maxStackAmount: 5
