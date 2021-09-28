@@ -199,7 +199,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   hdriSky:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {fileID: 8900000, guid: 100fa8e1632686d4197cf0ade5e18678, type: 3}
   enableDistortion:
     m_OverrideState: 0
