@@ -7,6 +7,9 @@ TagManager:
   - AI
   - Waypoint
   - Border
+  - Enemy
+  - Explosion
+  - Crow
   layers:
   - Default
   - TransparentFX

@@ -69,4 +69,21 @@ public class PlayerProfiler : MonoBehaviour
     {
         medkitCurrentAmount = Inventory.instance.getItemStackAmount(MedKit);
     }
+
+    void TakeDamage(int damage)
+    {
+        currHealthPoint -= damage;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.CompareTag("Crow"))
+        {
+            TakeDamage(5);
+        }
+        else if (collision.transform.CompareTag("Explosion"))
+        {
+            TakeDamage(10);
+        }
+    }
 }
