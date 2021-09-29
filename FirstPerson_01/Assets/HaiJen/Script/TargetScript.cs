@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class TargetScript : MonoBehaviour
 {
-    public float health = 50f;
+    public float maxHealth = 50f;
+    public float currentHealth;
+
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        if (health <= 0f)
+        currentHealth -= damage;
+        if (currentHealth <= 0f)
         {
             Die();
         }
@@ -17,7 +23,7 @@ public class TargetScript : MonoBehaviour
     
     void Die()
     {
-        //Destroy(gameObject);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+        //gameObject.SetActive(false);
     }
 }

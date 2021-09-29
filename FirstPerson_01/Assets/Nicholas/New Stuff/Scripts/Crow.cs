@@ -8,8 +8,7 @@ public class Crow : MonoBehaviour
     [Header("Crow Values")]
     [SerializeField] private float currHealth;
     //[SerializeField] private float maxHealth;
-    [SerializeField] private GameObject explosionPrefab;
-    private TargetScript maxHealth;
+    private TargetScript targetScript;
 
     [Header("Target Values")]
     [SerializeField] private GameObject target;
@@ -35,7 +34,7 @@ public class Crow : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = this.GetComponent<NavMeshAgent>();
         timer = wanderTimer;
-        maxHealth = GetComponentInChildren<TargetScript>();    
+        targetScript = GetComponentInChildren<TargetScript>();    
 
         if (navMeshAgent == null)
             Debug.LogError("No nav mesh agent on " + gameObject.name);
@@ -49,7 +48,7 @@ public class Crow : MonoBehaviour
         //    childCrowObject.position = transform.forward;
         //}
 
-        currHealth = maxHealth.health;
+        currHealth = targetScript.currentHealth;
 
         if (animator != null)
         {
@@ -76,6 +75,9 @@ public class Crow : MonoBehaviour
 
                 if (distance <= stoppingDistance)
                 {
+                    Debug.Log("Crow Current Health : " + currHealth);
+                    Debug.Log("Crow Max Health : " + targetScript.maxHealth);
+
                     navMeshAgent.isStopped = true;
 
                     // check to see which attack to use
@@ -83,10 +85,8 @@ public class Crow : MonoBehaviour
                     if (!IsCurrHealthLessThanHalf())
                     {
                         StartCoroutine("Attack");
-                    }
-
-                    // if < 50% hp, suicide
-                    if (IsCurrHealthLessThanHalf())
+                    }                        // if < 50% hp, suicide
+                    else if (IsCurrHealthLessThanHalf())
                     {
                         animator.SetBool("IsInRange", false);
                         StartCoroutine("Suicide");
@@ -125,7 +125,7 @@ public class Crow : MonoBehaviour
 
     private bool IsCurrHealthLessThanHalf()
     {
-        if (currHealth <= maxHealth.health / 2)
+        if (currHealth <= targetScript.maxHealth / 2)
         {
             return true;
         }

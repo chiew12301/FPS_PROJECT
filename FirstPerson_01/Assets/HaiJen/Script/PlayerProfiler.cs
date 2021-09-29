@@ -25,6 +25,7 @@ public class PlayerProfiler : MonoBehaviour
             UseMedkit();
         }
         CheckMedKitAmount();
+
     }
 
     public bool CheckMedKit()
@@ -75,14 +76,17 @@ public class PlayerProfiler : MonoBehaviour
         currHealthPoint -= damage;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         if(collision.transform.CompareTag("Crow"))
         {
+            Debug.Log("CROW COLLISION");
             TakeDamage(5);
         }
-        else if (collision.transform.CompareTag("Explosion"))
+
+        if (collision.transform.CompareTag("Explosion"))
         {
+            Debug.Log("BOOOMM");
             TakeDamage(10);
         }
     }
