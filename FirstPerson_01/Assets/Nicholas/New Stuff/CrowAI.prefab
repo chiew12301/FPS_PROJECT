@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2623203767503097923}
   - component: {fileID: 2623203767503097920}
   - component: {fileID: 2623203767503097921}
-  - component: {fileID: -8520888381145418940}
   m_Layer: 0
   m_Name: CrowAI
   m_TagString: Untagged
@@ -69,10 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currHealth: 0
-  maxHealth: 10
   explosionPrefab: {fileID: 6372860574811112641, guid: 065a4f4c90b5dab4a9ad2182388bb3fe,
     type: 3}
-  childCrowObject: {fileID: 0}
   target: {fileID: 0}
   targetRange: 4
   wanderRadius: 1
@@ -80,13 +77,29 @@ MonoBehaviour:
   stoppingDistance: 2
   attackInterval: 2
   suicideTimer: 2
---- !u!114 &-8520888381145418940
+--- !u!54 &920242157310906810
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2929050857405617753}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &612109248718121503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2623203767503097922}
+  m_GameObject: {fileID: 2929050857405617753}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa6a8fa9c948f6f40a421d6dfcf713eb, type: 3}
@@ -177,6 +190,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdbe503a6d594d14dab4f71ae6dac824, type: 3}
+--- !u!1 &2929050857405617753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1490780980097897369, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    type: 3}
+  m_PrefabInstance: {fileID: 4329724350116906432}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2588941487689911523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
