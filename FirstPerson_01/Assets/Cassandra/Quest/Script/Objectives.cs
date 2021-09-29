@@ -43,7 +43,9 @@ public class Objectives : MonoBehaviour
         }
         else
         {
-            CurrentObjectiveDescription.gameObject.SetActive(false);
+            CurrentObjectiveDescription.text = "Objective Complete";
+
+            //CurrentObjectiveDescription.gameObject.SetActive(false);
         }
 
     }
