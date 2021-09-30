@@ -16,6 +16,8 @@ public class HealthBar : MonoBehaviour
 
     public int health;
 
+    [SerializeField]GameObject player;
+
     public void SetHealth(int health)
     {
         if(health != mCurrentValue)
@@ -32,7 +34,7 @@ public class HealthBar : MonoBehaviour
                 mCurrentPercent = (float)mCurrentValue / (float)(Max - Min);
             }
 
-            TxtHealth.text = string.Format("{0}", Mathf.RoundToInt(mCurrentPercent * 100));
+            TxtHealth.text = string.Format("{0}", Mathf.RoundToInt(mCurrentPercent * 100)+"%");
 
             ImgHealthBar.fillAmount = mCurrentPercent;
         }
@@ -57,6 +59,6 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        SetHealth(player.GetComponent<PlayerProfiler>().currHealthPoint);
     }
 }

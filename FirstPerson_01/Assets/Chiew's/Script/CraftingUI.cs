@@ -16,6 +16,7 @@ public class CraftingUI : MonoBehaviour
     void Start()
     {
         slots = slotParents.GetComponentsInChildren<CraftingSlot>();
+        AssignToSlots();
     }
 
     // Update is called once per frame

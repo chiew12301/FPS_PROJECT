@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -12,9 +13,22 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+    public Animator canvas_animator;
+
+    public GameObject BGMSLIDER_PARENT;
+    public GameObject SFXSLIDER_PARENT;
+
+    [Header("Slider")]
+    [SerializeField] Slider BGMslider;
+    [SerializeField] Slider SFXslider;
+
     private void Start()
     {
-       // GameIsPaused = false;
+        BGMslider.value = AudioManager.instance.allBGMVolume;
+        SFXslider.value = AudioManager.instance.allSFXVolume;
+        pauseMenuUI.SetActive(false);
+        AudioPanel(false);
+        Resume();
     }
 
     // Update is called once per frame
@@ -22,58 +36,52 @@ public class PauseMenu : MonoBehaviour
     {
         if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.SETTINGUI)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if(PauseManager.instance.getIsPlayingAni() == false)
             {
-                if (PauseManager.instance.getIsPause() == true)
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    PauseManager.instance.setIsPause(false);
+                    if (PauseManager.instance.getIsPause() == true)
+                    {
+                        //Comment 25/09, pressing escape the cursor is not locked  and invisible, might need check in build have any problem.
+                        Resume();
+                    }
+                    else
+                    {
+                        Pause();
+                    }
                 }
-                else
-                {
-                    PauseManager.instance.setIsPause(true);
-                }
-
             }
-
-            if (PauseManager.instance.getIsPause() == true)
-            {
-                if (PauseManager.instance.getIsPause() == true)
-                {
-                    pauseMenuUI.SetActive(true);
-                }
-                Pause();
-                PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
-            }
-            else
-            {
-                if (PauseManager.instance.getIsPause() == false)
-                {
-                    pauseMenuUI.SetActive(false);
-                }
-                Resume();
-
-                PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
-            }
+            AudioManager.instance.allBGMVolume = BGMslider.value;
+            AudioManager.instance.allSFXVolume = SFXslider.value;
         }
     }
 
     public void Resume()
     {
+        pauseMenuUI.SetActive(false);
+        AudioPanel(false);
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        PauseManager.instance.setIsPause(false);
     }
 
     void Pause()
     {
+        pauseMenuUI.SetActive(true);
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.SETTINGUI);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        PauseManager.instance.setIsPause(true);
     }
 
-    public void ResumeButton()
+    public void onAudioButtonPress()
     {
-        PauseManager.instance.setIsPause(false);
+        AudioPanel(true);
+    }
+
+    void AudioPanel(bool activeS)
+    {
+        BGMSLIDER_PARENT.SetActive(activeS);
+        SFXSLIDER_PARENT.SetActive(activeS);
     }
 
     public void LoadMenu()
@@ -89,7 +97,7 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quitting Game");
+        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE); //never test yet, but theory wise should be correct 25_09
         Application.Quit();
-
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Boid : MonoBehaviour {
 
-    BoidSettings settings;
+    BoidSettings defaultSettings;
+    BoidSettings targetSettings;
 
     // State
     [HideInInspector]
@@ -12,6 +13,7 @@ public class Boid : MonoBehaviour {
     [HideInInspector]
     public Vector3 forward;
     Vector3 velocity;
+    bool isIdle;
 
     // To update:
     [HideInInspector]
@@ -34,11 +36,12 @@ public class Boid : MonoBehaviour {
     {
         material = transform.GetComponentInChildren<MeshRenderer>().material;
         cachedTransform = transform;
+        isIdle = false;
     }
 
     public void Initialize (BoidSettings settings, Transform target) {
         this.target = target;
-        this.settings = settings;
+        this.defaultSettings = settings;
 
         position = cachedTransform.position;
         forward = cachedTransform.forward;
@@ -61,7 +64,7 @@ public class Boid : MonoBehaviour {
             SetColour(Color.yellow);
             Vector3 offsetToTarget = (target.position - position);
             //Debug.DrawRay(position, offsetToTarget, Color.black);
-            acceleration += SteerTowards(offsetToTarget) * settings.targetWeight;
+            acceleration += SteerTowards(offsetToTarget) * defaultSettings.targetWeight;
 
             if (IsInAttackRange())
             {
@@ -71,16 +74,16 @@ public class Boid : MonoBehaviour {
         else
         {
             SetColour(Color.blue);
-        }
+        }       
 
         if (numPerceivedFlockmates != 0) {
             centreOfFlockmates /= numPerceivedFlockmates;
 
             Vector3 offsetToFlockmatesCentre = (centreOfFlockmates - position);
 
-            var alignmentForce = SteerTowards (avgFlockHeading) * settings.alignWeight;
-            var cohesionForce = SteerTowards (offsetToFlockmatesCentre) * settings.cohesionWeight;
-            var seperationForce = SteerTowards (avgAvoidanceHeading) * settings.seperateWeight;
+            var alignmentForce = SteerTowards (avgFlockHeading) * defaultSettings.alignWeight;
+            var cohesionForce = SteerTowards (offsetToFlockmatesCentre) * defaultSettings.cohesionWeight;
+            var seperationForce = SteerTowards (avgAvoidanceHeading) * defaultSettings.seperateWeight;
 
             acceleration += alignmentForce;
             acceleration += cohesionForce;
@@ -89,7 +92,7 @@ public class Boid : MonoBehaviour {
 
         if (IsHeadingForCollision ()) {
             Vector3 collisionAvoidDir = ObstacleRays ();
-            Vector3 collisionAvoidForce = SteerTowards (collisionAvoidDir) * settings.avoidCollisionWeight;
+            Vector3 collisionAvoidForce = SteerTowards (collisionAvoidDir) * defaultSettings.avoidCollisionWeight;
             acceleration += collisionAvoidForce;
         }
 
@@ -102,29 +105,42 @@ public class Boid : MonoBehaviour {
         //    Debug.DrawRay(position, settings.boundTarget.transform.position - position, Color.black);
         //    acceleration += move;
         //}
+        if (position.y < defaultSettings.yMinMax.x || position.y > defaultSettings.yMinMax.y)
+        {
+            var newPos = position;
+            newPos.y = Mathf.Clamp(newPos.y, defaultSettings.yMinMax.x, defaultSettings.yMinMax.y);
+            position = newPos;           
+        }
+
+        //Debug.Log("Pos Y = " + position.y + ". Cached Y = " + cachedTransform.position.y);
 
         velocity += acceleration * Time.deltaTime;
         float speed = velocity.magnitude;
         Vector3 dir = velocity / speed;
-        speed = Mathf.Clamp (speed, settings.minSpeed, settings.maxSpeed);
+        speed = Mathf.Clamp (speed, defaultSettings.minSpeed, defaultSettings.maxSpeed);
         velocity = dir * speed;
 
-        if (cachedTransform != null)
-        {
+        //RandomIdle();
+
+        if (cachedTransform != null && isIdle == false)
+        {         
+            cachedTransform.position = position;
             cachedTransform.position += velocity * Time.deltaTime;
-            cachedTransform.forward = dir;
+            cachedTransform.forward = dir;                     
             position = cachedTransform.position;
             forward = dir;
         }
         else
         {
-            return;
+            velocity = Vector3.zero;
+            position += velocity * Time.deltaTime;
+            
         }       
     }
 
     bool IsHeadingForCollision () {
         RaycastHit hit;
-        if (Physics.SphereCast (position, settings.boundsRadius, forward, out hit, settings.collisionAvoidDst, settings.obstacleMask)) {
+        if (Physics.SphereCast (position, defaultSettings.boundsRadius, forward, out hit, defaultSettings.collisionAvoidDst, defaultSettings.obstacleMask)) {
             return true;
         } else { }
         return false;
@@ -132,7 +148,8 @@ public class Boid : MonoBehaviour {
 
     public bool IsInRange()
     {
-        if (Vector3.Distance(position, target.position) <= settings.detectionRange)
+        Debug.Log(Vector3.Distance(position, target.position));
+        if (Vector3.Distance(position, target.position) <= defaultSettings.detectionRange)
         {
             return true;
         }
@@ -146,7 +163,7 @@ public class Boid : MonoBehaviour {
         for (int i = 0; i < rayDirections.Length; i++) {
             Vector3 dir = cachedTransform.TransformDirection (rayDirections[i]);
             Ray ray = new Ray (position, dir);
-            if (!Physics.SphereCast (ray, settings.boundsRadius, settings.collisionAvoidDst, settings.obstacleMask)) {
+            if (!Physics.SphereCast (ray, defaultSettings.boundsRadius, defaultSettings.collisionAvoidDst, defaultSettings.obstacleMask)) {
                 return dir;
             }
         }
@@ -155,17 +172,44 @@ public class Boid : MonoBehaviour {
     }
 
     Vector3 SteerTowards (Vector3 vector) {
-        Vector3 v = vector.normalized * settings.maxSpeed - velocity;
-        return Vector3.ClampMagnitude (v, settings.maxSteerForce);
+        Vector3 v = vector.normalized * defaultSettings.maxSpeed - velocity;
+        return Vector3.ClampMagnitude (v, defaultSettings.maxSteerForce);
     }   
+
+    public bool RandomIdle()
+    {
+        int randomInt = (Random.Range(0, 50));
+
+        if (randomInt == 2)
+        {
+            return isIdle = true;
+        }
+        else
+        {
+            return isIdle = false;
+        }      
+    }    
 
     public bool IsInAttackRange()
     {
-        if (Vector3.Distance(target.position, position) <= settings.attackRange)
+        if (Vector3.Distance(target.position, position) <= defaultSettings.attackRange)
         {
             return true;
         }
 
         return false;
+    }
+
+    public bool IsIdle
+    {
+        get
+        {
+            return this.isIdle;
+        }
+
+        set
+        {
+            isIdle = value;
+        }
     }
 }

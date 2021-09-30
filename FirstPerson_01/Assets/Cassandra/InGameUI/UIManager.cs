@@ -8,17 +8,21 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text TxtAmmo;
     public GameObject player;
+    [SerializeField]
+    private RawImage bulletIcon;
 
     //updating ammo count
-    public void UpdateAmmo(int Count, bool isReloading)
+    public void UpdateAmmo(int Count, int TotalAmmo, bool isReloading)
     {
         if (isReloading)
         {
             TxtAmmo.text = "Reloading...";
+            bulletIcon.gameObject.SetActive(false);
         }
         else
         {
-            TxtAmmo.text = "Ammo: " + Count;
+            TxtAmmo.text = Count + " | " + TotalAmmo;
+            bulletIcon.gameObject.SetActive(true);
         }
     }
 
@@ -32,6 +36,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateAmmo(player.GetComponent<Gun>().curAmmo, player.GetComponent<Gun>().isReloading);
+        UpdateAmmo(player.GetComponent<Gun>().curAmmo,player.GetComponent<Gun>().ammoAmount , player.GetComponent<Gun>().isReloading);
     }
 }

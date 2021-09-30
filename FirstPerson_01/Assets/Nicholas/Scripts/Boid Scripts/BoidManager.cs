@@ -16,7 +16,6 @@ public class BoidManager : MonoBehaviour {
         foreach (Boid b in boids) {
             b.Initialize (settings, target);
         }
-
     }
 
     void Update () {
@@ -48,7 +47,7 @@ public class BoidManager : MonoBehaviour {
                 boids[i].centreOfFlockmates = boidData[i].flockCentre;
                 boids[i].avgAvoidanceHeading = boidData[i].avoidanceHeading;
                 boids[i].numPerceivedFlockmates = boidData[i].numFlockmates;
-
+                
                 boids[i].UpdateBoid ();
             }
 

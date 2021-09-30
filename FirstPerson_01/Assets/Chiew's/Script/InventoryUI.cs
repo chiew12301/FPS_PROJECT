@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -11,7 +13,9 @@ public class InventoryUI : MonoBehaviour
     [Header("This is for Quest Pointer Objects")]
     public GameObject[] questObjects;
 
-    public Canvas PauseMenuCanvas;
+    public GameObject PauseMenuCanvas;
+
+    public Animator canvas_animator;
 
     Inventory inventory;
 
@@ -37,38 +41,37 @@ public class InventoryUI : MonoBehaviour
     {
         if(PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.INVENTORYUI)
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            if(PauseManager.instance.getIsPlayingAni() == false)
             {
-                for (int i = 0; i < buttonObject.Length; i++)
+                if (Input.GetKeyDown(KeyCode.I))
                 {
-                    buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
-                }
-                inventoryUI.SetActive(!inventoryUI.activeSelf);
-                CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
-                if (CraftingUI_OBJ.activeSelf == true)
-                {
-                    CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
-                    PauseManager.instance.setIsPause(true);
-                    for (int j = 0; j < questObjects.Length; j++)
+                    for (int i = 0; i < buttonObject.Length; i++)
                     {
-                        questObjects[j].SetActive(false);
-                        PauseMenuCanvas.enabled = false;
+                        buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
                     }
-                    PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
-                }
-                if (inventoryUI.activeSelf == false)
-                {
-                    for (int i = 0; i < slots.Length; i++)
+                    inventoryUI.SetActive(!inventoryUI.activeSelf);
+                    CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
+                    if (CraftingUI_OBJ.activeSelf == true)
                     {
-                        slots[i].setDescriptionActiveState(false);
+                        CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
+                        for (int j = 0; j < questObjects.Length; j++)
+                        {
+                            questObjects[j].SetActive(false);
+                        }
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
                     }
-                    PauseManager.instance.setIsPause(false);
-                    for (int j = 0; j < questObjects.Length; j++)
+                    if (inventoryUI.activeSelf == false)
                     {
-                        questObjects[j].SetActive(true);
-                        PauseMenuCanvas.enabled = true;
+                        for (int i = 0; i < slots.Length; i++)
+                        {
+                            slots[i].setDescriptionActiveState(false);
+                        }
+                        for (int j = 0; j < questObjects.Length; j++)
+                        {
+                            questObjects[j].SetActive(true);
+                        }
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                     }
-                    PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                 }
             }
         }

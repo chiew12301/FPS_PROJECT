@@ -10,18 +10,19 @@ public class QuestIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<Objectives>().CurrentObjective == null)
+        if(player.GetComponent<Objectives>().CurrentObjective != null)
         {
-            gameObject.SetActive(false);
+            target = player.GetComponent<Objectives>().CurrentObjective.Target;
+
+            gameObject.SetActive(true);
+
+            transform.position = new Vector3(target.transform.position.x, 168, target.transform.position.z);
         }
         else
         {
-            gameObject.SetActive(true);
-            target = player.GetComponent<Objectives>().CurrentObjective.Target;
+            gameObject.SetActive(false);
         }
-
-        //this.transform.position = target.transform.position;
-
-        this.transform.position = new Vector3(target.transform.position.x, 168, target.transform.position.z);
+     
+        
     }
 }

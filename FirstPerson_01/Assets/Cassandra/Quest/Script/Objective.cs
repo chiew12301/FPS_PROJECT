@@ -38,7 +38,7 @@ public class Objective : MonoBehaviour
     //public Animator animator;
     //public string TriggerName;
 
-    private void OnReach(Objectives a)
+    private void OnReach()
     {
         if (this.ActionsOnReach.Contains(ActionOnReach.MarkAsAchieved))
             this.Status = ObjectiveStatus.Achieved;
@@ -49,8 +49,7 @@ public class Objective : MonoBehaviour
         //if (this.ActionsOnReach.Contains(ActionOnReach.SetTrigger))
            // this.NextObjective.Target.GetComponentInParent<animator>().SetTrigger(this.TriggerName);
 
-        a.CurrentObjective = this.NextObjective;
-        
+        ParentScript.CurrentObjective = this.NextObjective;
     }
 
     private void PlayAnimation()
@@ -67,10 +66,9 @@ public class Objective : MonoBehaviour
     {
         Debug.Log("Enter");
 
-        if (other.tag == "Player" && other.GetComponent<Objectives>().CurrentObjective.name == this.name)
+        if (other.tag == "Player" && this.ParentScript.CurrentObjective.name == this.name)
         {
-            OnReach(other.GetComponent<Objectives>());
-            Debug.Log("ok");
+            OnReach();
         }
     }
 

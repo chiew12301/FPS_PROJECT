@@ -42,13 +42,21 @@ public class PlayerMovementNew : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    bool isMoving;
     public bool isRunning;
     public bool isWalking;
     public bool isCrouching;
+
+    public Camera fpsCam;
+    public float bobbingSpeed;
+    public float bobbingAmount;
+    float defaultPosY = 0;
+    float timer = 0;
     
     void Start()
     {
         p_Direction = 0;
+        defaultPosY = fpsCam.transform.localPosition.y;
         //controller.GetComponent<CharacterController>().detectCollisions = false;
     }
 
@@ -56,6 +64,7 @@ public class PlayerMovementNew : MonoBehaviour
     void Update()
     {
         InputState();
+        ViewBobbing(isMoving);
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (!isGrounded && velocity.y < 0)
         {
@@ -66,10 +75,12 @@ public class PlayerMovementNew : MonoBehaviour
         {
             isRunning = true;
             isWalking = false;
+            bobbingAmount = 0.04f;
         }
         else
         {
             isRunning = false;
+            bobbingAmount = 0.02f;
         }
 
         if (Input.GetKey(KeyCode.Tab))
@@ -118,38 +129,24 @@ public class PlayerMovementNew : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        /*if(Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             isGrounded = false;
-        }
+        }*/
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
-        if(isRunning)
-        {
-            AudioManager.instance.Play("Run", "SFX");
-        }
-        else if(isWalking)
-        {
-            AudioManager.instance.Play("Walk", "SFX");
-        }
-
-        if(p_Direction != PLAYER_STATE.P_IDLE || p_Direction != PLAYER_STATE.P_JUMP)
-        {
-            //AudioManager.instance.Play("Footstep", "SFX");
-        }
     }
 
     private void InputState()
     {
         speed = 3f;
-        if (Input.GetKey(KeyCode.Space) || !isGrounded)
+        /*if (Input.GetKey(KeyCode.Space) || !isGrounded)
         {
             p_Direction = PLAYER_STATE.P_JUMP;
-        }
-        else if (Input.GetKey(KeyCode.W))
+        }*/
+        if(Input.GetKey(KeyCode.W))
         {
             if(isRunning)
             {
@@ -162,6 +159,7 @@ public class PlayerMovementNew : MonoBehaviour
                 {
                     p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
                 }
+                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
@@ -175,7 +173,9 @@ public class PlayerMovementNew : MonoBehaviour
                     p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
                 }
                 isWalking = true;
+                AudioManager.instance.Play("Walk", "SFX");
             }
+            isMoving = true;
         }
         else if (Input.GetKey(KeyCode.S))
         {
@@ -189,35 +189,60 @@ public class PlayerMovementNew : MonoBehaviour
                 p_Direction = PLAYER_STATE.P_RIGHTBACKWARD;
             }
             isWalking = true;
+            isMoving = true;
+            AudioManager.instance.Play("Walk", "SFX");
         }
         else if (Input.GetKey(KeyCode.A))
         {
             if (isRunning)
             {
                 p_Direction = PLAYER_STATE.P_LEFT;
+                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKLEFT;
                 isWalking = true;
+                AudioManager.instance.Play("Walk", "SFX");
             }
+            isMoving = true;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             if (isRunning)
             {
                 p_Direction = PLAYER_STATE.P_RIGHT;
+                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKRIGHT;
                 isWalking = true;
+                AudioManager.instance.Play("Walk", "SFX");
             }
+            isMoving = true;
         }
         else
         {
             p_Direction = PLAYER_STATE.P_IDLE;
             isWalking = false;
+            isMoving = false;
+            AudioManager.instance.Stop("Walk", "SFX");
+            AudioManager.instance.Stop("Run", "SFX");
+        }
+    }
+
+    void ViewBobbing(bool isMoving)
+    {
+        if(isMoving)
+        {
+            timer += Time.deltaTime * bobbingSpeed;
+            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, defaultPosY + Mathf.Sin(timer) * bobbingAmount, fpsCam.transform.localPosition.z);
+        }   
+        else
+        {
+            timer = 0;
+            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosY, Time.deltaTime * bobbingSpeed), fpsCam.transform.localPosition.z);
         }
     }
 }
