@@ -18,8 +18,8 @@ public enum PLAYER_STATE
     P_WALKRIGHTFORWARD,
     P_LEFTBACKWARD,
     P_RIGHTBACKWARD,
-    P_JUMP,
-    P_CROUCH
+    P_JUMP
+    //P_CROUCH
 }
 
 public class PlayerMovementNew : MonoBehaviour
@@ -36,16 +36,16 @@ public class PlayerMovementNew : MonoBehaviour
     public float groundDistance = 200.0f;
     public LayerMask groundMask;
     public float runMultiply = 2.0f;
-    public float crouchingHeight = 0.5f;
+    /*public float crouchingHeight = 0.5f;
     public float crouchingMultiply = 0.001f;
-    public float standingHeight = 1.5f;
+    public float standingHeight = 1.5f;*/
 
     Vector3 velocity;
     bool isGrounded;
     bool isMoving;
     public bool isRunning;
     public bool isWalking;
-    public bool isCrouching;
+    //public bool isCrouching;
 
     public Camera fpsCam;
     public float bobbingSpeed;
@@ -71,7 +71,7 @@ public class PlayerMovementNew : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && isCrouching == false)
+        if (Input.GetKey(KeyCode.LeftShift))// && isCrouching == false)
         {
             isRunning = true;
             isWalking = false;
@@ -92,7 +92,7 @@ public class PlayerMovementNew : MonoBehaviour
             eqMenu.SetActive(false);
         }
 
-        if(!isCrouching)
+        /*if(!isCrouching)
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
@@ -105,7 +105,7 @@ public class PlayerMovementNew : MonoBehaviour
             {
                 isCrouching = false;
             }
-        }
+        }*/
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -117,7 +117,7 @@ public class PlayerMovementNew : MonoBehaviour
             move *= runMultiply;
         }
 
-        if(isCrouching)
+        /*if(isCrouching)
         {
             controller.height = crouchingHeight;
             move *= crouchingMultiply;
@@ -125,7 +125,7 @@ public class PlayerMovementNew : MonoBehaviour
         else
         {
             controller.height = standingHeight;
-        }
+        }*/
 
         controller.Move(move * speed * Time.deltaTime);
 

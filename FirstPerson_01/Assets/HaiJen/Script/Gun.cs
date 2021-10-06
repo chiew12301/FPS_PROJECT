@@ -25,6 +25,7 @@ public class Gun : MonoBehaviour
     public Transform gun;
 
     private float nextFire = 0.5f;
+    private bool shootAble;
     public int bulletCount;
     float tempBloom;
     //float tempRotX;
@@ -33,6 +34,7 @@ public class Gun : MonoBehaviour
 
     private UIManager ui;
     private Crosshair ch;
+    private InventoryUI iui;
 
     public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
     {
@@ -76,14 +78,16 @@ public class Gun : MonoBehaviour
         ui = GameObject.Find("Canvas").GetComponent<UIManager>();
         ch = GameObject.Find("Crosshair").GetComponent<Crosshair>();
         pM = GameObject.Find("Canvas").GetComponent<PauseMenu>();
+        iui = GameObject.Find("Canvas").GetComponent<InventoryUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!pM.pauseMenuUI.activeSelf)
+        if(!pM.pauseMenuUI.activeSelf && !iui.inventoryUI.activeSelf)
         {
             crosshair.SetActive(true);
+            shootAble = true;
             if (player.GetComponent<PlayerMovementNew>().isRunning)
             {
                 bloomRange = 20f;
@@ -100,6 +104,7 @@ public class Gun : MonoBehaviour
                 return;
             if (curAmmo <= 0 || Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo)
             {
+                fpsCam.GetComponent<CameraControl>().UpdateCamera();
                 StartCoroutine(Reload());
                 return;
             }
@@ -113,30 +118,21 @@ public class Gun : MonoBehaviour
             }
 
 
-            if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire)
+            if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire && shootAble)
             {
                 nextFire = Time.time + 1f / fireRate;
                 Shoot();
-                if(isReloading)
-                {
-                    isShooting = false;
-                    fpsCam.GetComponent<CameraControl>().SetGunRotation(Vector3.Lerp(fpsCam.GetComponent<CameraControl>().gunRotation, Vector3.zero, fireRate * Time.deltaTime));
-                }
-                else
-                {
-                    isShooting = true;
-                }
             }
-            else if (!Input.GetKey(KeyCode.Mouse0))
+            else if (!Input.GetKey(KeyCode.Mouse0) || isReloading)
             {
                 bulletCount = 0;
-                isShooting = false;
                 fpsCam.GetComponent<CameraControl>().SetGunRotation(Vector3.Lerp(fpsCam.GetComponent<CameraControl>().gunRotation, Vector3.zero, fireRate * Time.deltaTime));
             }
         }
         else
         {
             crosshair.SetActive(false);
+            shootAble = false;
         }
     }
 
