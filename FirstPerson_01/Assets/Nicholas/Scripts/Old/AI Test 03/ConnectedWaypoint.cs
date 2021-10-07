@@ -32,8 +32,8 @@ public class ConnectedWaypoint : Waypoint
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, debugDrawRadius);
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, connectivityRadius);
+        //Gizmos.color = Color.cyan;
+        //Gizmos.DrawWireSphere(transform.position, connectivityRadius);
     }
 
     public ConnectedWaypoint NextWaypoint(ConnectedWaypoint previousWaypoint)
