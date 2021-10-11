@@ -107,7 +107,7 @@ public class PauseManager : MonoBehaviour
     IEnumerator playAnimation(string AniState)
     {
         ChangeAnimationState(AniState);
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.35f);
         setIsPause(true);
         isPlayingAni = false;
     }
