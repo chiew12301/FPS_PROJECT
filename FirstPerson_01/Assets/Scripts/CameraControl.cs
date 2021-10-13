@@ -27,22 +27,9 @@ public class CameraControl : MonoBehaviour
         x_Rotation -= mouseY;
         x_Rotation = Mathf.Clamp(x_Rotation, -90.0f, 90f);
 
-        UpdateCamera();
-
-        //transform.localRotation = Quaternion.Euler(x_Rotation, 0.0f, 0.0f);
-        playerObject.Rotate(Vector3.up * mouseX);
-    }
-
-    public void SetGunRotation(Vector3 gR)
-    {
-        gunRotation = gR;
-    }
-
-    public void UpdateCamera()
-    {
         if (gunRotation != Vector3.zero)
         {
-            if(x_Rotation + gunRotation.x / 1.2f <= -90)
+            if (x_Rotation + gunRotation.x / 1.2f <= -90)
             {
                 transform.localRotation = Quaternion.Euler(-90, gunRotation.y / 1.2f, gunRotation.z / 1.2f);
             }
@@ -55,5 +42,13 @@ public class CameraControl : MonoBehaviour
         {
             transform.localRotation = Quaternion.Euler(x_Rotation, 0.0f, 0.0f);
         }
+
+        //transform.localRotation = Quaternion.Euler(x_Rotation, 0.0f, 0.0f);
+        playerObject.Rotate(Vector3.up * mouseX);
+    }
+
+    public void SetGunRotation(Vector3 gR)
+    {
+        gunRotation = gR;
     }
 }

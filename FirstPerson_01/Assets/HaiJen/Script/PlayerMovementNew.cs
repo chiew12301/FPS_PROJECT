@@ -242,7 +242,7 @@ public class PlayerMovementNew : MonoBehaviour
         else
         {
             timer = 0;
-            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosY, Time.deltaTime * bobbingSpeed), fpsCam.transform.localPosition.z);
+            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, Mathf.Lerp(fpsCam.transform.localPosition.y, defaultPosY, Time.deltaTime * bobbingSpeed), fpsCam.transform.localPosition.z);
         }
     }
 }
