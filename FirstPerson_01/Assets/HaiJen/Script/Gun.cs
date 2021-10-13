@@ -24,15 +24,15 @@ public class Gun : MonoBehaviour
     public Transform player;
     public Transform gun;
 
-    private float nextFire = 0.5f;
+    private float nextFire = 0.1f;
+    private bool shootAble;
+    private bool isAiming;
     public int bulletCount;
     float tempBloom;
-    //float tempRotX;
-    //Vector3 currRot;
     PauseMenu pM;
 
-    private UIManager ui;
     private Crosshair ch;
+    private InventoryUI iui;
 
     public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
     {
@@ -73,17 +73,18 @@ public class Gun : MonoBehaviour
         unZoomValue = Camera.main.fieldOfView;
         curAmmo = maxAmmo;
 
-        ui = GameObject.Find("Canvas").GetComponent<UIManager>();
         ch = GameObject.Find("Crosshair").GetComponent<Crosshair>();
         pM = GameObject.Find("Canvas").GetComponent<PauseMenu>();
+        iui = GameObject.Find("Canvas").GetComponent<InventoryUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!pM.pauseMenuUI.activeSelf)
+        if (!pM.pauseMenuUI.activeSelf && !iui.inventoryUI.activeSelf)
         {
             crosshair.SetActive(true);
+            shootAble = true;
             if (player.GetComponent<PlayerMovementNew>().isRunning)
             {
                 bloomRange = 20f;
@@ -96,6 +97,7 @@ public class Gun : MonoBehaviour
             {
                 bloomRange = 12f;
             }
+
             if (isReloading)
                 return;
             if (curAmmo <= 0 || Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo)
@@ -103,40 +105,34 @@ public class Gun : MonoBehaviour
                 StartCoroutine(Reload());
                 return;
             }
+
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 Zoom();
+                isAiming = true;
             }
             else
             {
                 UnZoom();
+                isAiming = false;
             }
 
 
-            if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire)
+            if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire && shootAble)
             {
                 nextFire = Time.time + 1f / fireRate;
                 Shoot();
-                if(isReloading)
-                {
-                    isShooting = false;
-                    fpsCam.GetComponent<CameraControl>().SetGunRotation(Vector3.Lerp(fpsCam.GetComponent<CameraControl>().gunRotation, Vector3.zero, fireRate * Time.deltaTime));
-                }
-                else
-                {
-                    isShooting = true;
-                }
             }
-            else if (!Input.GetKey(KeyCode.Mouse0))
+            else if (!Input.GetKey(KeyCode.Mouse0) || isReloading)
             {
                 bulletCount = 0;
-                isShooting = false;
                 fpsCam.GetComponent<CameraControl>().SetGunRotation(Vector3.Lerp(fpsCam.GetComponent<CameraControl>().gunRotation, Vector3.zero, fireRate * Time.deltaTime));
             }
         }
         else
         {
             crosshair.SetActive(false);
+            shootAble = false;
         }
     }
 
@@ -147,26 +143,39 @@ public class Gun : MonoBehaviour
         isReloading = true;
         isZoom = false;
         int tempAmmo;
+        int remainAmmo;
         tempAmmo = maxAmmo - curAmmo;
         AudioManager.instance.Play("Reload", "SFX");
         yield return new WaitForSeconds(reloadTime);
-        if(ammoAmount >= 30)
+
+        if (ammoAmount < 30)
+        {
+            remainAmmo = ammoAmount;
+        }
+        else
+        {
+            remainAmmo = tempAmmo;
+        }
+
+        ammoAmount -= tempAmmo;
+        if (ammoAmount < 0)
+        {
+            ammoAmount = 0;
+        }
+
+        if (ammoAmount >= 30)
         {
             curAmmo = maxAmmo;
         }
         else
         {
-            curAmmo += ammoAmount;
+            curAmmo += remainAmmo;
+            if (curAmmo > 30)
+            {
+                curAmmo = 30;
+            }
         }
 
-        if(ammoAmount > 0)
-        {
-            ammoAmount -= tempAmmo;
-        }
-        else
-        {
-            ammoAmount = 0;
-        }
         isReloading = false;
         bulletCount = 0;
     }
@@ -183,9 +192,9 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         //bloom
         Vector3 bloom = fpsCam.transform.position + fpsCam.transform.forward * 500f;
-        if(bulletCount <= 9)
+        if (bulletCount <= 9)
         {
-            tempBloom = bloomRange - (bloomRange / (bulletCount+1));
+            tempBloom = bloomRange - (bloomRange / (bulletCount + 1));
             bloom += tempBloom * fpsCam.transform.up;
         }
         else
@@ -199,7 +208,17 @@ public class Gun : MonoBehaviour
         bloom.Normalize();
 
         //Recoil
-        fpsCam.GetComponent<CameraControl>().SetGunRotation(fpsCam.GetComponent<CameraControl>().gunRotation + recoilPattern[bulletCount]);
+        Vector3 tempRecoil;
+        if (isAiming)
+        {
+            tempRecoil = recoilPattern[bulletCount] / 2;
+        }
+        else
+        {
+            tempRecoil = recoilPattern[bulletCount];
+        }
+
+        fpsCam.GetComponent<CameraControl>().SetGunRotation(fpsCam.GetComponent<CameraControl>().gunRotation + tempRecoil);
 
         /*if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
         {
@@ -220,7 +239,6 @@ public class Gun : MonoBehaviour
             TargetScript target = hit.transform.GetComponent<TargetScript>();
             curAmmo--;
             bulletCount++;
-            //ui.UpdateAmmo(curAmmo);
             if (target != null)
             {
                 target.TakeDamage(damage);
@@ -242,16 +260,4 @@ public class Gun : MonoBehaviour
         gun.localPosition = new Vector3(0.5f, -0.244f, gun.localPosition.z);
         crosshair.SetActive(true);
     }
-
-    /*public void Recoil(bool isShooting,float rotX, Transform cam)
-    {
-        if (isShooting)
-        {
-            cam.localRotation = Quaternion.Euler(currRot.x, currRot.y, currRot.z);
-        }
-        else
-        {
-            cam.localRotation = Quaternion.Euler(rotX, 0, 0);
-        }
-    }*/
 }

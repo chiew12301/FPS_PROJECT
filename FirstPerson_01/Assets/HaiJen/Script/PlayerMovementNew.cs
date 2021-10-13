@@ -18,8 +18,8 @@ public enum PLAYER_STATE
     P_WALKRIGHTFORWARD,
     P_LEFTBACKWARD,
     P_RIGHTBACKWARD,
-    P_JUMP,
-    P_CROUCH
+    P_JUMP
+    //P_CROUCH
 }
 
 public class PlayerMovementNew : MonoBehaviour
@@ -36,23 +36,23 @@ public class PlayerMovementNew : MonoBehaviour
     public float groundDistance = 200.0f;
     public LayerMask groundMask;
     public float runMultiply = 2.0f;
-    public float crouchingHeight = 0.5f;
+    /*public float crouchingHeight = 0.5f;
     public float crouchingMultiply = 0.001f;
-    public float standingHeight = 1.5f;
+    public float standingHeight = 1.5f;*/
 
     Vector3 velocity;
     bool isGrounded;
     bool isMoving;
     public bool isRunning;
     public bool isWalking;
-    public bool isCrouching;
+    //public bool isCrouching;
 
     public Camera fpsCam;
     public float bobbingSpeed;
     public float bobbingAmount;
     float defaultPosY = 0;
     float timer = 0;
-    
+
     void Start()
     {
         p_Direction = 0;
@@ -71,7 +71,7 @@ public class PlayerMovementNew : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && isCrouching == false)
+        if (Input.GetKey(KeyCode.LeftShift))// && isCrouching == false)
         {
             isRunning = true;
             isWalking = false;
@@ -92,7 +92,7 @@ public class PlayerMovementNew : MonoBehaviour
             eqMenu.SetActive(false);
         }
 
-        if(!isCrouching)
+        /*if(!isCrouching)
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
@@ -105,19 +105,19 @@ public class PlayerMovementNew : MonoBehaviour
             {
                 isCrouching = false;
             }
-        }
+        }*/
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-        
+
         if (isRunning && isGrounded)
         {
             move *= runMultiply;
         }
 
-        if(isCrouching)
+        /*if(isCrouching)
         {
             controller.height = crouchingHeight;
             move *= crouchingMultiply;
@@ -125,7 +125,7 @@ public class PlayerMovementNew : MonoBehaviour
         else
         {
             controller.height = standingHeight;
-        }
+        }*/
 
         controller.Move(move * speed * Time.deltaTime);
 
@@ -146,9 +146,9 @@ public class PlayerMovementNew : MonoBehaviour
         {
             p_Direction = PLAYER_STATE.P_JUMP;
         }*/
-        if(Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            if(isRunning)
+            if (isRunning)
             {
                 p_Direction = PLAYER_STATE.P_FORWARD;
                 if (Input.GetKey(KeyCode.A))
@@ -234,15 +234,15 @@ public class PlayerMovementNew : MonoBehaviour
 
     void ViewBobbing(bool isMoving)
     {
-        if(isMoving)
+        if (isMoving)
         {
             timer += Time.deltaTime * bobbingSpeed;
             fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, defaultPosY + Mathf.Sin(timer) * bobbingAmount, fpsCam.transform.localPosition.z);
-        }   
+        }
         else
         {
             timer = 0;
-            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosY, Time.deltaTime * bobbingSpeed), fpsCam.transform.localPosition.z);
+            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, Mathf.Lerp(fpsCam.transform.localPosition.y, defaultPosY, Time.deltaTime * bobbingSpeed), fpsCam.transform.localPosition.z);
         }
     }
 }
