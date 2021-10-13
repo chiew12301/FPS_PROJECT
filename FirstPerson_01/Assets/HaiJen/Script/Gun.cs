@@ -100,13 +100,10 @@ public class Gun : MonoBehaviour
 
             if (isReloading)
                 return;
-            if(ammoAmount != 0)
+            if (curAmmo <= 0 || Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo)
             {
-                if (curAmmo <= 0 || Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo)
-                {
-                    StartCoroutine(Reload());
-                    return;
-                }
+                StartCoroutine(Reload());
+                return;
             }
 
             if (Input.GetKey(KeyCode.Mouse1))

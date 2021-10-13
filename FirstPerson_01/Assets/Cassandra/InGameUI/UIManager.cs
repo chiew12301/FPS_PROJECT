@@ -18,8 +18,8 @@ public class UIManager : MonoBehaviour
     {
         if (isReloading)
         {
-            txtCurAmmo.text = Count + "";
-            txtAmmoAmount.text = TotalAmmo + "";
+            txtCurAmmo.text = 0 + "";
+            txtAmmoAmount.text = (TotalAmmo+Count) + "";
             bulletIcon.gameObject.SetActive(false);
         }
         else
