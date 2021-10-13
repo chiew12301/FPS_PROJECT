@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1199008747102093090}
   - component: {fileID: 2813737731406180487}
   - component: {fileID: 65461378861024333}
+  - component: {fileID: 4921431800630026088}
   m_Layer: 0
   m_Name: Streetlight
   m_TagString: Untagged
@@ -82,6 +83,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4921431800630026088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010976766036501912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfca4c586cb385e448135b44baf1fe78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 462546159141970159}
+  lightBulb: {fileID: 2010976766036501912}
+  minIntensity: 0
+  maxIntensity: 1
+  smoothing: 5
 --- !u!1001 &1719670719447684457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,6 +232,12 @@ PrefabInstance:
 --- !u!4 &462546159141970158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1276264923167536519, guid: d8ba285578e01a54c8748603cc224c81,
+    type: 3}
+  m_PrefabInstance: {fileID: 1719670719447684457}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &462546159141970159 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 1276264923167536518, guid: d8ba285578e01a54c8748603cc224c81,
     type: 3}
   m_PrefabInstance: {fileID: 1719670719447684457}
   m_PrefabAsset: {fileID: 0}
