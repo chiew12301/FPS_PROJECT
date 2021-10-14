@@ -37,13 +37,13 @@ public class Objectives : MonoBehaviour
     {
         if(CurrentObjective != null)
         {
-            CurrentObjectiveDescription.gameObject.SetActive(true);
+            //CurrentObjectiveDescription.gameObject.SetActive(true);
 
-            CurrentObjectiveDescription.text = CurrentObjective.Description;            
+            CurrentObjectiveDescription.text = CurrentObjective.Description; 
         }
         else
         {
-            CurrentObjectiveDescription.text = "Objective Complete";
+            //CurrentObjectiveDescription.text = "Objective Complete";
 
             //CurrentObjectiveDescription.gameObject.SetActive(false);
         }
