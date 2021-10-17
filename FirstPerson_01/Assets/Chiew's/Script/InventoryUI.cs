@@ -45,10 +45,10 @@ public class InventoryUI : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.I))
                 {
-                    for (int i = 0; i < buttonObject.Length; i++)
-                    {
-                        buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
-                    }
+                    //for (int i = 0; i < buttonObject.Length; i++)
+                    //{
+                    //    buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
+                    //}
                     inventoryUI.SetActive(!inventoryUI.activeSelf);
                     CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
                     if (CraftingUI_OBJ.activeSelf == true)
@@ -77,10 +77,10 @@ public class InventoryUI : MonoBehaviour
                 {
                     if(Input.GetKeyDown(KeyCode.Escape))
                     {
-                        for (int i = 0; i < buttonObject.Length; i++)
-                        {
-                            buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
-                        }
+                        //for (int i = 0; i < buttonObject.Length; i++)
+                        //{
+                        //    buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
+                        //}
                         inventoryUI.SetActive(!inventoryUI.activeSelf);
                         CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
                         if (inventoryUI.activeSelf == false)
