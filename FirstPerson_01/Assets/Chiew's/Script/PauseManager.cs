@@ -86,13 +86,13 @@ public class PauseManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            Time.timeScale = 1.0f;
+            //Time.timeScale = 1.0f;
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            Time.timeScale = 0.000001f; //or 0.0f
+            //Time.timeScale = 0.000001f; //or 0.0f
         }
     }
 
@@ -107,7 +107,7 @@ public class PauseManager : MonoBehaviour
     IEnumerator playAnimation(string AniState)
     {
         ChangeAnimationState(AniState);
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.5f);
         setIsPause(true);
         isPlayingAni = false;
     }

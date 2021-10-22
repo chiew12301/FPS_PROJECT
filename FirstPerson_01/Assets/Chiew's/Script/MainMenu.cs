@@ -270,7 +270,7 @@ public class MainMenu : MonoBehaviour
         {
             MM_animator.Play(AnimationName);
         }
-        yield return new WaitForSeconds(0.35f); //1 seconds limited to each animation, addition 0.5 seconds is for safety purposes
+        yield return new WaitForSeconds(0.5f); //1 seconds limited to each animation, addition 0.5 seconds is for safety purposes
         //Completed Animation
         isAniDone = true;
         ButtonsInteractable(true);

@@ -45,10 +45,10 @@ public class InventoryUI : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.I))
                 {
-                    for (int i = 0; i < buttonObject.Length; i++)
-                    {
-                        buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
-                    }
+                    //for (int i = 0; i < buttonObject.Length; i++)
+                    //{
+                    //    buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
+                    //}
                     inventoryUI.SetActive(!inventoryUI.activeSelf);
                     CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
                     if (CraftingUI_OBJ.activeSelf == true)
@@ -73,21 +73,32 @@ public class InventoryUI : MonoBehaviour
                         PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                     }
                 }
+                if(PauseManager.instance.getUISTATE() == PAUSEUI.INVENTORYUI)
+                {
+                    if(Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        //for (int i = 0; i < buttonObject.Length; i++)
+                        //{
+                        //    buttonObject[i].gameObject.SetActive(!buttonObject[i].gameObject.activeSelf);
+                        //}
+                        inventoryUI.SetActive(!inventoryUI.activeSelf);
+                        CraftingUI_OBJ.SetActive(!CraftingUI_OBJ.activeSelf);
+                        if (inventoryUI.activeSelf == false)
+                        {
+                            for (int i = 0; i < slots.Length; i++)
+                            {
+                                slots[i].setDescriptionActiveState(false);
+                            }
+                            for (int j = 0; j < questObjects.Length; j++)
+                            {
+                                questObjects[j].SetActive(true);
+                            }
+                        }
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
+                    }
+                }
             }
         }
-
-        /*if(inventoryUI.activeSelf == true)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1f;
-        }*/
     }
 
     public void OnInventoryButton()
