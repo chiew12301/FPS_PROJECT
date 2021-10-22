@@ -247,14 +247,14 @@ public class Gun : MonoBehaviour
         }
     }
 
-    void Zoom()
+    public void Zoom()
     {
         Camera.main.fieldOfView = zoomValue;
         gun.localPosition = new Vector3(0, -0.168f, gun.localPosition.z);
         crosshair.SetActive(false);
     }
 
-    void UnZoom()
+    public void UnZoom()
     {
         Camera.main.fieldOfView = unZoomValue;
         gun.localPosition = new Vector3(0.5f, -0.244f, gun.localPosition.z);

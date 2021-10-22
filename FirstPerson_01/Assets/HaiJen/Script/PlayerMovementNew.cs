@@ -63,80 +63,83 @@ public class PlayerMovementNew : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InputState();
-        ViewBobbing(isMoving);
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (!isGrounded && velocity.y < 0)
+        if(!gameObject.GetComponent<Cutscene>().GetIsCutscene())
         {
-            velocity.y = -2f;
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))// && isCrouching == false)
-        {
-            isRunning = true;
-            isWalking = false;
-            bobbingAmount = 0.04f;
-        }
-        else
-        {
-            isRunning = false;
-            bobbingAmount = 0.02f;
-        }
-
-        if (Input.GetKey(KeyCode.Tab))
-        {
-            eqMenu.SetActive(true);
-        }
-        else
-        {
-            eqMenu.SetActive(false);
-        }
-
-        /*if(!isCrouching)
-        {
-            if (Input.GetKeyDown(KeyCode.C))
+            InputState();
+            ViewBobbing(isMoving);
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            if (!isGrounded && velocity.y < 0)
             {
-                isCrouching = true;
+                velocity.y = -2f;
             }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.C))
+
+            if (Input.GetKey(KeyCode.LeftShift))// && isCrouching == false)
             {
-                isCrouching = false;
+                isRunning = true;
+                isWalking = false;
+                bobbingAmount = 0.04f;
             }
-        }*/
+            else
+            {
+                isRunning = false;
+                bobbingAmount = 0.02f;
+            }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+            if (Input.GetKey(KeyCode.Tab))
+            {
+                eqMenu.SetActive(true);
+            }
+            else
+            {
+                eqMenu.SetActive(false);
+            }
 
-        Vector3 move = transform.right * x + transform.forward * z;
+            /*if(!isCrouching)
+            {
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    isCrouching = true;
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    isCrouching = false;
+                }
+            }*/
 
-        if (isRunning && isGrounded)
-        {
-            move *= runMultiply;
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+
+            Vector3 move = transform.right * x + transform.forward * z;
+
+            if (isRunning && isGrounded)
+            {
+                move *= runMultiply;
+            }
+
+            /*if(isCrouching)
+            {
+                controller.height = crouchingHeight;
+                move *= crouchingMultiply;
+            }
+            else
+            {
+                controller.height = standingHeight;
+            }*/
+
+            controller.Move(move * speed * Time.deltaTime);
+
+            /*if(Input.GetButtonDown("Jump") && isGrounded)
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                isGrounded = false;
+            }*/
+
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
         }
-
-        /*if(isCrouching)
-        {
-            controller.height = crouchingHeight;
-            move *= crouchingMultiply;
-        }
-        else
-        {
-            controller.height = standingHeight;
-        }*/
-
-        controller.Move(move * speed * Time.deltaTime);
-
-        /*if(Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            isGrounded = false;
-        }*/
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
     }
 
     private void InputState()
