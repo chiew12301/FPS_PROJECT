@@ -33,6 +33,8 @@ public class Gun : MonoBehaviour
 
     private Crosshair ch;
     private InventoryUI iui;
+    [SerializeField]
+    private GameObject mainMenu;
 
     public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
     {
@@ -81,7 +83,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!pM.pauseMenuUI.activeSelf && !iui.inventoryUI.activeSelf)
+        if (!pM.pauseMenuUI.activeSelf && !iui.inventoryUI.activeSelf && !PauseManager.instance.getIsPause() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
         {
             crosshair.SetActive(true);
             shootAble = true;
@@ -100,7 +102,7 @@ public class Gun : MonoBehaviour
 
             if (isReloading)
                 return;
-            if (curAmmo <= 0 || Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo)
+            if (!Input.GetKey(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo)
             {
                 StartCoroutine(Reload());
                 return;
@@ -118,7 +120,7 @@ public class Gun : MonoBehaviour
             }
 
 
-            if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire && shootAble)
+            if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire && shootAble && curAmmo > 0)
             {
                 nextFire = Time.time + 1f / fireRate;
                 Shoot();
