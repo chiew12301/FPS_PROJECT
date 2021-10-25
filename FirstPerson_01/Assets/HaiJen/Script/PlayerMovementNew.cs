@@ -175,12 +175,12 @@ public class PlayerMovementNew : MonoBehaviour
                 if (Input.GetKey(KeyCode.A))
                 {
                     p_Direction = PLAYER_STATE.P_LEFTFOWARD;
-                    movespeed = speed / 2;
+                    movespeed = speed / 1.5f;
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
                     p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
-                    movespeed = speed / 2;
+                    movespeed = speed / 1.5f;
                 }
                 AudioManager.instance.Play("Run", "SFX");
             }
@@ -190,12 +190,12 @@ public class PlayerMovementNew : MonoBehaviour
                 if (Input.GetKey(KeyCode.A))
                 {
                     p_Direction = PLAYER_STATE.P_WALKLEFTFOWARD;
-                    movespeed = speed / 2;
+                    movespeed = speed / 1.5f;
                 }
                 if (Input.GetKey(KeyCode.D))
                 {
                     p_Direction = PLAYER_STATE.P_WALKRIGHTFORWARD;
-                    movespeed = speed / 2;
+                    movespeed = speed / 1.5f;
                 }
                 isWalking = true;
                 AudioManager.instance.Play("Walk", "SFX");

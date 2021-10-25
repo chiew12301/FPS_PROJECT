@@ -21,7 +21,7 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerObject.GetComponent<Cutscene>().GetCanMoveCamera())
+        if (playerObject.GetComponent<Cutscene>().GetCanMoveCamera() && !PauseManager.instance.getIsPause())
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
