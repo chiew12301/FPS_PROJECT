@@ -66,91 +66,94 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         CheckSaveFile();
-        if(state == MMUISTATE.MAINMENU)
+        if(isOn == true)
         {
-            if(isFirstTime == true)
+            if (state == MMUISTATE.MAINMENU)
             {
-                if (isAniDone == true && FadeInisPlayed == false)
-                {
-                    Creadit.SetActive(false); instruction_OBJ.SetActive(false); setting.SetActive(false); MM_Parent.SetActive(true);
-                    StartCoroutine(animationCountDown(MM_ANIMATION_FADEIN));
-                }
-                isFirstTime = false;
-            }
-            else
-            {
-                if(changedLayer == true)
+                if (isFirstTime == true)
                 {
                     if (isAniDone == true && FadeInisPlayed == false)
                     {
                         Creadit.SetActive(false); instruction_OBJ.SetActive(false); setting.SetActive(false); MM_Parent.SetActive(true);
                         StartCoroutine(animationCountDown(MM_ANIMATION_FADEIN));
+                    }
+                    isFirstTime = false;
+                }
+                else
+                {
+                    if (changedLayer == true)
+                    {
+                        if (isAniDone == true && FadeInisPlayed == false)
+                        {
+                            Creadit.SetActive(false); instruction_OBJ.SetActive(false); setting.SetActive(false); MM_Parent.SetActive(true);
+                            StartCoroutine(animationCountDown(MM_ANIMATION_FADEIN));
+                            changedLayer = false;
+                        }
+                    }
+                }
+            }
+            else if (state == MMUISTATE.SETTING)
+            {
+                if (changedLayer == true)
+                {
+                    if (FadeOutisPlayed == false && isEntered == false)
+                    {
+                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+                        isEntered = true;
+                    }
+
+                    if (isAniDone == true && FadeInisPlayed == false)
+                    {
+                        MainMenuStatus(false);
+                        setting.SetActive(true);
+                        StartCoroutine(animationCountDown(SETTING_IN));
+                        isEntered = false;
+                        changedLayer = false;
+                    }
+                }
+
+            }
+            else if (state == MMUISTATE.CREDIT)
+            {
+                if (changedLayer == true)
+                {
+                    if (FadeOutisPlayed == false && isEntered == false)
+                    {
+                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+                        isEntered = true;
+                    }
+
+                    if (isAniDone == true && FadeInisPlayed == false)
+                    {
+                        MainMenuStatus(false);
+                        Creadit.SetActive(true);
+                        StartCoroutine(animationCountDown(CREDIT_IN));
+                        isEntered = false;
                         changedLayer = false;
                     }
                 }
             }
-        }
-        else if(state == MMUISTATE.SETTING)
-        {
-            if(changedLayer == true)
+            else if (state == MMUISTATE.INSTRUCTION)
             {
-                if (FadeOutisPlayed == false && isEntered == false)
+                if (changedLayer == true)
                 {
-                    StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
-                    isEntered = true;
-                }
+                    if (FadeOutisPlayed == false && isEntered == false)
+                    {
+                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+                        isEntered = true;
+                    }
 
-                if (isAniDone == true && FadeInisPlayed == false)
-                {
-                    MainMenuStatus(false);
-                    setting.SetActive(true);
-                    StartCoroutine(animationCountDown(SETTING_IN));
-                    isEntered = false;
-                    changedLayer = false;
+                    if (isAniDone == true && FadeInisPlayed == false)
+                    {
+                        MainMenuStatus(false);
+                        instruction_OBJ.SetActive(true);
+                        StartCoroutine(animationCountDown(INSTRUCTION_IN));
+                        isEntered = false;
+                        changedLayer = false;
+                    }
                 }
             }
-
-        }
-        else if (state == MMUISTATE.CREDIT)
-        {
-            if (changedLayer == true)
-            {
-                if (FadeOutisPlayed == false && isEntered == false)
-                {
-                    StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
-                    isEntered = true;
-                }
-
-                if (isAniDone == true && FadeInisPlayed == false)
-                {
-                    MainMenuStatus(false);
-                    Creadit.SetActive(true);
-                    StartCoroutine(animationCountDown(CREDIT_IN));
-                    isEntered = false;
-                    changedLayer = false;
-                }
-            }
-        }
-        else if (state == MMUISTATE.INSTRUCTION)
-        {
-            if (changedLayer == true)
-            {
-                if (FadeOutisPlayed == false && isEntered == false)
-                {
-                    StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
-                    isEntered = true;
-                }
-
-                if (isAniDone == true && FadeInisPlayed == false)
-                {
-                    MainMenuStatus(false);
-                    instruction_OBJ.SetActive(true);
-                    StartCoroutine(animationCountDown(INSTRUCTION_IN));
-                    isEntered = false;
-                    changedLayer = false;
-                }
-            }
-        }
+        }  
     }
 
     public void MainMenuStatus(bool stat)
@@ -171,7 +174,6 @@ public class MainMenu : MonoBehaviour
     public void StartGameButton()
     {
         StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
-        MainMenuStatus(false);
         isOn = false;
     }
 
@@ -276,6 +278,10 @@ public class MainMenu : MonoBehaviour
         ButtonsInteractable(true);
         FadeInisPlayed = !FadeInisPlayed;
         FadeOutisPlayed = !FadeOutisPlayed;
+        if(isOn == false)
+        {
+            MainMenuStatus(false);
+        }
     }
 
 }

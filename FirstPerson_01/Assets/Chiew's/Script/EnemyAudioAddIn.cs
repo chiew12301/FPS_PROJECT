@@ -54,15 +54,18 @@ public class EnemyAudioAddIn : MonoBehaviour
     {
         foreach (AudioSource s in All3DSound)
         {
-            if (amount >= 1)
+            if(s != null)
             {
-                amount = 1;
+                if (amount >= 1)
+                {
+                    amount = 1;
+                }
+                else if (amount <= 0)
+                {
+                    amount = 0;
+                }
+                s.volume = amount;
             }
-            else if (amount <= 0)
-            {
-                amount = 0;
-            }
-            s.volume = amount;
         }
     }
 }
