@@ -7,6 +7,7 @@ public class ConnectedWaypoint : Waypoint
     [SerializeField] protected float connectivityRadius = 8.0f;
 
     private List<ConnectedWaypoint> connections;
+    private int nextIndex;
 
     private void Start()
     {
@@ -50,15 +51,20 @@ public class ConnectedWaypoint : Waypoint
         else
         {
             ConnectedWaypoint nextWaypoint;
-            int nextIndex = 0;
 
             do
             {
-                nextIndex = UnityEngine.Random.Range(0, connections.Count);
-                nextWaypoint = connections[nextIndex]; 
+                if (nextIndex >= connections.Count)
+                {
+                    nextIndex = 0;
+                }
+                //nextIndex++;
+                //nextIndex = UnityEngine.Random.Range(0, connections.Count);
+                nextWaypoint = connections[nextIndex];
+                nextIndex++;
 
             } while (nextWaypoint == previousWaypoint);
-
+     
             return nextWaypoint;
         }
     }

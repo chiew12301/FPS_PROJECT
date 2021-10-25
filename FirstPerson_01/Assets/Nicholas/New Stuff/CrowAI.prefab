@@ -71,8 +71,9 @@ MonoBehaviour:
   maxHealth: 10
   explosionPrefab: {fileID: 6372860574811112641, guid: 065a4f4c90b5dab4a9ad2182388bb3fe,
     type: 3}
+  childCrowObject: {fileID: 0}
   target: {fileID: 0}
-  targetRange: 4
+  targetRange: 6
   wanderRadius: 1
   wanderTimer: 1
   stoppingDistance: 2
