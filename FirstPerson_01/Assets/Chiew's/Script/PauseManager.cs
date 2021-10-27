@@ -56,6 +56,11 @@ public class PauseManager : MonoBehaviour
         UISTAT = uistate;
         if(UISTAT == PAUSEUI.INVENTORYUI)
         {
+            if(AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
+            {
+                AudioManager.instance.Play("OpenUI", "SFX");
+            }
+
             StartCoroutine(playAnimation("InventoryIn"));
         }
         else if(UISTAT == PAUSEUI.MAPUI)
@@ -64,6 +69,11 @@ public class PauseManager : MonoBehaviour
         }
         else if(UISTAT == PAUSEUI.SETTINGUI)
         {
+            if (AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
+            {
+                AudioManager.instance.Play("OpenUI", "SFX");
+            }
+
             StartCoroutine(playAnimation("SettingIn"));
         }
         else //NONEPAUSE

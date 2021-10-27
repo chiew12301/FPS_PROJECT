@@ -45,38 +45,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGMsounds:
   - name: MainMenuBGM
-    clip: {fileID: 8300000, guid: a9bc4e5503d011b41a4f439808aedb00, type: 3}
+    clip: {fileID: 8300000, guid: a491c07588b43604393e951569ef6929, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: GameBGM
-    clip: {fileID: 8300000, guid: e10c07e9d3a24144e93b92c61e0bafc2, type: 3}
+    clip: {fileID: 8300000, guid: 535ee8c75a31c81428f933848f766612, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: InCombatBGM
-    clip: {fileID: 8300000, guid: 5f25b0ea219595f48b6f73cda44432c3, type: 3}
+    clip: {fileID: 8300000, guid: 8dd85d571b06dc14ebeff42cc9c6107c, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
   SFXsounds:
-  - name: Walk
-    clip: {fileID: 8300000, guid: 1ee53c4239e9fa244aabae9273fecec0, type: 3}
+  - name: Run
+    clip: {fileID: 8300000, guid: 82fd37e58c84f304fb22f8b8b1093586, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Run
-    clip: {fileID: 8300000, guid: d70b65ec0fb3d0445b11a7aeae106287, type: 3}
+  - name: Walk
+    clip: {fileID: 8300000, guid: b9e156fb58bb91e45b8762a3d5b10816, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Shoot
-    clip: {fileID: 8300000, guid: 8a92a43e9648833469099d6ec549f408, type: 3}
+    clip: {fileID: 8300000, guid: eee392c8db9801943894008fd0ef545e, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -88,25 +88,67 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Reload
-    clip: {fileID: 8300000, guid: 1282bee9585365a408ae880af7ae17dc, type: 3}
+    clip: {fileID: 8300000, guid: 24e11bb2f4aeaff4a919387eb4109e3c, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: HeavyEquipment
-    clip: {fileID: 8300000, guid: a72610e75820ce64b9f707b5b6fb806a, type: 3}
+    clip: {fileID: 8300000, guid: 631426304a0330a40b6adc6d35eaf0b0, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Crow
-    clip: {fileID: 8300000, guid: d96f23923fc7c3d489dc95a461698c3f, type: 3}
+    clip: {fileID: 8300000, guid: f8f13690a40dbce419d88ed1c1914390, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Breathing
+    clip: {fileID: 8300000, guid: 7aed25dca82c7bc4eb7c0d772e1e5e58, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Breathing
-    clip: {fileID: 8300000, guid: 275560f6fd63f354e8dfb2f6ecadc2dd, type: 3}
+  - name: Objective
+    clip: {fileID: 8300000, guid: 43d8f0414fb44b64596c7e62e818997f, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Windblow
+    clip: {fileID: 8300000, guid: 9cac195eecb4ca64f8dbf6d7ec793c9f, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Crafting
+    clip: {fileID: 8300000, guid: 186a1bd0ffc925e4d91bbb76517f7843, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Helicopter
+    clip: {fileID: 8300000, guid: 84fbab32c4c57464bb2384fb926958e3, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HelicopterExplosion
+    clip: {fileID: 8300000, guid: f82a6633c065f0848918d65a6222aa03, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HitFeedback
+    clip: {fileID: 8300000, guid: 43f516a5d2db324409c6ea0003e4bf0a, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: OpenUI
+    clip: {fileID: 8300000, guid: 1a60423600389ab47a3d5512efd09ce2, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
