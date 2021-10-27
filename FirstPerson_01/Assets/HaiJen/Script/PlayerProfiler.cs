@@ -6,7 +6,7 @@ public class PlayerProfiler : MonoBehaviour
 {
     public Item MedKit;
     public int currHealthPoint;
-    private int maxHealthPoint = 100;
+    public int maxHealthPoint = 100;
     public int medkitCurrentAmount;
     private int medkitMaxAmount;
     public bool isHealing;
