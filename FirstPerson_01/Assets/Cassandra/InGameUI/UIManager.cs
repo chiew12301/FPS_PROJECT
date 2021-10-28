@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Text TxtAmmo;
+    private Text txtCurAmmo;
+    [SerializeField]
+    private Text txtAmmoAmount;
+    [SerializeField]
+    private Text txtReload;
     public GameObject player;
     [SerializeField]
     private RawImage bulletIcon;
@@ -16,12 +20,18 @@ public class UIManager : MonoBehaviour
     {
         if (isReloading)
         {
-            TxtAmmo.text = "Reloading...";
+            txtCurAmmo.gameObject.SetActive(false);
+            txtAmmoAmount.gameObject.SetActive(false);
             bulletIcon.gameObject.SetActive(false);
+            txtReload.gameObject.SetActive(true);
         }
         else
         {
-            TxtAmmo.text = Count + " | " + TotalAmmo;
+            txtCurAmmo.text = Count + "";
+            txtAmmoAmount.text = TotalAmmo + "";
+            txtCurAmmo.gameObject.SetActive(true);
+            txtAmmoAmount.gameObject.SetActive(true);
+            txtReload.gameObject.SetActive(false);
             bulletIcon.gameObject.SetActive(true);
         }
     }

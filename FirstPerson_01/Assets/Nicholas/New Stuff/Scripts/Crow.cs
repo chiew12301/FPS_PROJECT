@@ -11,7 +11,7 @@ public class Crow : MonoBehaviour
     private TargetScript targetScript;
 
     [Header("Target Values")]
-    [SerializeField] private GameObject target;
+    private GameObject target;
     [SerializeField] private float targetRange;
 
     [Header("Behaviour Values")]
@@ -21,16 +21,21 @@ public class Crow : MonoBehaviour
     [SerializeField] private float attackInterval;
     [SerializeField] private float suicideTimer;
 
+    [HideInInspector]
+    public AudioSource audioSource;
+    
     NavMeshAgent navMeshAgent;
     Animator animator;
     float timer;
     float sTimer;
     bool isChasing = false;
+    bool isDead;
 
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = this.GetComponent<NavMeshAgent>();
         timer = wanderTimer;
@@ -105,11 +110,18 @@ public class Crow : MonoBehaviour
             #endregion
         }
 
+        if (currHealth <= 0)
+            isDead = true;
+        else
+            isDead = false;
+
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    currHealth = 2;
         //}
+        StopSoundWhenDead();
     }
+
     private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;
@@ -156,4 +168,11 @@ public class Crow : MonoBehaviour
         yield return new WaitForSeconds(0);
     }
 
+    private void StopSoundWhenDead()
+    {
+        if (isDead || animator.GetBool("IsDead"))
+        {
+            audioSource.Stop();
+        }
+    }
 }

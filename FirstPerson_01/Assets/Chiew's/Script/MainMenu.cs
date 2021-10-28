@@ -6,135 +6,223 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject FirstStart_OBJ;
-    [SerializeField] Image MM_bg;
+    [SerializeField] GameObject MM_Parent;
     [SerializeField] TextMeshProUGUI MM_title;
     [SerializeField] GameObject MM_buttonParent;
     [SerializeField] Button LoadButton;
     [SerializeField] Animator MM_animator;
     [SerializeField] GameObject Creadit;
-    [SerializeField] GameObject Setting;
+    [SerializeField] GameObject setting;
     [SerializeField] GameObject instruction_OBJ;
-    [SerializeField] LevelLoader LV_loader;
 
-    const string MM_ANIMATION_FADEIN = "FadeIn";
-    const string MM_ANIMATION_FADEOUT = "FadeOut";
-    const string CREDIT_IN = "CreditIn";
-    const string SETTING_IN = "SettingIn";
+    const string MM_ANIMATION_FADEIN = "MainMenuFadeIn";
+    const string MM_ANIMATION_FADEOUT = "MainMenuFadeOut";
+    const string CREDIT_IN = "CreditFadeIn";
+    const string CREDIT_OUT = "CreditFadeOut";
+    const string SETTING_IN = "SettingFadeIn";
+    const string SETTING_OUT = "SettingFadeOut";
+    const string INSTRUCTION_IN = "InstructionFadeIn";
+    const string INSTRUCTION_OUT = "InstructionFadeOut";
 
-    bool isStartOn = false;
-    bool isMMOn = false;
+    bool isOn = false;
+    bool isAniDone = false;
+    bool FadeOutisPlayed = true;
+    bool FadeInisPlayed = false;
+    bool isFirstTime = true;
+    bool changedLayer = false;
+    bool isEntered = false;
+
+    enum MMUISTATE
+    {
+        MAINMENU = 0,
+        SETTING,
+        INSTRUCTION,
+        CREDIT = 3
+    }
+    
+    [System.Serializable]
+    public class MainMenuLayers
+    {
+        public string name; //Which Layer
+        public GameObject MainParent; //Parents of Layer
+        public Button[] LayersButton; //All the button(s) under that layer
+    };
+
+    public MainMenuLayers[] MM_LAYERS;
+    MMUISTATE state = MMUISTATE.MAINMENU;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        AudioManager.instance.StopAll();
-        MainMenuStatus(false);
-        isStartOn = false;
-        CheckFirstStart();
-        //MainMenuStatus(true);
+        MainMenuStatus(true);
+        isAniDone = true;
+        isFirstTime = true;
+        isOn = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckFirstStart();
         CheckSaveFile();
-    }
-
-    public void CheckFirstStart()
-    {
-        if(isStartOn == false)
+        if(isOn == true)
         {
-            FirstStart_OBJ.SetActive(true);
-            Creadit.SetActive(false); instruction_OBJ.SetActive(false);
-            MainMenuStatus(false);
-            if (Input.anyKey)
+            if (state == MMUISTATE.MAINMENU)
             {
-                //turn off the whole objects and set to false
-                FirstStart_OBJ.SetActive(false);
-                MainMenuStatus(true);
-                isStartOn = true;
+                if (isFirstTime == true)
+                {
+                    if (isAniDone == true && FadeInisPlayed == false)
+                    {
+                        Creadit.SetActive(false); instruction_OBJ.SetActive(false); setting.SetActive(false); MM_Parent.SetActive(true);
+                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEIN));
+                    }
+                    isFirstTime = false;
+                }
+                else
+                {
+                    if (changedLayer == true)
+                    {
+                        if (isAniDone == true && FadeInisPlayed == false)
+                        {
+                            Creadit.SetActive(false); instruction_OBJ.SetActive(false); setting.SetActive(false); MM_Parent.SetActive(true);
+                            StartCoroutine(animationCountDown(MM_ANIMATION_FADEIN));
+                            changedLayer = false;
+                        }
+                    }
+                }
             }
-        }
+            else if (state == MMUISTATE.SETTING)
+            {
+                if (changedLayer == true)
+                {
+                    if (FadeOutisPlayed == false && isEntered == false)
+                    {
+                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+                        isEntered = true;
+                    }
+
+                    if (isAniDone == true && FadeInisPlayed == false)
+                    {
+                        MainMenuStatus(false);
+                        setting.SetActive(true);
+                        StartCoroutine(animationCountDown(SETTING_IN));
+                        isEntered = false;
+                        changedLayer = false;
+                    }
+                }
+
+            }
+            else if (state == MMUISTATE.CREDIT)
+            {
+                if (changedLayer == true)
+                {
+                    if (FadeOutisPlayed == false && isEntered == false)
+                    {
+                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+                        isEntered = true;
+                    }
+
+                    if (isAniDone == true && FadeInisPlayed == false)
+                    {
+                        MainMenuStatus(false);
+                        Creadit.SetActive(true);
+                        StartCoroutine(animationCountDown(CREDIT_IN));
+                        isEntered = false;
+                        changedLayer = false;
+                    }
+                }
+            }
+            else if (state == MMUISTATE.INSTRUCTION)
+            {
+                if (changedLayer == true)
+                {
+                    if (FadeOutisPlayed == false && isEntered == false)
+                    {
+                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+                        isEntered = true;
+                    }
+
+                    if (isAniDone == true && FadeInisPlayed == false)
+                    {
+                        MainMenuStatus(false);
+                        instruction_OBJ.SetActive(true);
+                        StartCoroutine(animationCountDown(INSTRUCTION_IN));
+                        isEntered = false;
+                        changedLayer = false;
+                    }
+                }
+            }
+        }  
     }
 
     public void MainMenuStatus(bool stat)
     {
         if(stat == true)//turn on all the main menu assets, and play fade in
         {
-            MM_bg.gameObject.SetActive(true); MM_buttonParent.SetActive(true); MM_title.gameObject.SetActive(true); Creadit.SetActive(false); instruction_OBJ.SetActive(false);
-            if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(MM_ANIMATION_FADEIN) != true)
-            {
-                MM_animator.Play(MM_ANIMATION_FADEIN);
-            }
-            if(AudioManager.instance.FindIsPlaying("MainMenuBGM", "BGM") == false)
-            {
-                AudioManager.instance.StopAll();
-                AudioManager.instance.Play("MainMenuBGM", "BGM");
-            }
-            isMMOn = true;
+            state = MMUISTATE.MAINMENU;
+            changedLayer = true;
         }
         else 
         {
-            if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(MM_ANIMATION_FADEOUT) != true)
-            {
-                MM_animator.Play(MM_ANIMATION_FADEOUT);
-            }
-            AudioManager.instance.StopAll();
-            AudioManager.instance.Play("MainMenuBGM", "GameBGM");
-            isMMOn = false;
+            //AudioManager.instance.StopAll();
+            //AudioManager.instance.Play("MainMenuBGM", "GameBGM");
+            MM_Parent.SetActive(false);
         }
     }
 
     public void StartGameButton()
     {
-        MainMenuStatus(false);
-        LV_loader.LoadLevel(1);
-        if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(SETTING_IN) != true)
-        {
-            MM_animator.Play(SETTING_IN);
-        }
-        AudioManager.instance.Play("GameBGM", "BGM");
+        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+        isOn = false;
     }
 
-    public void LoadGameButton()
+    public void LoadGameButton() //load game
     {
         //MainMenuStatus(false);
     }
 
     public void SettingButton()
     {
-        MainMenuStatus(false);
-        Setting.SetActive(true);
-        if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(SETTING_IN) != true)
-        {
-            MM_animator.Play(SETTING_IN);
-        }
-        AudioManager.instance.Play("GameBGM", "BGM");
+        state = MMUISTATE.SETTING;
+        changedLayer = true;
     }
 
     public void CreditButton()
     {
-        MainMenuStatus(false);
-        Creadit.SetActive(true);
-        if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(CREDIT_IN) != true)
-        {
-            MM_animator.Play(CREDIT_IN);
-        }
-        AudioManager.instance.Play("GameBGM", "BGM");
+        state = MMUISTATE.CREDIT;
+        changedLayer = true;
     }
 
     public void InstructionButtom()
     {
-        MainMenuStatus(false);
-        instruction_OBJ.SetActive(true);
+        state = MMUISTATE.INSTRUCTION;
+        changedLayer = true;
     }
 
-    public void BackToMainMenu()
+    public void BackToMainMenu(int i)
     {
+        if (i == 0)
+        {
+            if (FadeOutisPlayed == false)
+            {
+                StartCoroutine(animationCountDown(SETTING_OUT));
+            }
+        }
+        else if(i == 1)
+        {
+            if (FadeOutisPlayed == false)
+            {
+                StartCoroutine(animationCountDown(CREDIT_OUT));
+            }
+        }
+        else
+        {
+            if (FadeOutisPlayed == false)
+            {
+                StartCoroutine(animationCountDown(INSTRUCTION_OUT));
+            }
+        }
         MainMenuStatus(true);
     }
 
@@ -150,6 +238,50 @@ public class MainMenu : MonoBehaviour
 
         //as placeholder done by 21/6/2021 will be unable to interact it because there's no save file.
         LoadButton.interactable = false;
+    }
+
+    /// <summary>
+    /// Function get is the main menu close
+    /// </summary>
+    public bool getMainMenuStatus()
+    {
+        return isOn;
+    }
+
+    private void ButtonsInteractable(bool State)
+    {
+        foreach (MainMenuLayers ml in MM_LAYERS)
+        { 
+            foreach(Button b in ml.LayersButton)
+            {
+                b.interactable = State;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Function to wait animation play before next action
+    /// </summary>
+    /// <param name="AnimationName">Animation to play</param>
+    IEnumerator animationCountDown(string AnimationName)
+    {
+        isAniDone = false;
+        ButtonsInteractable(false);
+        //start play the animation
+        if (MM_animator.GetCurrentAnimatorStateInfo(0).IsName(AnimationName) != true)
+        {
+            MM_animator.Play(AnimationName);
+        }
+        yield return new WaitForSeconds(0.5f); //1 seconds limited to each animation, addition 0.5 seconds is for safety purposes
+        //Completed Animation
+        isAniDone = true;
+        ButtonsInteractable(true);
+        FadeInisPlayed = !FadeInisPlayed;
+        FadeOutisPlayed = !FadeOutisPlayed;
+        if(isOn == false)
+        {
+            MainMenuStatus(false);
+        }
     }
 
 }

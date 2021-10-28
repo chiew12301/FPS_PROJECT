@@ -93,6 +93,11 @@ public class CraftingSlot : MonoBehaviour
     {
         if(item != null)
         {
+            if (AudioManager.instance.FindIsPlaying("Crafting", "SFX") == false)
+            {
+                AudioManager.instance.Play("Crafting", "SFX");
+            }
+
             craftingRes.Craft();
             craftingUI_OBJ.AssignToSlots();
         }

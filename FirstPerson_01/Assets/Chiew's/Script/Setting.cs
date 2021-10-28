@@ -23,5 +23,6 @@ public class Setting : MonoBehaviour
     {
         AudioManager.instance.allBGMVolume = BGMslider.value;
         AudioManager.instance.allSFXVolume = SFXslider.value;
+        EnemyAudioAddIn.instance.AdjustAll3DAudioVolume(SFXslider.value);
     }
 }
