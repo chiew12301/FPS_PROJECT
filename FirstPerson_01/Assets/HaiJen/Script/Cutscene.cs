@@ -50,13 +50,13 @@ public class Cutscene : MonoBehaviour
     //Every position to change cutscene state
     Vector3 startPosition = new Vector3(-524.8f, 250.0f, 404.8f);
     Vector3 cityFirstPos = new Vector3(-524.8f, 250.0f, -247.4f);
-    Vector3 cityEndPosition = new Vector3(90.77f, 250.0f, -247.4f);
-    Vector3 firstFallPosition = new Vector3(90.77f, 200.0f, -247.4f);
-    Vector3 firstBlockPosition = new Vector3(90.77f, 190.0f, -247.4f);
-    Vector3 secondFallPosition = new Vector3(90.77f, 150.0f, -247.4f);
-    Vector3 secondBlockPosition = new Vector3(90.77f, 140.0f, -247.4f);
-    Vector3 thirdFallPosition = new Vector3(90.77f, 100.0f, -247.4f);
-    Vector3 lastFallPosition = new Vector3(90.77f, 1.1f, -247.4f);
+    Vector3 cityEndPosition = new Vector3(28.3f, 250.0f, -247.4f);
+    Vector3 firstFallPosition = new Vector3(28.3f, 200.0f, -247.4f);
+    Vector3 firstBlockPosition = new Vector3(28.3f, 190.0f, -247.4f);
+    Vector3 secondFallPosition = new Vector3(28.3f, 150.0f, -247.4f);
+    Vector3 secondBlockPosition = new Vector3(28.3f, 140.0f, -247.4f);
+    Vector3 thirdFallPosition = new Vector3(28.3f, 100.0f, -247.4f);
+    Vector3 lastFallPosition = new Vector3(28.3f, 1.1f, -247.4f);
 
     //To check if the lerp ran
     public bool firstCityScene;
@@ -88,7 +88,7 @@ public class Cutscene : MonoBehaviour
                 playerCam.transform.localRotation = Quaternion.Euler(30, 0, 0);
                 if (!firstCityScene)
                 {
-                    transform.position = new Vector3(-524.8f, 250.0f, 404.8f);
+                    transform.position = startPosition;
                     transform.localRotation = Quaternion.Euler(0, 90f, 0);
                     StartCoroutine(LerpPosition(cityFirstPos, 15f, firstCityScene));
                     firstCityScene = true;
@@ -145,7 +145,7 @@ public class Cutscene : MonoBehaviour
             {
                 firstBlock.transform.position = transform.position + new Vector3(0, 20, 0);
                 secondBlock.transform.position = transform.position + new Vector3(0, 50, 0);
-                StartCoroutine(LerpRotate(Quaternion.Euler(270, 90, 90), 2f, firstBlockRotate));
+                StartCoroutine(LerpRotate(Quaternion.Euler(270, 90, 90), 1f, firstBlockRotate));
                 StartCoroutine(LerpPosition(firstBlockPosition, 1f, firstBlockRotate));
                 firstBlockRotate = true;
                 shootText.gameObject.SetActive(true);
@@ -186,7 +186,7 @@ public class Cutscene : MonoBehaviour
                 {
                     aimText.gameObject.SetActive(false);
                     shootText.gameObject.SetActive(false);
-                    StartCoroutine(LerpRotate(Quaternion.Euler(90, 90, 90), 2f, secondBlockRotate));
+                    StartCoroutine(LerpRotate(Quaternion.Euler(90, 90, 90), 1f, secondBlockRotate));
                     StartCoroutine(LerpPosition(secondBlockPosition, 1f, secondBlockRotate));
                     secondBlockRotate = true;
                     transform.rotation = Quaternion.Euler(90, 0, 0);
