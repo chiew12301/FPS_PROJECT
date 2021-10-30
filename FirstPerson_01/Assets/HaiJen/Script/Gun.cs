@@ -36,7 +36,7 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private GameObject mainMenu;
 
-    public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
+    /*public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
     {
         new Vector3(-1.5f, 0, 0),
         new Vector3(-1.5f, 0, 0),
@@ -68,8 +68,40 @@ public class Gun : MonoBehaviour
         new Vector3(0, 0.5f, 0),
         new Vector3(0, 0.5f, 0),
         new Vector3(0, 0.5f, 0)
+    };*/
+    public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
+    {
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0)
     };
-
     private void Start()
     {
         unZoomValue = Camera.main.fieldOfView;

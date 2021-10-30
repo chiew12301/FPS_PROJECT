@@ -184,7 +184,7 @@ public class PlayerMovementNew : MonoBehaviour
                 }
                 AudioManager.instance.Play("Run", "SFX");
             }
-            else
+            if(!isRunning)
             {
                 p_Direction = PLAYER_STATE.P_WALKFORWARD;
                 if (Input.GetKey(KeyCode.A))
@@ -224,7 +224,7 @@ public class PlayerMovementNew : MonoBehaviour
                 p_Direction = PLAYER_STATE.P_LEFT;
                 AudioManager.instance.Play("Run", "SFX");
             }
-            else
+            if (!isRunning)
             {
                 p_Direction = PLAYER_STATE.P_WALKLEFT;
                 isWalking = true;
@@ -239,7 +239,7 @@ public class PlayerMovementNew : MonoBehaviour
                 p_Direction = PLAYER_STATE.P_RIGHT;
                 AudioManager.instance.Play("Run", "SFX");
             }
-            else
+            if (!isRunning)
             {
                 p_Direction = PLAYER_STATE.P_WALKRIGHT;
                 isWalking = true;
