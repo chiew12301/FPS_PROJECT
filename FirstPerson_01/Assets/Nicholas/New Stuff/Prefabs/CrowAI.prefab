@@ -29,7 +29,7 @@ Transform:
   m_LocalPosition: {x: 1.835, y: 0, z: 0.68011665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2588941487689911523}
+  - {fileID: 8184439918871515082}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.295, y: 0, z: 0}
@@ -71,7 +71,6 @@ MonoBehaviour:
   maxHealth: 10
   explosionPrefab: {fileID: 6372860574811112641, guid: 065a4f4c90b5dab4a9ad2182388bb3fe,
     type: 3}
-  childCrowObject: {fileID: 0}
   target: {fileID: 0}
   targetRange: 6
   wanderRadius: 1
@@ -79,78 +78,78 @@ MonoBehaviour:
   stoppingDistance: 2
   attackInterval: 2
   suicideTimer: 2
---- !u!1001 &4329724350116906432
+--- !u!1001 &8511312652614527009
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 2623203767503097923}
     m_Modifications:
-    - target: {fileID: 1490780980097897369, guid: fdbe503a6d594d14dab4f71ae6dac824,
-        type: 3}
-      propertyPath: m_Name
-      value: Crow
-      objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6903456
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.15304585
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6903456
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.15304585
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+    - target: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -25
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 58995fb6a45bcdb4698c5db038b977fe,
+        type: 3}
+      propertyPath: m_Name
+      value: Crow with Bomb model 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fdbe503a6d594d14dab4f71ae6dac824, type: 3}
---- !u!4 &2588941487689911523 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 58995fb6a45bcdb4698c5db038b977fe, type: 3}
+--- !u!4 &8184439918871515082 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2304578346397501731, guid: fdbe503a6d594d14dab4f71ae6dac824,
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 58995fb6a45bcdb4698c5db038b977fe,
     type: 3}
-  m_PrefabInstance: {fileID: 4329724350116906432}
+  m_PrefabInstance: {fileID: 8511312652614527009}
   m_PrefabAsset: {fileID: 0}

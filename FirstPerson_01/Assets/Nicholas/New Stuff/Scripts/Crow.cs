@@ -11,7 +11,6 @@ public class Crow : MonoBehaviour
     [SerializeField] private GameObject explosionPrefab;
 
     [Header("Target Values")]
-    [SerializeField] private Transform childCrowObject;
     [SerializeField] private Transform target;
     [SerializeField] private float targetRange;
 
@@ -33,7 +32,6 @@ public class Crow : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = this.GetComponent<NavMeshAgent>();
-        childCrowObject = GetComponentInChildren<Transform>();
         timer = wanderTimer;
         currHealth = maxHealth;
 
@@ -44,10 +42,6 @@ public class Crow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            childCrowObject.position = transform.forward;
-        }
 
         if (animator != null)
         {
