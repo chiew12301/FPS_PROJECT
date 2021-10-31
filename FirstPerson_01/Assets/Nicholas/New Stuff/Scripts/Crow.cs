@@ -7,11 +7,11 @@ public class Crow : MonoBehaviour
 {
     [Header("Crow Values")]
     [SerializeField] private float currHealth;
-    //[SerializeField] private float maxHealth;
-    private TargetScript targetScript;
+    [SerializeField] private float maxHealth;
+    [SerializeField] private GameObject explosionPrefab;
 
     [Header("Target Values")]
-    private GameObject target;
+    [SerializeField] private Transform target;
     [SerializeField] private float targetRange;
 
     [Header("Behaviour Values")]
@@ -21,25 +21,19 @@ public class Crow : MonoBehaviour
     [SerializeField] private float attackInterval;
     [SerializeField] private float suicideTimer;
 
-    [HideInInspector]
-    public AudioSource audioSource;
-    
     NavMeshAgent navMeshAgent;
     Animator animator;
     float timer;
     float sTimer;
     bool isChasing = false;
-    bool isDead;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player");
-        audioSource = GetComponent<AudioSource>();
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = this.GetComponent<NavMeshAgent>();
         timer = wanderTimer;
-        targetScript = GetComponentInChildren<TargetScript>();    
+        currHealth = maxHealth;
 
         if (navMeshAgent == null)
             Debug.LogError("No nav mesh agent on " + gameObject.name);
@@ -48,12 +42,6 @@ public class Crow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    childCrowObject.position = transform.forward;
-        //}
-
-        currHealth = targetScript.currentHealth;
 
         if (animator != null)
         {
@@ -70,19 +58,16 @@ public class Crow : MonoBehaviour
             #endregion
 
             #region CHASE AND ATTACK BEHAVIOUR
-            float distance = Vector3.Distance(transform.position, target.transform.position);
+            float distance = Vector3.Distance(transform.position, target.position);
 
             if (distance <= targetRange)
             {
                 isChasing = true;
-                transform.LookAt(target.transform);
-                navMeshAgent.SetDestination(target.transform.position);
+                transform.LookAt(target);
+                navMeshAgent.SetDestination(target.position);
 
                 if (distance <= stoppingDistance)
                 {
-                    Debug.Log("Crow Current Health : " + currHealth);
-                    Debug.Log("Crow Max Health : " + targetScript.maxHealth);
-
                     navMeshAgent.isStopped = true;
 
                     // check to see which attack to use
@@ -90,8 +75,10 @@ public class Crow : MonoBehaviour
                     if (!IsCurrHealthLessThanHalf())
                     {
                         StartCoroutine("Attack");
-                    }                        // if < 50% hp, suicide
-                    else if (IsCurrHealthLessThanHalf())
+                    }
+
+                    // if < 50% hp, suicide
+                    if (IsCurrHealthLessThanHalf())
                     {
                         animator.SetBool("IsInRange", false);
                         StartCoroutine("Suicide");
@@ -110,18 +97,11 @@ public class Crow : MonoBehaviour
             #endregion
         }
 
-        if (currHealth <= 0)
-            isDead = true;
-        else
-            isDead = false;
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    currHealth = 2;
-        //}
-        StopSoundWhenDead();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            currHealth = 2;
+        }
     }
-
     private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;
@@ -137,7 +117,7 @@ public class Crow : MonoBehaviour
 
     private bool IsCurrHealthLessThanHalf()
     {
-        if (currHealth <= targetScript.maxHealth / 2)
+        if (currHealth <= maxHealth / 2)
         {
             return true;
         }
@@ -168,11 +148,4 @@ public class Crow : MonoBehaviour
         yield return new WaitForSeconds(0);
     }
 
-    private void StopSoundWhenDead()
-    {
-        if (isDead || animator.GetBool("IsDead"))
-        {
-            audioSource.Stop();
-        }
-    }
 }
