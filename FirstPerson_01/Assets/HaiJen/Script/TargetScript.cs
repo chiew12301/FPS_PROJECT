@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class TargetScript : MonoBehaviour
 {
-    public float maxHealth = 50f;
+    //public float maxHealth = 50f;
     public float currentHealth;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        //currentHealth = EnemyController.instance.maxHealth;
+    }
+
+    private void Update()
+    {
+        currentHealth = EnemyController.instance.currHealth;
     }
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
+        EnemyController.instance.currHealth -= damage;
+
         if (currentHealth <= 0f)
         {
             Die();

@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 1659319498}
   - component: {fileID: 1659319497}
   - component: {fileID: 1659319499}
+  - component: {fileID: 7445069683894031535}
   - component: {fileID: 8232698406294240372}
   m_Layer: 0
   m_Name: CrowAI_v2 Variant
@@ -177,6 +178,20 @@ MonoBehaviour:
   attackSpeed: 0.5
   explosionPrefab: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4,
     type: 3}
+--- !u!114 &7445069683894031535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8070193375913847990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6a8fa9c948f6f40a421d6dfcf713eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
+  currentHealth: 0
 --- !u!82 &8232698406294240372
 AudioSource:
   m_ObjectHideFlags: 0
@@ -198,7 +213,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 200
+  MaxDistance: 150
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
