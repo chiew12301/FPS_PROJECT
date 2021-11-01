@@ -23,9 +23,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI MM_title;
     [SerializeField] GameObject MM_buttonParent;
     [SerializeField] Animator MM_animator;
-    [SerializeField] GameObject Creadit;
     [SerializeField] GameObject setting;
-    [SerializeField] GameObject instruction_OBJ;
 
     const string MM_ANIMATION_FADEIN = "MainMenuFadeIn";
     const string MM_ANIMATION_FADEOUT = "MainMenuFadeOut";
@@ -47,9 +45,7 @@ public class MainMenu : MonoBehaviour
     enum MMUISTATE
     {
         MAINMENU = 0,
-        SETTING,
-        INSTRUCTION,
-        CREDIT = 3
+        SETTING
     }
     
     [System.Serializable]
@@ -85,7 +81,7 @@ public class MainMenu : MonoBehaviour
                 {
                     if (isAniDone == true && FadeInisPlayed == false)
                     {
-                        Creadit.SetActive(false); instruction_OBJ.SetActive(false); setting.SetActive(false); MM_Parent.SetActive(true);
+                        setting.SetActive(false); MM_Parent.SetActive(true);
                         StartCoroutine(animationCountDown(MM_ANIMATION_FADEIN));
                     }
                     isFirstTime = false;
@@ -96,7 +92,7 @@ public class MainMenu : MonoBehaviour
                     {
                         if (isAniDone == true && FadeInisPlayed == false)
                         {
-                            Creadit.SetActive(false); instruction_OBJ.SetActive(false); setting.SetActive(false); MM_Parent.SetActive(true);
+                           setting.SetActive(false); MM_Parent.SetActive(true);
                             StartCoroutine(animationCountDown(MM_ANIMATION_FADEIN));
                             changedLayer = false;
                         }
@@ -124,46 +120,6 @@ public class MainMenu : MonoBehaviour
                 }
 
             }
-            else if (state == MMUISTATE.CREDIT)
-            {
-                if (changedLayer == true)
-                {
-                    if (FadeOutisPlayed == false && isEntered == false)
-                    {
-                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
-                        isEntered = true;
-                    }
-
-                    if (isAniDone == true && FadeInisPlayed == false)
-                    {
-                        MainMenuStatus(false);
-                        Creadit.SetActive(true);
-                        StartCoroutine(animationCountDown(CREDIT_IN));
-                        isEntered = false;
-                        changedLayer = false;
-                    }
-                }
-            }
-            else if (state == MMUISTATE.INSTRUCTION)
-            {
-                if (changedLayer == true)
-                {
-                    if (FadeOutisPlayed == false && isEntered == false)
-                    {
-                        StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
-                        isEntered = true;
-                    }
-
-                    if (isAniDone == true && FadeInisPlayed == false)
-                    {
-                        MainMenuStatus(false);
-                        instruction_OBJ.SetActive(true);
-                        StartCoroutine(animationCountDown(INSTRUCTION_IN));
-                        isEntered = false;
-                        changedLayer = false;
-                    }
-                }
-            }
         }  
     }
 
@@ -188,26 +144,9 @@ public class MainMenu : MonoBehaviour
         isOn = false;
     }
 
-    public void LoadGameButton() //load game
-    {
-        //MainMenuStatus(false);
-    }
-
     public void SettingButton()
     {
         state = MMUISTATE.SETTING;
-        changedLayer = true;
-    }
-
-    public void CreditButton()
-    {
-        state = MMUISTATE.CREDIT;
-        changedLayer = true;
-    }
-
-    public void InstructionButtom()
-    {
-        state = MMUISTATE.INSTRUCTION;
         changedLayer = true;
     }
 
@@ -218,20 +157,6 @@ public class MainMenu : MonoBehaviour
             if (FadeOutisPlayed == false)
             {
                 StartCoroutine(animationCountDown(SETTING_OUT));
-            }
-        }
-        else if(i == 1)
-        {
-            if (FadeOutisPlayed == false)
-            {
-                StartCoroutine(animationCountDown(CREDIT_OUT));
-            }
-        }
-        else
-        {
-            if (FadeOutisPlayed == false)
-            {
-                StartCoroutine(animationCountDown(INSTRUCTION_OUT));
             }
         }
         MainMenuStatus(true);
