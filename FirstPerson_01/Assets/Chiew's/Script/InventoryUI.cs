@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    public Cutscene cs_Obj;
     public Transform itemParents;
     public GameObject inventoryUI;
     public GameObject CraftingUI_OBJ;
@@ -41,7 +42,7 @@ public class InventoryUI : MonoBehaviour
     {
         if(PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.INVENTORYUI)
         {
-            if(MainMenu.instance.getMainMenuStatus() == false)
+            if(MainMenu.instance.getMainMenuStatus() == false && cs_Obj.GetIsCutscene() == false)
             {
                 if (PauseManager.instance.getIsPlayingAni() == false)
                 {

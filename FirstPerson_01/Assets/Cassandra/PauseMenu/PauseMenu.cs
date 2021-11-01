@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
 
     //public bool GameIsPaused = false;
     //public GameObject invUI;
-
+    public Cutscene cs_Obj;
     public GameObject pauseMenuUI;
 
     public Animator canvas_animator;
@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.SETTINGUI)
         {
-            if (MainMenu.instance.getMainMenuStatus() == false)
+            if (MainMenu.instance.getMainMenuStatus() == false && cs_Obj.GetIsCutscene() == false)
             {
                 if (PauseManager.instance.getIsPlayingAni() == false)
                 {

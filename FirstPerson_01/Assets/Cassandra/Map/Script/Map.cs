@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
+    public Cutscene cs_Obj;
     private Canvas MapCanvas;
 
     // Start is called before the first frame update
@@ -17,7 +18,7 @@ public class Map : MonoBehaviour
     {
         if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.MAPUI)
         {
-            if (MainMenu.instance.getMainMenuStatus() == false)
+            if (MainMenu.instance.getMainMenuStatus() == false && cs_Obj.GetIsCutscene() == false)
             {
                 if (Input.GetKeyDown(KeyCode.M))
                 {
