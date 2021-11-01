@@ -17,21 +17,24 @@ public class Map : MonoBehaviour
     {
         if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.MAPUI)
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            if (MainMenu.instance.getMainMenuStatus() == false)
             {
-                if (PauseManager.instance.getIsPause() == true)
+                if (Input.GetKeyDown(KeyCode.M))
                 {
-                    PauseManager.instance.setIsPause(false);
-                    MapCanvas.enabled = false;
+                    if (PauseManager.instance.getIsPause() == true)
+                    {
+                        PauseManager.instance.setIsPause(false);
+                        MapCanvas.enabled = false;
 
-                    PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
-                }
-                else
-                {
-                    PauseManager.instance.setIsPause(true);
-                    MapCanvas.enabled = true;
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
+                    }
+                    else
+                    {
+                        PauseManager.instance.setIsPause(true);
+                        MapCanvas.enabled = true;
 
-                    PauseManager.instance.ChangeUISTATE(PAUSEUI.MAPUI);
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.MAPUI);
+                    }
                 }
             }
         }

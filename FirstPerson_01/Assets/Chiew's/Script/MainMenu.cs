@@ -6,6 +6,19 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
+    #region SINGLETONS_MM
+    public static MainMenu instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance is creating, Inventory!");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion SINGLETONS_MM
     [SerializeField] GameObject MM_Parent;
     [SerializeField] TextMeshProUGUI MM_title;
     [SerializeField] GameObject MM_buttonParent;

@@ -53,35 +53,35 @@ public class PauseManager : MonoBehaviour
 
     public void ChangeUISTATE(PAUSEUI uistate)
     {
-        UISTAT = uistate;
-        if(UISTAT == PAUSEUI.INVENTORYUI)
-        {
-            if(AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
+            UISTAT = uistate;
+            if (UISTAT == PAUSEUI.INVENTORYUI)
             {
-                AudioManager.instance.Play("OpenUI", "SFX");
-            }
+                if (AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
+                {
+                    AudioManager.instance.Play("OpenUI", "SFX");
+                }
 
-            StartCoroutine(playAnimation("InventoryIn"));
-        }
-        else if(UISTAT == PAUSEUI.MAPUI)
-        {
-            //play mapui animation;
-        }
-        else if(UISTAT == PAUSEUI.SETTINGUI)
-        {
-            if (AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
+                StartCoroutine(playAnimation("InventoryIn"));
+            }
+            else if (UISTAT == PAUSEUI.MAPUI)
             {
-                AudioManager.instance.Play("OpenUI", "SFX");
+                //play mapui animation;
             }
+            else if (UISTAT == PAUSEUI.SETTINGUI)
+            {
+                if (AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
+                {
+                    AudioManager.instance.Play("OpenUI", "SFX");
+                }
 
-            StartCoroutine(playAnimation("SettingIn"));
-        }
-        else //NONEPAUSE
-        {
-            ChangeAnimationState("Empty");
-            setIsPause(false);
-            isPlayingAni = false;
-        }
+                StartCoroutine(playAnimation("SettingIn"));
+            }
+            else //NONEPAUSE
+            {
+                ChangeAnimationState("Empty");
+                setIsPause(false);
+                isPlayingAni = false;
+            }
     }
 
     public PAUSEUI getUISTATE()

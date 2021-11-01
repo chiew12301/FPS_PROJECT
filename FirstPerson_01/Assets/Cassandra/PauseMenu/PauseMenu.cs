@@ -36,18 +36,21 @@ public class PauseMenu : MonoBehaviour
     {
         if (PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE || PauseManager.instance.getUISTATE() == PAUSEUI.SETTINGUI)
         {
-            if(PauseManager.instance.getIsPlayingAni() == false)
+            if (MainMenu.instance.getMainMenuStatus() == false)
             {
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (PauseManager.instance.getIsPlayingAni() == false)
                 {
-                    if (PauseManager.instance.getIsPause() == true)
+                    if (Input.GetKeyDown(KeyCode.Escape))
                     {
-                        //Comment 25/09, pressing escape the cursor is not locked  and invisible, might need check in build have any problem.
-                        Resume();
-                    }
-                    else
-                    {
-                        Pause();
+                        if (PauseManager.instance.getIsPause() == true)
+                        {
+                            //Comment 25/09, pressing escape the cursor is not locked  and invisible, might need check in build have any problem.
+                            Resume();
+                        }
+                        else
+                        {
+                            Pause();
+                        }
                     }
                 }
             }
