@@ -228,7 +228,7 @@ public class Gun : MonoBehaviour
             GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 2f);
         }*/
-        if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, Mathf.Infinity))
         {
             AudioManager.instance.Play("Shoot", "SFX");
             GameObject obj = ObjectPooling.current.GetPooledObject();
