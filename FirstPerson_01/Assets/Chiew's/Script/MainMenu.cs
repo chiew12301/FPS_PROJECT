@@ -22,7 +22,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject MM_Parent;
     [SerializeField] TextMeshProUGUI MM_title;
     [SerializeField] GameObject MM_buttonParent;
-    [SerializeField] Button LoadButton;
     [SerializeField] Animator MM_animator;
     [SerializeField] GameObject Creadit;
     [SerializeField] GameObject setting;
@@ -78,7 +77,6 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckSaveFile();
         if(isOn == true)
         {
             if (state == MMUISTATE.MAINMENU)
@@ -243,14 +241,6 @@ public class MainMenu : MonoBehaviour
     {
         AudioManager.instance.StopAll();
         Application.Quit();
-    }
-
-    public void CheckSaveFile()
-    {
-        //a save methods is implemented then will recode it
-
-        //as placeholder done by 21/6/2021 will be unable to interact it because there's no save file.
-        LoadButton.interactable = false;
     }
 
     /// <summary>
