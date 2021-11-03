@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject MM_buttonParent;
     [SerializeField] Animator MM_animator;
     [SerializeField] GameObject setting;
-
+    public GameObject[] UI_OBJ;
     const string MM_ANIMATION_FADEIN = "MainMenuFadeIn";
     const string MM_ANIMATION_FADEOUT = "MainMenuFadeOut";
     const string CREDIT_IN = "CreditFadeIn";
@@ -68,6 +68,7 @@ public class MainMenu : MonoBehaviour
         isAniDone = true;
         isFirstTime = true;
         isOn = true;
+        UIObjectStatus(false);
     }
 
     // Update is called once per frame
@@ -141,6 +142,7 @@ public class MainMenu : MonoBehaviour
     public void StartGameButton()
     {
         StartCoroutine(animationCountDown(MM_ANIMATION_FADEOUT));
+        UIObjectStatus(true);
         isOn = false;
     }
 
@@ -174,6 +176,17 @@ public class MainMenu : MonoBehaviour
     public bool getMainMenuStatus()
     {
         return isOn;
+    }
+
+    public void UIObjectStatus(bool state)
+    {
+        foreach (GameObject go in UI_OBJ)
+        {
+            if (go != null)
+            {
+                go.gameObject.SetActive(state);
+            }
+        }
     }
 
     private void ButtonsInteractable(bool State)

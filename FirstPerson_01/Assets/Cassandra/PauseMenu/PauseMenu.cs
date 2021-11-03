@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     //public GameObject invUI;
     public Cutscene cs_Obj;
     public GameObject pauseMenuUI;
-
+    
     public Animator canvas_animator;
 
     public GameObject BGMSLIDER_PARENT;

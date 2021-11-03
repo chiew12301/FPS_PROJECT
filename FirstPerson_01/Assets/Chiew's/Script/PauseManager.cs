@@ -26,8 +26,10 @@ public class PauseManager : MonoBehaviour
 
     #endregion SINGLETONS_PAUSE
     public Animator canvas_animator;
+    public GameObject[] UI_OBJ;
+    public Cutscene cs_OBJ;
     private PAUSEUI UISTAT = PAUSEUI.NONEPAUSE; //change this
-
+    
     private bool isPause = false;
     private bool INV_PAUSE = false;
     private bool SET_PAUSE = false;
@@ -39,6 +41,22 @@ public class PauseManager : MonoBehaviour
     {
         isPause = false;
         isPlayingAni = false;
+        if(cs_OBJ.GetIsCutscene() == true)
+        {
+            UIObjectStatus(false);
+        }
+    }
+
+    private void Update()
+    {
+        if(cs_OBJ.GetIsCutscene() == false)
+        {
+            UIObjectStatus(true);
+        }
+        else
+        {
+            UIObjectStatus(false);
+        }
     }
 
     public bool getIsPlayingAni()
@@ -60,7 +78,7 @@ public class PauseManager : MonoBehaviour
                 {
                     AudioManager.instance.Play("OpenUI", "SFX");
                 }
-
+                UIObjectStatus(false);
                 StartCoroutine(playAnimation("InventoryIn"));
             }
             else if (UISTAT == PAUSEUI.MAPUI)
@@ -73,11 +91,12 @@ public class PauseManager : MonoBehaviour
                 {
                     AudioManager.instance.Play("OpenUI", "SFX");
                 }
-
+                UIObjectStatus(false);
                 StartCoroutine(playAnimation("SettingIn"));
             }
             else //NONEPAUSE
             {
+                 UIObjectStatus(true);
                 ChangeAnimationState("Empty");
                 setIsPause(false);
                 isPlayingAni = false;
@@ -114,6 +133,18 @@ public class PauseManager : MonoBehaviour
             canvas_animator.Play(AniState);
         }
     }
+
+    public void UIObjectStatus(bool state)
+    {
+        foreach(GameObject go in UI_OBJ)
+        {
+            if(go != null)
+            {
+                go.gameObject.SetActive(state);
+            }
+        }
+    }
+
     IEnumerator playAnimation(string AniState)
     {
         ChangeAnimationState(AniState);

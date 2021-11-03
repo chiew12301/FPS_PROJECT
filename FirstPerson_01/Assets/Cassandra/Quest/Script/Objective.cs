@@ -17,6 +17,7 @@ public class Objective : MonoBehaviour
 
     public enum ObjectiveStatus
     {
+
         Pending = 0,
         Achieved = 1,
 
@@ -38,7 +39,7 @@ public class Objective : MonoBehaviour
     public ObjectiveStatus Status;
     public GameObject Target;
     public Objective NextObjective;
-    private int count = 5;
+    private int count = 0;
 
     public ActionOnReach[] ActionsOnReach;
 
@@ -52,26 +53,23 @@ public class Objective : MonoBehaviour
     {
         fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
         fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
-
+        count = 0;
         fi.fadeIn();
     }
 
     private void OnReach()
     {
+        if(this.ParentScript.CurrentObjective.name == "Quest")
+        {
+            ParentScript.isCompletedFirstObjective = true;
+        }
+
         if (this.ActionsOnReach.Contains(ActionOnReach.MarkAsAchieved))
             this.Status = ObjectiveStatus.Achieved;
 
-        //if (this.ActionsOnReach.Contains(ActionOnReach.Count))
-        //{
-        //    this.Status = ObjectiveStatus.Pending;
-
-        //}
-        //else
-        //{
-        //    count = 5;
-
-        //    this.Status = ObjectiveStatus.Achieved;
-        //}
+        if (this.ActionsOnReach.Contains(ActionOnReach.Count))
+            this.Status = ObjectiveStatus.Achieved;
+            count++;
 
         if (this.ActionsOnReach.Contains(ActionOnReach.PlayCinematic))
             this.PlayCinematic();
@@ -82,7 +80,8 @@ public class Objective : MonoBehaviour
         //if (this.ActionsOnReach.Contains(ActionOnReach.SetTrigger))
            // this.NextObjective.Target.GetComponentInParent<animator>().SetTrigger(this.TriggerName);
 
-        ParentScript.CurrentObjective = this.NextObjective;
+        //ParentScript.CurrentObjective = this.NextObjective;
+        fi.fadeIn();
     }
 
     private void PlayAnimation()
@@ -99,11 +98,17 @@ public class Objective : MonoBehaviour
     {
         Debug.Log("Enter");
 
-        if (other.tag == "Player" && this.ParentScript.CurrentObjective.name == this.name)
+        if (other.tag == "Player")
         {
-            OnReach();
+            if(this.ParentScript.CurrentObjective != null)
+            {
+                if(this.ParentScript.CurrentObjective.name == this.name)
+                {
+                    OnReach();
 
-            fo.fadeout();
+                    fo.fadeout();
+                }
+            }
         }
     }
 
