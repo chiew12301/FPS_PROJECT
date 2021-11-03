@@ -8,24 +8,43 @@ public class PlayerProfiler : MonoBehaviour
     public int currHealthPoint;
     public int maxHealthPoint = 100;
     public int medkitCurrentAmount;
-    private int medkitMaxAmount;
+    [SerializeField]
+    private bool usingMedkit;
     public bool isHealing;
 
     // Start is called before the first frame update
     void Start()
     {
-        currHealthPoint = 50;
+        currHealthPoint = maxHealthPoint;
     }
 
     // Update is called once per frame
     void Update()
     {
+        CheckMedKitAmount();
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            UseMedkit();
+            if(!usingMedkit)
+            {
+                usingMedkit = true;
+            }
+            else if(usingMedkit)
+            {
+                usingMedkit = false;
+            }
         }
-        CheckMedKitAmount();
+        if(usingMedkit)
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                UseMedkit();
+            }
+        }
 
+        if(currHealthPoint <= 0)
+        {
+            StartCoroutine(Die());
+        }
     }
 
     public bool CheckMedKit()
@@ -89,5 +108,17 @@ public class PlayerProfiler : MonoBehaviour
             Debug.Log("BOOOMM");
             TakeDamage(10);
         }
+    }
+
+    public bool GetUsingMedkit()
+    {
+        return usingMedkit;
+    }
+
+    IEnumerator Die()
+    {
+        //Fade to Black if able
+        yield return new WaitForSeconds(2.0f);
+        //Load Scene
     }
 }

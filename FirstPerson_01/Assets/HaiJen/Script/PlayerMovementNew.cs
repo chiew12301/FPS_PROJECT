@@ -31,8 +31,6 @@ public class PlayerMovementNew : MonoBehaviour
     float movespeed;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
-
-    public GameObject eqMenu;
     public Transform groundCheck;
     public float groundDistance = 200.0f;
     public LayerMask groundMask;
@@ -60,7 +58,6 @@ public class PlayerMovementNew : MonoBehaviour
     {
         p_Direction = 0;
         defaultPosY = fpsCam.transform.localPosition.y;
-        //controller.GetComponent<CharacterController>().detectCollisions = false;
     }
 
     // Update is called once per frame
@@ -89,16 +86,6 @@ public class PlayerMovementNew : MonoBehaviour
                 isRunning = false;
                 bobbingAmount = 0.02f;
             }
-
-            if (Input.GetKey(KeyCode.Tab))
-            {
-                eqMenu.SetActive(true);
-            }
-            else
-            {
-                eqMenu.SetActive(false);
-            }
-
             /*if(!isCrouching)
             {
                 if (Input.GetKeyDown(KeyCode.C))
@@ -144,6 +131,7 @@ public class PlayerMovementNew : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
+            SFXCheck();
         }
         else
         {
@@ -182,7 +170,6 @@ public class PlayerMovementNew : MonoBehaviour
                     p_Direction = PLAYER_STATE.P_RIGHTFORWARD;
                     movespeed = speed / 1.5f;
                 }
-                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
@@ -198,7 +185,6 @@ public class PlayerMovementNew : MonoBehaviour
                     movespeed = speed / 1.5f;
                 }
                 isWalking = true;
-                AudioManager.instance.Play("Walk", "SFX");
             }
             isMoving = true;
         }
@@ -215,20 +201,17 @@ public class PlayerMovementNew : MonoBehaviour
             }
             isWalking = true;
             isMoving = true;
-            AudioManager.instance.Play("Walk", "SFX");
         }
         else if (Input.GetKey(KeyCode.A))
         {
             if (isRunning)
             {
                 p_Direction = PLAYER_STATE.P_LEFT;
-                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKLEFT;
                 isWalking = true;
-                AudioManager.instance.Play("Walk", "SFX");
             }
             isMoving = true;
         }
@@ -237,13 +220,11 @@ public class PlayerMovementNew : MonoBehaviour
             if (isRunning)
             {
                 p_Direction = PLAYER_STATE.P_RIGHT;
-                AudioManager.instance.Play("Run", "SFX");
             }
             else
             {
                 p_Direction = PLAYER_STATE.P_WALKRIGHT;
                 isWalking = true;
-                AudioManager.instance.Play("Walk", "SFX");
             }
             isMoving = true;
         }
@@ -252,6 +233,38 @@ public class PlayerMovementNew : MonoBehaviour
             p_Direction = PLAYER_STATE.P_IDLE;
             isWalking = false;
             isMoving = false;
+        }
+    }
+
+    void SFXCheck()
+    {
+        if(p_Direction == PLAYER_STATE.P_WALKFORWARD || p_Direction == PLAYER_STATE.P_WALKLEFT || p_Direction == PLAYER_STATE.P_WALKLEFTFOWARD 
+            || p_Direction == PLAYER_STATE.P_WALKRIGHT || p_Direction == PLAYER_STATE.P_WALKRIGHTFORWARD || p_Direction == PLAYER_STATE.P_BACKWARD
+            || p_Direction == PLAYER_STATE.P_LEFTBACKWARD || p_Direction == PLAYER_STATE.P_RIGHTBACKWARD)
+        {
+            if (AudioManager.instance.FindIsPlaying("Run", "SFX"))
+            {
+                AudioManager.instance.Stop("Run", "SFX");
+            }
+            if (!AudioManager.instance.FindIsPlaying("Walk", "SFX"))
+            {
+                AudioManager.instance.Play("Walk", "SFX");
+            }
+        }
+        if (p_Direction == PLAYER_STATE.P_FORWARD || p_Direction == PLAYER_STATE.P_LEFTFOWARD || p_Direction == PLAYER_STATE.P_LEFT
+            || p_Direction == PLAYER_STATE.P_RIGHT || p_Direction == PLAYER_STATE.P_RIGHTFORWARD)
+        {
+            if (!AudioManager.instance.FindIsPlaying("Walk", "SFX"))
+            {
+                AudioManager.instance.Stop("Walk", "SFX");
+            }
+            if (!AudioManager.instance.FindIsPlaying("Run", "SFX"))
+            {
+                AudioManager.instance.Play("Run", "SFX");
+            }
+        }
+        if (p_Direction == PLAYER_STATE.P_IDLE)
+        {
             AudioManager.instance.Stop("Walk", "SFX");
             AudioManager.instance.Stop("Run", "SFX");
         }

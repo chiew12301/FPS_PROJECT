@@ -26,13 +26,14 @@ public class Gun : MonoBehaviour
 
     private float nextFire = 0.1f;
     private bool shootAble;
-    private bool isAiming;
     public int bulletCount;
     float tempBloom;
     PauseMenu pM;
 
     private Crosshair ch;
     private InventoryUI iui;
+    private PlayerProfiler pp;
+    private Cutscene cs;
     [SerializeField]
     private GameObject mainMenu;
 
@@ -78,12 +79,15 @@ public class Gun : MonoBehaviour
         ch = GameObject.Find("Crosshair").GetComponent<Crosshair>();
         pM = GameObject.Find("Canvas").GetComponent<PauseMenu>();
         iui = GameObject.Find("Canvas").GetComponent<InventoryUI>();
+        pp = gameObject.GetComponent<PlayerProfiler>();
+        cs = gameObject.GetComponent<Cutscene>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!pM.pauseMenuUI.activeSelf && !iui.inventoryUI.activeSelf && !PauseManager.instance.getIsPause() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
+        if (!pM.pauseMenuUI.activeSelf && !iui.inventoryUI.activeSelf && !PauseManager.instance.getIsPause() && 
+            !mainMenu.GetComponent<MainMenu>().getMainMenuStatus() && !pp.GetUsingMedkit() && !cs.GetIsCutscene())
         {
             crosshair.SetActive(true);
             shootAble = true;
@@ -111,12 +115,12 @@ public class Gun : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 Zoom();
-                isAiming = true;
+                isZoom = true;
             }
             else
             {
                 UnZoom();
-                isAiming = false;
+                isZoom = false;
             }
 
 
@@ -211,7 +215,7 @@ public class Gun : MonoBehaviour
 
         //Recoil
         Vector3 tempRecoil;
-        if (isAiming)
+        if (isZoom)
         {
             tempRecoil = recoilPattern[bulletCount] / 2;
         }

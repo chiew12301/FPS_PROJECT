@@ -12,10 +12,13 @@ public class CameraControl : MonoBehaviour
 
     public Vector3 gunRotation = Vector3.zero;
 
+    private Gun gun;
+
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        gun = playerObject.GetComponent<Gun>();
     }
 
     // Update is called once per frame
@@ -23,6 +26,14 @@ public class CameraControl : MonoBehaviour
     {
         if (playerObject.GetComponent<Cutscene>().GetCanMoveCamera() && !PauseManager.instance.getIsPause())
         {
+            if(gun.isZoom)
+            {
+                mouseSensitivity = 25.0f;
+            }
+            else
+            {
+                mouseSensitivity = 100.0f;
+            }
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 

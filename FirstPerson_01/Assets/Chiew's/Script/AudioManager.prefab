@@ -64,18 +64,24 @@ MonoBehaviour:
     source: {fileID: 0}
   SFXsounds:
   - name: Run
-    clip: {fileID: 8300000, guid: 82fd37e58c84f304fb22f8b8b1093586, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Walk
     clip: {fileID: 8300000, guid: b9e156fb58bb91e45b8762a3d5b10816, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
+    source: {fileID: 0}
+  - name: Walk
+    clip: {fileID: 8300000, guid: 82fd37e58c84f304fb22f8b8b1093586, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
   - name: Shoot
+    clip: {fileID: 8300000, guid: eee392c8db9801943894008fd0ef545e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Shoot_1
     clip: {fileID: 8300000, guid: eee392c8db9801943894008fd0ef545e, type: 3}
     volume: 0.5
     pitch: 1

@@ -151,6 +151,7 @@ public class Cutscene : MonoBehaviour
                 shootText.gameObject.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
+                    AudioManager.instance.Play("Shoot", "SFX");
                     firstBlock.SetActive(false);
                     c_State = CUTSCENE_STATE.SECOND_FALL;
                     shootText.gameObject.SetActive(false);
@@ -174,6 +175,7 @@ public class Cutscene : MonoBehaviour
                     shootText.gameObject.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
+                        AudioManager.instance.Play("Shoot", "SFX");
                         secondBlock.SetActive(false);
                     }
                 }
