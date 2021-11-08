@@ -44,33 +44,47 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // wander
-        timer += Time.deltaTime;
-        if (timer >= wanderTimer && isChasingPlayer == false)
+        if (agent != null)
         {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-            agent.SetDestination(newPos);
-            timer = 0.0f;
-        }
-
-        // chase
-        float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= lookRadius)
-        {
-            isChasingPlayer = true;
-            agent.SetDestination(target.position);
-
-            if (distance <= agent.stoppingDistance)
+            // wander
+            timer += Time.deltaTime;
+            if (timer >= wanderTimer && isChasingPlayer == false)
             {
-                // attack the player
-                combat.Attack();
-                LookAtPlayer();
+                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+                agent.SetDestination(newPos);
+                timer = 0.0f;
             }
-        }
-        else
-        {
-            isChasingPlayer = false;
-        }
+
+            // chase
+            float distance = Vector3.Distance(target.position, transform.position);
+            if (distance <= lookRadius)
+            {
+                isChasingPlayer = true;
+                agent.SetDestination(target.position);
+
+                if (distance <= agent.stoppingDistance)
+                {
+                    // attack the player
+                    combat.Attack();
+                    LookAtPlayer();
+                }
+            }
+            else
+            {
+                isChasingPlayer = false;
+            }
+
+            if (currHealth <= 0)
+            {
+                // die
+                combat.Die();
+                agent.isStopped = true;
+                Destroy(agent);
+                transform.position = new Vector3(transform.position.x, -2, transform.position.z);
+            }
+        }     
+
+        
     }
 
     void LookAtPlayer()

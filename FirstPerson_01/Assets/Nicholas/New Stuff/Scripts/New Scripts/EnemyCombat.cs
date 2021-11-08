@@ -37,13 +37,22 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        if (animator != null)
+        {
+            animator.Play("DeathAnim");
+        }
+    }
+
     void ClawAttack()
     {
         if (attackCooldown <= 0)
         {
             // do damage
             Debug.Log("Hitting Player");
-            animator.Play("CrowAttackAnim");
+            animator.Play("ClawAttackAnim");
+            //animator.SetTrigger("Attack");
             attackCooldown = 1f / attackSpeed;  // higher attack speed, lower attack cooldown
         }
     }
