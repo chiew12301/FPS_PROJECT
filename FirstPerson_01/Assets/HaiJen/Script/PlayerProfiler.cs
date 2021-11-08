@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerProfiler : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class PlayerProfiler : MonoBehaviour
     [SerializeField]
     private bool usingMedkit;
     public bool isHealing;
+    [SerializeField]
+    GameObject bloodUI;
+    [SerializeField]
+    Camera playerCam;
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +98,23 @@ public class PlayerProfiler : MonoBehaviour
     void TakeDamage(int damage)
     {
         currHealthPoint -= damage;
+        int rand = Random.Range(0, 2);
+        if(rand == 0)
+        {
+            AudioManager.instance.Play("Hurt01", "SFX");
+        }
+        else
+        {
+            AudioManager.instance.Play("Hurt02", "SFX");
+        }
+        StartCoroutine(bleed());
+    }
+
+    IEnumerator bleed()
+    {
+        bloodUI.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        bloodUI.SetActive(false);
     }
 
     void OnTriggerEnter(Collider collision)
@@ -118,7 +140,9 @@ public class PlayerProfiler : MonoBehaviour
     IEnumerator Die()
     {
         //Fade to Black if able
+        AudioManager.instance.Play("Dead", "SFX");
         yield return new WaitForSeconds(2.0f);
         //Load Scene
+        SceneManager.LoadScene(0);
     }
 }

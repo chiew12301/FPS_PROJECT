@@ -39,7 +39,10 @@ public class Cutscene : MonoBehaviour
     //Determination
     float timer;
     bool isCutscene;
+    bool isCredit;
     bool canMoveCamera;
+    bool creditStart;
+    bool creditDone;
 
     //GameObject to destroy to proceed
     [SerializeField]
@@ -70,20 +73,37 @@ public class Cutscene : MonoBehaviour
     public bool parachute;
     public bool lastFall;
 
+    public Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
         c_State = 0;
+        isCredit = true;
         isCutscene = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GetIsCutscene() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
+        if(isCredit && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
+        {
+            if(!creditStart)
+            {
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("Credit") != true)
+                {
+                    creditStart = true;
+                    anim.Play("Credit");
+                    StartCoroutine(CreditTimer());
+                }
+            }
+            
+        }
+        if (creditDone && GetIsCutscene() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
         {
             if (c_State == CUTSCENE_STATE.CITY)
             {
+                AudioManager.instance.Play("Helicopter", "SFX");
                 canMoveCamera = false;
                 playerCam.transform.localRotation = Quaternion.Euler(30, 0, 0);
                 if (!firstCityScene)
@@ -134,6 +154,7 @@ public class Cutscene : MonoBehaviour
                 StartCoroutine(CamRotate(Quaternion.Euler(0, 0, 0), 1f, firstFall));
                 StartCoroutine(LerpRotate(Quaternion.Euler(90, 0, 0), 1f, firstFall));
                 StartCoroutine(LerpPosition(firstFallPosition, 5f, firstFall));
+                StartCoroutine(ExplosionAudio());
                 firstFall = true;
                 transform.rotation = Quaternion.Euler(90, 90, 90);
                 if (transform.position == firstFallPosition)
@@ -343,5 +364,18 @@ public class Cutscene : MonoBehaviour
 
             ob.transform.position = targetPos;
         }
+    }
+
+    IEnumerator ExplosionAudio()
+    {
+        AudioManager.instance.Stop("Helicopter", "SFX");
+        yield return new WaitForSeconds(2.0f);
+        AudioManager.instance.Play("HelicopterExplosion", "SFX");
+    }
+
+    IEnumerator CreditTimer()
+    {
+        yield return new WaitForSeconds(43.0f);
+        creditDone = true;
     }
 }
