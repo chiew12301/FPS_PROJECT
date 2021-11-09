@@ -8,8 +8,13 @@ public class RadarSystem : MonoBehaviour
     //Inspector Variables
     [Header("Assign All Object")]
     public GameObject[] AllObjectives_Object;
+    public Objectives Objectives_On_Player;
+    public Objective firstQuest;
     [Header("Radius to detect")]
     public float Distance_To_Detect = 5.0f;
+
+    [Header("INPUT")]
+    public KeyCode key;
 
     [Header("ForDEBUGGIN")]
     public bool isDebug = true;
@@ -28,9 +33,17 @@ public class RadarSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Objectives_On_Player.CurrentObjective != firstQuest)
         {
-            Scan();
+            if (Input.GetKeyDown(key))
+            {
+                dogTagObjectStatus(true);
+                Scan();
+            }
+        }
+        else
+        {
+            dogTagObjectStatus(false);
         }
     }
 
@@ -46,7 +59,11 @@ public class RadarSystem : MonoBehaviour
                     //Scanned
                     if (isDebug == true)
                     {
-                        debugText.text = "Detected" + GO.name +" Distance Count: " + dis.ToString();
+                        if(debugText != null)
+                        {
+                            debugText.text = "Detected" + GO.name + " Distance Count: " + dis.ToString();
+                        }
+                        Debug.Log("Detected " + GO.name);
                     }
                     isScanned = true;
                     isDetected = true;
@@ -56,9 +73,23 @@ public class RadarSystem : MonoBehaviour
                     //Not Scan
                     if (isDebug == true)
                     {
-                        debugText.text = "Undetected. Distance Last Count:" + dis.ToString();
+                        if (debugText != null)
+                        {
+                            debugText.text = "Undetected. Distance Last Count:" + dis.ToString();
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    public void dogTagObjectStatus(bool status)
+    {
+        foreach (GameObject GO in AllObjectives_Object)
+        {
+            if(GO != null)
+            {
+                GO.SetActive(status);
             }
         }
     }
