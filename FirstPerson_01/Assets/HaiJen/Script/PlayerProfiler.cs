@@ -14,8 +14,15 @@ public class PlayerProfiler : MonoBehaviour
     public bool isHealing;
     [SerializeField]
     GameObject bloodUI;
+
     [SerializeField]
-    Camera playerCam;
+    float throwForce = 30f;
+    public GameObject molotovPrefab;
+
+    [SerializeField]
+    GameObject playerCam;
+
+    public Animator dieScene;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +45,11 @@ public class PlayerProfiler : MonoBehaviour
                 usingMedkit = false;
             }
         }
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            ThrowUtility();
+        }
+
         if(usingMedkit)
         {
             if(Input.GetKeyDown(KeyCode.Mouse0))
@@ -139,10 +151,20 @@ public class PlayerProfiler : MonoBehaviour
 
     IEnumerator Die()
     {
-        //Fade to Black if able
+        if (dieScene.GetCurrentAnimatorStateInfo(0).IsName("DieScene") != true)
+        {
+            dieScene.Play("DieScene");
+        }
         AudioManager.instance.Play("Dead", "SFX");
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(4.0f);
         //Load Scene
         SceneManager.LoadScene(0);
+    }
+
+    void ThrowUtility()
+    {
+        GameObject molotov = Instantiate(molotovPrefab, playerCam.transform.position, transform.rotation);
+        Rigidbody rb = molotov.GetComponent<Rigidbody>();
+        rb.AddForce(playerCam.transform.forward * throwForce);
     }
 }

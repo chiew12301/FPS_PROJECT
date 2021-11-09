@@ -7,7 +7,8 @@ public class Cutscene : MonoBehaviour
 {
     enum CUTSCENE_STATE
     {
-        CITY = 0,
+        AUDIO = 0,
+        CITY,
         SHAKE,
         JUMP,
         FIRST_FALL,
@@ -73,11 +74,15 @@ public class Cutscene : MonoBehaviour
     public bool parachute;
     public bool lastFall;
 
-    public Animator anim;
+    public Animator endCreditAnim;
+    public Animator cutsceneCreditAnim;
+
+    Gun playerGun;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerGun = gameObject.GetComponent<Gun>();
         c_State = 0;
         isCredit = true;
         isCutscene = true;
@@ -86,24 +91,34 @@ public class Cutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isCredit && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
+        /*if(isCredit && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
         {
             if(!creditStart)
             {
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("Credit") != true)
                 {
                     creditStart = true;
-                    anim.Play("Credit");
+                    endCreditAnim.Play("Credit");
                     StartCoroutine(CreditTimer());
                 }
             }
-            
-        }
-        if (creditDone && GetIsCutscene() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
+        }*/
+        if (GetIsCutscene() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
         {
-            if (c_State == CUTSCENE_STATE.CITY)
+            if(c_State == CUTSCENE_STATE.AUDIO)
             {
                 AudioManager.instance.Play("Helicopter", "SFX");
+                if (AudioManager.instance.FindIsPlaying("Helicopter", "SFX"))
+                {
+                    c_State = CUTSCENE_STATE.CITY;
+                }
+            }
+            else if (c_State == CUTSCENE_STATE.CITY)
+            {
+                if (cutsceneCreditAnim.GetCurrentAnimatorStateInfo(0).IsName("CutsceneCredit") != true)
+                {
+                    cutsceneCreditAnim.Play("CutsceneCredit");
+                }
                 canMoveCamera = false;
                 playerCam.transform.localRotation = Quaternion.Euler(30, 0, 0);
                 if (!firstCityScene)
@@ -143,6 +158,7 @@ public class Cutscene : MonoBehaviour
                 {
                     c_State = CUTSCENE_STATE.FIRST_FALL;
                     jumpText.gameObject.SetActive(false);
+                    StartCoroutine(ExplosionAudio());
                 }
                 firstBlock.SetActive(true);
                 secondBlock.SetActive(true);
@@ -154,7 +170,6 @@ public class Cutscene : MonoBehaviour
                 StartCoroutine(CamRotate(Quaternion.Euler(0, 0, 0), 1f, firstFall));
                 StartCoroutine(LerpRotate(Quaternion.Euler(90, 0, 0), 1f, firstFall));
                 StartCoroutine(LerpPosition(firstFallPosition, 5f, firstFall));
-                StartCoroutine(ExplosionAudio());
                 firstFall = true;
                 transform.rotation = Quaternion.Euler(90, 90, 90);
                 if (transform.position == firstFallPosition)
@@ -192,6 +207,7 @@ public class Cutscene : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Mouse1))
                 {
+                    playerGun.Zoom();
                     aimText.gameObject.SetActive(false);
                     shootText.gameObject.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -202,11 +218,13 @@ public class Cutscene : MonoBehaviour
                 }
                 else
                 {
+                    playerGun.UnZoom();
                     aimText.gameObject.SetActive(true);
                     shootText.gameObject.SetActive(false);
                 }
                 if (!secondBlock.activeSelf)
                 {
+                    playerGun.UnZoom();
                     aimText.gameObject.SetActive(false);
                     shootText.gameObject.SetActive(false);
                     StartCoroutine(LerpRotate(Quaternion.Euler(90, 90, 90), 1f, secondBlockRotate));
@@ -217,9 +235,7 @@ public class Cutscene : MonoBehaviour
                     {
                         c_State = CUTSCENE_STATE.THIRD_FALL;
                     }
-
                 }
-
             }
             else if (c_State == CUTSCENE_STATE.THIRD_FALL)
             {
@@ -368,8 +384,8 @@ public class Cutscene : MonoBehaviour
 
     IEnumerator ExplosionAudio()
     {
-        AudioManager.instance.Stop("Helicopter", "SFX");
         yield return new WaitForSeconds(2.0f);
+        AudioManager.instance.Stop("Helicopter", "SFX");
         AudioManager.instance.Play("HelicopterExplosion", "SFX");
     }
 

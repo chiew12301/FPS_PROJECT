@@ -37,7 +37,7 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private GameObject mainMenu;
 
-    public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
+    /*public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
     {
         new Vector3(-1.5f, 0, 0),
         new Vector3(-1.5f, 0, 0),
@@ -69,8 +69,40 @@ public class Gun : MonoBehaviour
         new Vector3(0, 0.5f, 0),
         new Vector3(0, 0.5f, 0),
         new Vector3(0, 0.5f, 0)
+    };*/
+    public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
+    {
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0),
+        new Vector3(-1.5f, 0, 0)
     };
-
     private void Start()
     {
         unZoomValue = Camera.main.fieldOfView;
@@ -123,6 +155,14 @@ public class Gun : MonoBehaviour
                 isZoom = false;
             }
 
+            if(isZoom)
+            {
+                crosshair.SetActive(false);
+            }
+            else
+            {
+                crosshair.SetActive(true);
+            }
 
             if (Input.GetKey(KeyCode.Mouse0) && Time.time >= nextFire && shootAble && curAmmo > 0)
             {
@@ -234,7 +274,6 @@ public class Gun : MonoBehaviour
         }*/
         if (Physics.Raycast(fpsCam.transform.position, bloom, out hit, Mathf.Infinity))
         {
-            AudioManager.instance.Play("Shoot", "SFX");
             GameObject obj = ObjectPooling.current.GetPooledObject();
             if (obj == null) return;
             if (hit.transform.tag != "Border")
@@ -245,6 +284,14 @@ public class Gun : MonoBehaviour
             TargetScript target = hit.transform.GetComponent<TargetScript>();
             curAmmo--;
             bulletCount++;
+            if(bulletCount % 2 == 0)
+            {
+                AudioManager.instance.Play("Shoot", "SFX");
+            }
+            else
+            {
+                AudioManager.instance.Play("Shoot_1", "SFX");
+            }
             if (target != null)
             {
                 target.TakeDamage(damage);
@@ -253,17 +300,15 @@ public class Gun : MonoBehaviour
         }
     }
 
-    void Zoom()
+    public void Zoom()
     {
         Camera.main.fieldOfView = zoomValue;
         gun.localPosition = new Vector3(0, -0.168f, gun.localPosition.z);
-        crosshair.SetActive(false);
     }
 
-    void UnZoom()
+     public void UnZoom()
     {
         Camera.main.fieldOfView = unZoomValue;
-        gun.localPosition = new Vector3(0.5f, -0.244f, gun.localPosition.z);
-        crosshair.SetActive(true);
+        gun.localPosition = new Vector3(0.38f, -0.244f, gun.localPosition.z);
     }
 }
