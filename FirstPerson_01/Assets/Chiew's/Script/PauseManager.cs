@@ -93,6 +93,7 @@ public class PauseManager : MonoBehaviour
                 {
                     AudioManager.instance.Play("OpenUI", "SFX");
                 }
+                UIObjectStatus(false);
                 //play mapui animation;
             }
             else if (UISTAT == PAUSEUI.SETTINGUI)
