@@ -30,41 +30,41 @@ public class Animation : MonoBehaviour
     public void Update()
     {
         #region CASE_ANIMATION
-        switch (playerMovement_Script.p_Direction)
-        {
-            case PLAYER_STATE.P_IDLE:
-                ChangeAnimationState(IDLE_ANIMATION);
-                break;
-            case PLAYER_STATE.P_JUMP:
-                ChangeAnimationState(JUMP_ANIMATION);
-                break;
-            case PLAYER_STATE.P_FORWARD:
-                ChangeAnimationState(RUN_ANIMATION);
-                break;
-            case PLAYER_STATE.P_BACKWARD:
-                ChangeAnimationState(RUN_BACK_ANIMATION);
-                break;
-            case PLAYER_STATE.P_LEFT:
-                ChangeAnimationState(RUN_LEFT_ANIMATION);
-                break;
-            case PLAYER_STATE.P_RIGHT:
-                ChangeAnimationState(RUN_RIGHT_ANIMATION);
-                break;
-            case PLAYER_STATE.P_LEFTFOWARD:
-                ChangeAnimationState(RUN_LEFTFORWARD_ANIMATION);
-                break;
-            case PLAYER_STATE.P_LEFTBACKWARD:
-                ChangeAnimationState(RUN_LEFTBACKWARD_ANIMATION);
-                break;
-            case PLAYER_STATE.P_RIGHTFORWARD:
-                ChangeAnimationState(RUN_RIGHTFORWARD_ANIMATION);
-                break;
-            case PLAYER_STATE.P_RIGHTBACKWARD:
-                ChangeAnimationState(RUN_RIGHTBACKWARD_ANIMATION);
-                break;
-            default:
-                break;
-        }
+        //switch (playerMovement_Script.p_Direction)
+        //{
+        //    case PLAYER_STATE.P_IDLE:
+        //        ChangeAnimationState(IDLE_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_JUMP:
+        //        ChangeAnimationState(JUMP_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_FORWARD:
+        //        ChangeAnimationState(RUN_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_BACKWARD:
+        //        ChangeAnimationState(RUN_BACK_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_LEFT:
+        //        ChangeAnimationState(RUN_LEFT_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_RIGHT:
+        //        ChangeAnimationState(RUN_RIGHT_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_LEFTFOWARD:
+        //        ChangeAnimationState(RUN_LEFTFORWARD_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_LEFTBACKWARD:
+        //        ChangeAnimationState(RUN_LEFTBACKWARD_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_RIGHTFORWARD:
+        //        ChangeAnimationState(RUN_RIGHTFORWARD_ANIMATION);
+        //        break;
+        //    case PLAYER_STATE.P_RIGHTBACKWARD:
+        //        ChangeAnimationState(RUN_RIGHTBACKWARD_ANIMATION);
+        //        break;
+        //    default:
+        //        break;
+        //}
         #endregion CASE_ANIMATION
 
         #region IF_ANIMATION
@@ -138,6 +138,10 @@ public class Animation : MonoBehaviour
             {
                 SetFocus(interactable, isPressed);
             }
+        }
+        else
+        {
+            RemoveFocus();
         }
 
     }

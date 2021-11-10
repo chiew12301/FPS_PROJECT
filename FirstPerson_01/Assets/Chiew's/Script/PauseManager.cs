@@ -35,13 +35,14 @@ public class PauseManager : MonoBehaviour
     private bool SET_PAUSE = false;
     private bool MM_PAUSE = false;
     private bool isPlayingAni = false;
-
+    private bool isFirstOpened = false;
     // Start is called before the first frame update
     void Start()
     {
         isPause = false;
         isPlayingAni = false;
-        if(cs_OBJ.GetIsCutscene() == true)
+        isFirstOpened = false;
+        if (cs_OBJ.GetIsCutscene() == true)
         {
             UIObjectStatus(false);
         }
@@ -49,13 +50,16 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if(cs_OBJ.GetIsCutscene() == false)
+        if(isFirstOpened == false)
         {
-            UIObjectStatus(true);
-        }
-        else
-        {
-            UIObjectStatus(false);
+            if (cs_OBJ.GetIsCutscene() == false)
+            {
+                UIObjectStatus(true);
+            }
+            else
+            {
+                UIObjectStatus(false);
+            }
         }
     }
 
@@ -74,6 +78,7 @@ public class PauseManager : MonoBehaviour
             UISTAT = uistate;
             if (UISTAT == PAUSEUI.INVENTORYUI)
             {
+                isFirstOpened = true;
                 if (AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
                 {
                     AudioManager.instance.Play("OpenUI", "SFX");
@@ -83,10 +88,17 @@ public class PauseManager : MonoBehaviour
             }
             else if (UISTAT == PAUSEUI.MAPUI)
             {
+                isFirstOpened = true;
+                if (AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
+                {
+                    AudioManager.instance.Play("OpenUI", "SFX");
+                }
+                UIObjectStatus(false);
                 //play mapui animation;
             }
             else if (UISTAT == PAUSEUI.SETTINGUI)
             {
+                isFirstOpened = true;
                 if (AudioManager.instance.FindIsPlaying("OpenUI", "SFX") == false)
                 {
                     AudioManager.instance.Play("OpenUI", "SFX");
@@ -96,7 +108,7 @@ public class PauseManager : MonoBehaviour
             }
             else //NONEPAUSE
             {
-                 UIObjectStatus(true);
+                UIObjectStatus(true);
                 ChangeAnimationState("Empty");
                 setIsPause(false);
                 isPlayingAni = false;
