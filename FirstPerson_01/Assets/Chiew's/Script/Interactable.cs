@@ -1,11 +1,13 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
     public float radius = 3f;
     public Transform interactionTransform;
     public TextMeshProUGUI promptText;
+    public Image imageOBJ;
 
     bool isFocus = false;
     Transform player;
@@ -21,6 +23,7 @@ public class Interactable : MonoBehaviour
     private void Start()
     {
         promptText.gameObject.SetActive(false);
+        imageOBJ.gameObject.SetActive(false);
     }
     private void Update()
     {
@@ -29,21 +32,33 @@ public class Interactable : MonoBehaviour
             float distance = Vector3.Distance(player.position, interactionTransform.position);
             if(distance <= radius)
             {
+                imageOBJ.sprite = this.GetComponent<ItemPickUp>().item.Icon;
+                promptText.text = "Press E to Pick Up " + this.GetComponent<ItemPickUp>().item.name;
                 if (keyPressed == true)
                 {
                     Interact();
                     hasInteracted = true;
                     promptText.gameObject.SetActive(false);
+                    imageOBJ.gameObject.SetActive(false);
                 }
                 else
                 {
-                    promptText.gameObject.SetActive(true);
+                    if(PauseManager.instance.getUISTATE() == PAUSEUI.NONEPAUSE)
+                    {
+                        promptText.gameObject.SetActive(true);
+                        imageOBJ.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        promptText.gameObject.SetActive(false);
+                        imageOBJ.gameObject.SetActive(false);
+                    }
                 }
-
             }
             else
             {
                 promptText.gameObject.SetActive(false);
+                imageOBJ.gameObject.SetActive(false);
             }
         }
     }
