@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b0c6aead88404d802619d65e84096, type: 3}
   m_Name: Meteor
   m_EditorClassIdentifier: 
-  name: New Item
+  name: Meteor
   Icon: {fileID: 0}
   isDefaultItem: 0
-  description: Item description
+  description: Meteor...the start of everything
   maxStackAmount: 5
