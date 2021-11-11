@@ -36,6 +36,8 @@ public class Cutscene : MonoBehaviour
     Camera playerCam;
     [SerializeField]
     GameObject mainMenu;
+    [SerializeField]
+    Dialogues dialogueScript;
 
     //Determination
     float timer;
@@ -131,6 +133,7 @@ public class Cutscene : MonoBehaviour
                 if (transform.position == cityFirstPos)
                 {
                     Vector3 rotation = new Vector3(0, 0, 0);
+                    dialogueScript.PlayDialogue_1();
                     StartCoroutine(LerpRotate(Quaternion.Euler(rotation), 3f, endCityScene));
                     StartCoroutine(LerpPosition(cityEndPosition, 15f, endCityScene));
                     endCityScene = true;
@@ -142,6 +145,7 @@ public class Cutscene : MonoBehaviour
             }
             else if (c_State == CUTSCENE_STATE.SHAKE)
             {
+                dialogueScript.PlayDialogue_2();
                 StartCoroutine(CamShake(5f, 5f, shakeScene));
                 shakeScene = true;
                 timer += Time.deltaTime;
@@ -153,6 +157,7 @@ public class Cutscene : MonoBehaviour
             }
             else if (c_State == CUTSCENE_STATE.JUMP)
             {
+                dialogueScript.PlayDialogue_3();
                 jumpText.gameObject.SetActive(true);
                 if (Input.GetKey(KeyCode.W))
                 {
@@ -271,6 +276,7 @@ public class Cutscene : MonoBehaviour
             {
                 isCutscene = false;
                 canMoveCamera = true;
+                dialogueScript.PlayDialogue_4_5();
             }
         }
     }
