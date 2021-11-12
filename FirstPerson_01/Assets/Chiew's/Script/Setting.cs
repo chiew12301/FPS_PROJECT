@@ -11,6 +11,7 @@ public class Setting : MonoBehaviour
     [Header("Slider")]
     [SerializeField] Slider BGMslider;
     [SerializeField] Slider SFXslider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +25,13 @@ public class Setting : MonoBehaviour
         AudioManager.instance.allBGMVolume = BGMslider.value;
         AudioManager.instance.allSFXVolume = SFXslider.value;
         EnemyAudioAddIn.instance.AdjustAll3DAudioVolume(SFXslider.value);
+    }
+
+    public void onValueChangeForSlider()
+    {
+        if (AudioManager.instance.FindIsPlaying("Shoot_1", "SFX") == false)
+        {
+            AudioManager.instance.Play("Shoot_1", "SFX");
+        }
     }
 }

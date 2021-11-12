@@ -56,6 +56,7 @@ public class PauseMenu : MonoBehaviour
             }
             AudioManager.instance.allBGMVolume = BGMslider.value;
             AudioManager.instance.allSFXVolume = SFXslider.value;
+            EnemyAudioAddIn.instance.AdjustAll3DAudioVolume(SFXslider.value);
         }
     }
 
@@ -90,11 +91,11 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Debug.Log("Loading Menu");
-        //SceneManager.LoadScene("Main Menu UI");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         PauseManager.instance.setIsPause(false);
-        LV_loader.LoadLevel(0);
+        SceneManager.LoadScene(0);
+        //LV_loader.LoadLevel(0);
     }
 
     public void QuitGame()
@@ -102,5 +103,13 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Quitting Game");
         PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE); //never test yet, but theory wise should be correct 25_09
         Application.Quit();
+    }
+
+    public void onValueChangeForSlider()
+    {
+        if (AudioManager.instance.FindIsPlaying("Shoot_1", "SFX") == false)
+        {
+            AudioManager.instance.Play("Shoot_1", "SFX");
+        }
     }
 }

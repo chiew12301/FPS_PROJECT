@@ -10,15 +10,21 @@ public class Objectives : MonoBehaviour
     private Objective[] PlayerObjectives;
     //public Image CurrentObjectiveArrow;
 
+    [Header("Player Model")]
+    public GameObject PlayerObject;
+
     public Text CurrentObjectiveDescription;
 
-    private FadeOut fo;
-    private FadeIn fi;
-
+    public FadeOut fo;
+    public FadeIn fi;
+    private int LastObjective = 0;
+    private bool isFirstTime = false;
     void Start()
     {
-        fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
-        fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
+        LastObjective = 0;
+        isFirstTime = false;
+        //fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
+        //fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
         var objectiveParentGameObject = this.CurrentObjective.transform.parent.gameObject;
         if (objectiveParentGameObject != null)
         {
@@ -43,31 +49,30 @@ public class Objectives : MonoBehaviour
     {
         if(isCompletedFirstObjective == true)
         {
-            float dis = 0.0f;
+            //checking for second objective
+            float LatestDistance = 0.0f;
             for(int i = 1;i < PlayerObjectives.Length; i++)
             {
                 if(PlayerObjectives[i].Status == Objective.ObjectiveStatus.Pending)
                 {
-                    float tempdis = Vector3.Distance(this.gameObject.transform.position, PlayerObjectives[i].gameObject.transform.position);
-                    if(i == 1)
+                    float CalculateDistance = Vector3.Distance(PlayerObject.transform.position, PlayerObjectives[i].gameObject.transform.position);
+                    if (LatestDistance <= 0.0f)
                     {
-                        dis = tempdis;
-                        CurrentObjective = PlayerObjectives[i];
-                        if(fo.gameObject.activeSelf != false)
-                        {
-                            fo.fadeout();
-                        }
+                        LatestDistance = CalculateDistance;
+                        LastObjective = i;
+                        isFirstTime = true;
                     }
-                    if (tempdis < dis)
+                    if(LatestDistance > CalculateDistance)
                     {
-                        dis = tempdis;
-                        CurrentObjective = PlayerObjectives[i];
-                        if (fo.gameObject.activeSelf != false)
-                        {
-                            fo.fadeout();
-                        }
+                        LatestDistance = CalculateDistance;
+                        LastObjective = i;
                     }
                 }
+            }
+            CurrentObjective = PlayerObjectives[LastObjective];
+            if (fo.gameObject.activeSelf != false)
+            {
+                fo.fadeout();
             }
             if (fi.gameObject.activeSelf != false)
             {

@@ -43,18 +43,21 @@ public class Objective : MonoBehaviour
 
     public ActionOnReach[] ActionsOnReach;
 
-    private FadeOut fo;
-    private FadeIn fi;
+    public FadeOut fo;
+    public FadeIn fi;
 
     //public Animator animator;
     //public string TriggerName;
 
     private void Start()
     {
-        fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
-        fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
+        //fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
+        //fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
         count = 0;
-        fi.fadeIn();
+        if(fi.gameObject.activeSelf != false)
+        {
+            fi.fadeIn();
+        }
     }
 
     private void OnReach()
