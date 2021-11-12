@@ -58,16 +58,16 @@ Material:
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 0
-    - _CullMode: 2
-    - _CullModeForward: 2
+    - _CullMode: 1
+    - _CullModeForward: 1
     - _DepthOffsetEnable: 0
     - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 0
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
-    - _OpaqueCullMode: 2
-    - _OutlineThickness: 0
+    - _OpaqueCullMode: 1
+    - _OutlineThickness: 0.025
     - _RenderQueueType: 1
     - _SrcBlend: 1
     - _StencilRef: 0
