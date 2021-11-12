@@ -53,17 +53,26 @@ public class Objectives : MonoBehaviour
                     {
                         dis = tempdis;
                         CurrentObjective = PlayerObjectives[i];
-                        fo.fadeout();
+                        if(fo.gameObject.activeSelf != false)
+                        {
+                            fo.fadeout();
+                        }
                     }
                     if (tempdis < dis)
                     {
                         dis = tempdis;
                         CurrentObjective = PlayerObjectives[i];
-                        fo.fadeout();
+                        if (fo.gameObject.activeSelf != false)
+                        {
+                            fo.fadeout();
+                        }
                     }
                 }
             }
-            fi.fadeIn();
+            if (fi.gameObject.activeSelf != false)
+            {
+                fi.fadeIn();
+            }
         }
     }
 
