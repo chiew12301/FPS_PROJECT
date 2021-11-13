@@ -9,7 +9,9 @@ public class RadarSystem : MonoBehaviour
     [Header("Assign All Object")]
     public GameObject[] AllObjectives_Object;
     public Objectives Objectives_On_Player;
-    public Objective firstQuest;
+    public TextMeshProUGUI radarDetectedText;
+    public GameObject playerCamPos;
+    public Animator Canvas_Animator;
     [Header("Radius to detect")]
     public float Distance_To_Detect = 5.0f;
 
@@ -27,17 +29,18 @@ public class RadarSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        radarDetectedText.gameObject.SetActive(false);
         ResetScanner();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Objectives_On_Player.CurrentObjective != firstQuest)
+        if (Objectives_On_Player.isCompletedFirstObjective == true)
         {
+            dogTagObjectStatus(true);
             if (Input.GetKeyDown(key))
             {
-                dogTagObjectStatus(true);
                 Scan();
             }
         }
@@ -45,6 +48,7 @@ public class RadarSystem : MonoBehaviour
         {
             dogTagObjectStatus(false);
         }
+        checkIsRadarTextActive();
     }
 
     public void Scan()
@@ -61,21 +65,34 @@ public class RadarSystem : MonoBehaviour
                     {
                         if(debugText != null)
                         {
-                            debugText.text = "Detected" + GO.name + " Distance Count: " + dis.ToString();
+                            //debugText.text = "Detected" + GO.name + " Distance Count: " + dis.ToString();
                         }
                         Debug.Log("Detected " + GO.name);
                     }
+
+                    if(radarDetectedText != null)
+                    {
+                        radarDetectedText.gameObject.SetActive(true);
+                        radarDetectedText.text = GO.name + " detected nearby.";
+                    }
+
                     isScanned = true;
                     isDetected = true;
                 }
                 else
                 {
+                    if (radarDetectedText != null)
+                    {
+                        radarDetectedText.gameObject.SetActive(true);
+                        radarDetectedText.text = "No dog tag is detected....";
+                    }
+
                     //Not Scan
                     if (isDebug == true)
                     {
                         if (debugText != null)
                         {
-                            debugText.text = "Undetected. Distance Last Count:" + dis.ToString();
+                            //debugText.text = "Undetected. Distance Last Count:" + dis.ToString();
                         }
                     }
                 }
@@ -98,6 +115,28 @@ public class RadarSystem : MonoBehaviour
     {
         isScanned = false;
         isDetected = false;
+    }
+
+    private void checkIsRadarTextActive()
+    {
+        if(radarDetectedText != null)
+        {
+            if(radarDetectedText.gameObject.activeSelf == true)
+            {
+                StartCoroutine(disableTheText());
+            }
+        }
+    }
+
+    IEnumerator disableTheText()
+    {
+        yield return new WaitForSeconds(0.2f);
+        if (Canvas_Animator.GetCurrentAnimatorStateInfo(0).IsName("DogTagAnimationText") != true)
+        {
+            Canvas_Animator.Play("DogTagAnimationText");
+        }
+        yield return new WaitForSeconds(0.3f);
+        radarDetectedText.gameObject.SetActive(false);
     }
 
 }

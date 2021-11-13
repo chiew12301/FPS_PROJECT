@@ -27,6 +27,7 @@ public class PauseManager : MonoBehaviour
     #endregion SINGLETONS_PAUSE
     public Animator canvas_animator;
     public GameObject[] UI_OBJ;
+    public GameObject radarText;
     public Cutscene cs_OBJ;
     private PAUSEUI UISTAT = PAUSEUI.NONEPAUSE; //change this
     
@@ -153,6 +154,13 @@ public class PauseManager : MonoBehaviour
             if(go != null)
             {
                 go.gameObject.SetActive(state);
+            }
+        }
+        if(state == false)
+        {
+            if(radarText.gameObject.activeSelf == true)
+            {
+                radarText.gameObject.SetActive(false);
             }
         }
     }

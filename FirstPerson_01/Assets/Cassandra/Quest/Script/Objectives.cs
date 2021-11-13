@@ -23,6 +23,7 @@ public class Objectives : MonoBehaviour
     {
         LastObjective = 0;
         isFirstTime = false;
+        isCompletedFirstObjective = false;
         //fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
         //fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
         var objectiveParentGameObject = this.CurrentObjective.transform.parent.gameObject;
