@@ -58,6 +58,7 @@ public class RadarSystem : MonoBehaviour
             if(GO != null)
             {
                 float dis = Vector3.Distance(this.gameObject.transform.position, GO.transform.position);
+                Debug.Log(GO.name + " distance is " + dis.ToString());
                 if (dis <= Distance_To_Detect)
                 {
                     //Scanned
@@ -75,9 +76,10 @@ public class RadarSystem : MonoBehaviour
                         radarDetectedText.gameObject.SetActive(true);
                         radarDetectedText.text = GO.name + " detected nearby.";
                     }
-
+                    
                     isScanned = true;
                     isDetected = true;
+                    break;
                 }
                 else
                 {
