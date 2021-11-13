@@ -39,46 +39,118 @@ public class Objective : MonoBehaviour
     public ObjectiveStatus Status;
     public GameObject Target;
     public Objective NextObjective;
-    private int count = 0;
 
     public ActionOnReach[] ActionsOnReach;
 
     public FadeOut fo;
     public FadeIn fi;
 
+    [Header("For Objectives that required to pick up certain items")]
+    public Item[] itemData;
+
+    private bool forPickQuestLoop = false;
+    private bool playerHitting = false;
     //public Animator animator;
     //public string TriggerName;
 
     private void Start()
     {
+        forPickQuestLoop = false;
+        playerHitting = false;
         //fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
         //fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
-        count = 0;
-        if(fi.gameObject.activeSelf != false)
+        if (fi.gameObject.activeSelf != false)
         {
             fi.fadeIn();
         }
     }
 
+    private void Update()
+    {
+        if(forPickQuestLoop == true && playerHitting == true)
+        {
+            OnReach();
+        }
+    }
+
     private void OnReach()
     {
-        if(this.ParentScript.CurrentObjective.name == "Quest")
+        if (Kind == ObjectiveType.Reach) // the objective type is reach the destination and complete
         {
-            ParentScript.isCompletedFirstObjective = true;
+            if (this.ParentScript.CurrentObjective.name == "Quest")
+            {
+                ParentScript.isCompletedFirstObjective = true;
+            }
+
+            if (this.ActionsOnReach.Contains(ActionOnReach.MarkAsAchieved))
+                this.Status = ObjectiveStatus.Achieved;
+
+            if (this.ActionsOnReach.Contains(ActionOnReach.Count)) //this work because is only apply for our second objective, is not flexible
+            {
+                this.Status = ObjectiveStatus.Achieved;
+                this.ParentScript.secondObjectiveCompletedCount++;
+            }
+
+
+            if (this.ActionsOnReach.Contains(ActionOnReach.PlayCinematic))
+                this.PlayCinematic();
+
+            if (this.ActionsOnReach.Contains(ActionOnReach.PlayAnimation))
+                this.PlayAnimation();
         }
+        else if (Kind == ObjectiveType.Pick) //pick up the item only complete
+        {//objective 2
+            bool CheckIsEnough = false;
+            forPickQuestLoop = true;
+            foreach (Item i in itemData)
+            {
+                if (Inventory.instance.CheckHaveItem(i) == true) //this also work for multiple item, because if not enough item will break and return false.
+                {
+                    //means have item
+                    CheckIsEnough = true;
+                }
+                else
+                {
+                    //means don't have
+                    CheckIsEnough = false;
+                    break; //break to say not enough
+                }
+                Debug.Log("ITEM FOUND STATUS IN OBJECTIVE" + CheckIsEnough);
+            }
+            if (CheckIsEnough == true) //means enough item, objective completed
+            {
+                if (this.ActionsOnReach.Contains(ActionOnReach.Count)) //this work because is only apply for our second objective, is not flexible
+                {
+                    this.Status = ObjectiveStatus.Achieved;
+                    this.ParentScript.secondObjectiveCompletedCount++;
+                }        
 
-        if (this.ActionsOnReach.Contains(ActionOnReach.MarkAsAchieved))
-            this.Status = ObjectiveStatus.Achieved;
+                if (this.ActionsOnReach.Contains(ActionOnReach.PlayCinematic))
+                {
+                    this.PlayCinematic();
+                }
 
-        if (this.ActionsOnReach.Contains(ActionOnReach.Count))
-            this.Status = ObjectiveStatus.Achieved;
-            count++;
 
-        if (this.ActionsOnReach.Contains(ActionOnReach.PlayCinematic))
-            this.PlayCinematic();
+                if (this.ActionsOnReach.Contains(ActionOnReach.PlayAnimation))
+                {
+                    this.PlayAnimation();
+                }
+                    
+            }
+            else //means not enough, objective not complete
+            {
+                this.Status = ObjectiveStatus.Pending;
+            }       
 
-        if (this.ActionsOnReach.Contains(ActionOnReach.PlayAnimation))
-            this.PlayAnimation();   
+        }
+        else if(Kind == ObjectiveType.Defeat) //defeat = complete
+        {
+            //not for now
+        }
+        else if(Kind == ObjectiveType.Talk) // talk = complete
+        {
+            //not for now
+        }
 
         //if (this.ActionsOnReach.Contains(ActionOnReach.SetTrigger))
            // this.NextObjective.Target.GetComponentInParent<animator>().SetTrigger(this.TriggerName);
@@ -99,23 +171,32 @@ public class Objective : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Enter");
+        Debug.Log("Entering Zone" + this.name);
 
         if (other.tag == "Player")
         {
+            playerHitting = true;
             if(this.ParentScript.CurrentObjective != null)
             {
                 if(this.ParentScript.CurrentObjective.name == this.name)
                 {
                     OnReach();
 
-                    fo.fadeout();
+                    //fo.fadeout();
                 }
             }
         }
     }
 
-   
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log(other.name + " Exiting");
+        if (other.tag == "Player")
+        {
+            playerHitting = false;
+        }
+    }
+
 
     public Objectives ParentScript { get; set; }
 }

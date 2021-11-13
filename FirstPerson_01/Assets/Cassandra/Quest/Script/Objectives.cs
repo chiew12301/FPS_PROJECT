@@ -17,13 +17,16 @@ public class Objectives : MonoBehaviour
 
     public FadeOut fo;
     public FadeIn fi;
+    public int secondObjectiveCompletedCount = 0; //get this to determine is all completed
     private int LastObjective = 0;
     private bool isFirstTime = false;
+    
     void Start()
     {
         LastObjective = 0;
         isFirstTime = false;
         isCompletedFirstObjective = false;
+        secondObjectiveCompletedCount = 0;
         //fi = GameObject.Find("QuestLocationText").GetComponent<FadeIn>();
         //fo = GameObject.Find("QuestLocationText").GetComponent<FadeOut>();
         var objectiveParentGameObject = this.CurrentObjective.transform.parent.gameObject;
@@ -95,6 +98,7 @@ public class Objectives : MonoBehaviour
             //CurrentObjectiveDescription.text = "Objective Complete";
 
             //CurrentObjectiveDescription.gameObject.SetActive(false);
+            CurrentObjectiveDescription.text = "All Objective has been completed";
         }
 
     }
