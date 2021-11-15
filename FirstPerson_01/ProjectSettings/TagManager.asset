@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shootable
   - EnemyAttack
+  - EnemyCollider
   layers:
   - Default
   - TransparentFX

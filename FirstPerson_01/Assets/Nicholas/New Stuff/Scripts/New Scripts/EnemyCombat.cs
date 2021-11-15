@@ -65,6 +65,6 @@ public class EnemyCombat : MonoBehaviour
 
         GameObject cloneExplosionPrefab = Instantiate(explosionPrefab);
         cloneExplosionPrefab.transform.position = transform.position + transform.up + transform.forward;
-        Destroy(cloneExplosionPrefab, 1);
+        Destroy(cloneExplosionPrefab, 2);
     }
 }
