@@ -6,6 +6,7 @@ public class Item : ScriptableObject
     new public string name = "New Item"; //name of item
     public Sprite Icon = null; //icon
     public bool isDefaultItem = false; // is the item default
+    [TextArea]
     new public string description = "Item description"; //des of the item
     public int maxStackAmount = 5; //maximum stack
 

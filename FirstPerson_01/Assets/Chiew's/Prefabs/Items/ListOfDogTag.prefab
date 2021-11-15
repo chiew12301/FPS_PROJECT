@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
-  interactionTransform: {fileID: 7459600653896574397}
+  interactionTransform: {fileID: 7459600653333129780}
   promptText: {fileID: 0}
   imageOBJ: {fileID: 0}
   item: {fileID: 11400000, guid: 64e995fa95d1c2b418532e8c40847e04, type: 2}
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
-  interactionTransform: {fileID: 7459600653896574397}
+  interactionTransform: {fileID: 7459600654164165701}
   promptText: {fileID: 0}
   imageOBJ: {fileID: 0}
   item: {fileID: 11400000, guid: 5a049e61babe0e5408a26fe202e04e68, type: 2}

@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Alcohol
   Icon: {fileID: 21300000, guid: 383e9c112d140a9488c15e6a63638837, type: 3}
   isDefaultItem: 0
-  description: This is a bottle of alcohol
+  description: Pungent smell and seems to be spirits. Can be used to craft items
   maxStackAmount: 5

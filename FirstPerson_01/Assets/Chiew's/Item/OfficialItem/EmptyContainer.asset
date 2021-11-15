@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Empty Container
   Icon: {fileID: 21300000, guid: 6a36460e1a3b9f2459b83f6684eb3949, type: 3}
   isDefaultItem: 0
-  description: This is an empty container
+  description: Dirty empty bottle. Can be used to craft items
   maxStackAmount: 5

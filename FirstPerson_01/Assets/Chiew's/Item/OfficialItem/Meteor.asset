@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Meteor
   Icon: {fileID: 0}
   isDefaultItem: 0
-  description: Meteor...the start of everything
+  description: Fragmented unknown meteorite
   maxStackAmount: 5

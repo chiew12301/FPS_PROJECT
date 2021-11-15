@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Medkit
   Icon: {fileID: 21300000, guid: 5b69969d26fe8d44daeeab85a3362ebe, type: 3}
   isDefaultItem: 0
-  description: Heal you
+  description: Portable medical tools. Can be used to restore X% HP
   maxStackAmount: 5

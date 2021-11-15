@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Glass
   Icon: {fileID: 21300000, guid: 4ff4b19ab35498042bb2257cc6fb8eca, type: 3}
   isDefaultItem: 0
-  description: Glass
+  description: Broken glass. Can be used to craft items
   maxStackAmount: 5

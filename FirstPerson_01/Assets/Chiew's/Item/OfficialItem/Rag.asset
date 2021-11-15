@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Rag
   Icon: {fileID: 21300000, guid: e82dc1a4192994046a4024fa40acf728, type: 3}
   isDefaultItem: 0
-  description: This is a rag
+  description: Dirty rags. Can be used to craft items.
   maxStackAmount: 5
