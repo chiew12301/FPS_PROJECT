@@ -18,11 +18,14 @@ public class Cutscene : MonoBehaviour
         THIRD_FALL,
         PARACHUTE,
         LAST_FALL,
-        END
+        END,
+        TUTORIAL
     }
 
     [SerializeField]
     CUTSCENE_STATE c_State;
+    [SerializeField]
+    GameObject[] tutorialList;
 
     [SerializeField]
     Text jumpText;
@@ -46,6 +49,7 @@ public class Cutscene : MonoBehaviour
     bool canMoveCamera;
     bool creditStart;
     bool creditDone;
+    bool firstTrigger;
 
     //GameObject to destroy to proceed
     [SerializeField]
@@ -146,6 +150,7 @@ public class Cutscene : MonoBehaviour
             else if (c_State == CUTSCENE_STATE.SHAKE)
             {
                 dialogueScript.PlayDialogue_2();
+                dialogueScript.PlayDialogue_3();
                 StartCoroutine(CamShake(5f, 5f, shakeScene));
                 shakeScene = true;
                 timer += Time.deltaTime;
@@ -157,7 +162,6 @@ public class Cutscene : MonoBehaviour
             }
             else if (c_State == CUTSCENE_STATE.JUMP)
             {
-                dialogueScript.PlayDialogue_3();
                 jumpText.gameObject.SetActive(true);
                 if (Input.GetKey(KeyCode.W))
                 {
@@ -277,6 +281,36 @@ public class Cutscene : MonoBehaviour
                 isCutscene = false;
                 canMoveCamera = true;
                 dialogueScript.PlayDialogue_4_5();
+                StartCoroutine(TutorialStart());
+            }
+        }
+        if (c_State == CUTSCENE_STATE.TUTORIAL)
+        {
+            if(!firstTrigger)
+            {
+                tutorialList[0].SetActive(true);
+                tutorialList[4].SetActive(true);
+                firstTrigger = true;
+            }
+            else if (tutorialList[0].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            {
+                tutorialList[0].SetActive(false);
+                tutorialList[1].SetActive(true);
+            }
+            else if (tutorialList[1].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            {
+                tutorialList[1].SetActive(false);
+                tutorialList[2].SetActive(true);
+            }
+            else if (tutorialList[2].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            {
+                tutorialList[2].SetActive(false);
+                tutorialList[3].SetActive(true);
+            }
+            else if (tutorialList[3].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            {
+                tutorialList[3].SetActive(false);
+                tutorialList[4].SetActive(false);
             }
         }
     }
@@ -399,5 +433,11 @@ public class Cutscene : MonoBehaviour
     {
         yield return new WaitForSeconds(43.0f);
         creditDone = true;
+    }
+
+    IEnumerator TutorialStart()
+    {
+        yield return new WaitForSeconds(7.5f);
+        c_State = CUTSCENE_STATE.TUTORIAL;
     }
 }

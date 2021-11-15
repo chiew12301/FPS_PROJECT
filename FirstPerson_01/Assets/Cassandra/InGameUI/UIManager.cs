@@ -25,6 +25,14 @@ public class UIManager : MonoBehaviour
             bulletIcon.gameObject.SetActive(false);
             txtReload.gameObject.SetActive(true);
         }
+        else if(player.GetComponent<PlayerProfiler>().GetUsingMedkit())
+        {
+            txtCurAmmo.gameObject.SetActive(false);
+            bulletIcon.gameObject.SetActive(false);
+            txtReload.gameObject.SetActive(false);
+            txtAmmoAmount.gameObject.SetActive(true);
+            txtAmmoAmount.text = "Medkit: " + player.GetComponent<PlayerProfiler>().ReturnMedKitAmount() + "";
+        }
         else
         {
             txtCurAmmo.text = Count + "";

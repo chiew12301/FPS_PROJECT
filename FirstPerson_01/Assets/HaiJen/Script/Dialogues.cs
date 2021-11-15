@@ -39,9 +39,9 @@ public class Dialogues : MonoBehaviour
 
     IEnumerator Dialogue_1() //¡°700m to the destination, put on your¡­¡±
     {
-        yield return new WaitForSeconds(11f);
+        yield return new WaitForSeconds(8f);
         DialogueList[0].SetActive(true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(7f);
         DialogueList[0].SetActive(false);
     }
 
@@ -53,14 +53,15 @@ public class Dialogues : MonoBehaviour
     }
     IEnumerator Dialogue_3() //¡°Go, go, go everybody jump¡±
     {
+        yield return new WaitForSeconds(2f);
         DialogueList[2].SetActive(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         DialogueList[2].SetActive(false);
     }
     IEnumerator Dialogue_4() //¡°Halbert is calling, please respond after hearing me ¡±
     {
         DialogueList[3].SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         DialogueList[3].SetActive(false);
     }
     IEnumerator Dialogue_5() //¡°Zzz, zzz¡±(lost signal SFX)
@@ -74,14 +75,14 @@ public class Dialogues : MonoBehaviour
     IEnumerator Dialogue_4_5()
     {
         StartCoroutine(Dialogue_4());
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         StartCoroutine(Dialogue_5());
     }
 
     IEnumerator Dialogue_6() //¡°Gain, Jean, Noah, Liam, James, is anybody here?¡±
     {
         DialogueList[5].SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(6f);
         DialogueList[5].SetActive(false);
     }
 }

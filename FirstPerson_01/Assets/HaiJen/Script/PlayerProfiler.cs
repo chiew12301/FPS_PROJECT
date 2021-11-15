@@ -27,7 +27,8 @@ public class PlayerProfiler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currHealthPoint = maxHealthPoint;
+        currHealthPoint = 80;
+        Inventory.instance.Add(MedKit);
     }
 
     // Update is called once per frame
@@ -49,7 +50,6 @@ public class PlayerProfiler : MonoBehaviour
         {
             ThrowUtility();
         }
-
         if(usingMedkit)
         {
             if(Input.GetKeyDown(KeyCode.Mouse0))
@@ -57,7 +57,6 @@ public class PlayerProfiler : MonoBehaviour
                 UseMedkit();
             }
         }
-
         if(currHealthPoint <= 0)
         {
             StartCoroutine(Die());
@@ -100,11 +99,17 @@ public class PlayerProfiler : MonoBehaviour
         {
             currHealthPoint = maxHealthPoint;
         }
+        usingMedkit = false;
     }
 
     public void CheckMedKitAmount()
     {
         medkitCurrentAmount = Inventory.instance.getItemStackAmount(MedKit);
+    }
+
+    public int ReturnMedKitAmount()
+    {
+        return Inventory.instance.getItemStackAmount(MedKit);
     }
 
     void TakeDamage(int damage)
