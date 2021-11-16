@@ -136,15 +136,18 @@ public class PlayerProfiler : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if(collision.transform.CompareTag("Crow"))
+        if(collision.transform.CompareTag("EnemyCollider"))
         {
             Debug.Log("CROW COLLISION");
             TakeDamage(5);
         }
+    }
 
-        if (collision.transform.CompareTag("Explosion"))
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.CompareTag("EnemyCollider"))
         {
-            Debug.Log("BOOOMM");
+            Debug.Log("Explosion hit");
             TakeDamage(10);
         }
     }
