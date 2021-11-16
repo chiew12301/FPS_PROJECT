@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour
     public Transform interactionTransform;
     public TextMeshProUGUI promptText;
     public Image imageOBJ;
-
+    public Image KeyOBJ;
     bool isFocus = false;
     Transform player;
 
@@ -24,6 +24,7 @@ public class Interactable : MonoBehaviour
     {
         promptText.gameObject.SetActive(false);
         imageOBJ.gameObject.SetActive(false);
+        KeyOBJ.gameObject.SetActive(false);
     }
     private void Update()
     {
@@ -40,6 +41,7 @@ public class Interactable : MonoBehaviour
                     hasInteracted = true;
                     promptText.gameObject.SetActive(false);
                     imageOBJ.gameObject.SetActive(false);
+                    KeyOBJ.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -47,11 +49,13 @@ public class Interactable : MonoBehaviour
                     {
                         promptText.gameObject.SetActive(true);
                         imageOBJ.gameObject.SetActive(true);
+                        KeyOBJ.gameObject.SetActive(true);
                     }
                     else
                     {
                         promptText.gameObject.SetActive(false);
                         imageOBJ.gameObject.SetActive(false);
+                        KeyOBJ.gameObject.SetActive(false);
                     }
                 }
             }
@@ -59,6 +63,7 @@ public class Interactable : MonoBehaviour
             {
                 promptText.gameObject.SetActive(false);
                 imageOBJ.gameObject.SetActive(false);
+                KeyOBJ.gameObject.SetActive(false);
             }
         }
     }
