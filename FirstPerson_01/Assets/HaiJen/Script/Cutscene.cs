@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Cutscene : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class Cutscene : MonoBehaviour
     bool creditStart;
     bool creditDone;
     bool firstTrigger;
+    bool dialoguePlayed;
 
     //GameObject to destroy to proceed
     [SerializeField]
@@ -84,11 +86,13 @@ public class Cutscene : MonoBehaviour
     public Animator cutsceneCreditAnim;
 
     Gun playerGun;
+    Objectives obj;
 
     // Start is called before the first frame update
     void Start()
     {
         playerGun = gameObject.GetComponent<Gun>();
+        obj = gameObject.GetComponent<Objectives>();
         c_State = 0;
         isCredit = true;
         isCutscene = true;
@@ -149,8 +153,12 @@ public class Cutscene : MonoBehaviour
             }
             else if (c_State == CUTSCENE_STATE.SHAKE)
             {
-                dialogueScript.PlayDialogue_2();
-                dialogueScript.PlayDialogue_3();
+                if(!dialoguePlayed)
+                {
+                    dialogueScript.PlayDialogue_2();
+                    dialogueScript.PlayDialogue_3();
+                    dialoguePlayed = true;
+                }
                 StartCoroutine(CamShake(5f, 5f, shakeScene));
                 shakeScene = true;
                 timer += Time.deltaTime;
@@ -312,6 +320,15 @@ public class Cutscene : MonoBehaviour
                 tutorialList[3].SetActive(false);
                 tutorialList[4].SetActive(false);
             }
+
+            if(obj.secondObjectiveCompletedCount >= 5)
+            {
+                if (endCreditAnim.GetCurrentAnimatorStateInfo(0).IsName("Credit") != true)
+                {
+                    endCreditAnim.Play("Credit");
+                    StartCoroutine(EndGameRestart());
+                }
+            }
         }
     }
 
@@ -439,5 +456,12 @@ public class Cutscene : MonoBehaviour
     {
         yield return new WaitForSeconds(7.5f);
         c_State = CUTSCENE_STATE.TUTORIAL;
+    }
+
+
+    IEnumerator EndGameRestart()
+    {
+        yield return new WaitForSeconds(41.35f);
+        SceneManager.LoadScene(0);
     }
 }
