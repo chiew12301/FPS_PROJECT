@@ -34,7 +34,7 @@ GameObject:
   - component: {fileID: 1659319499}
   m_Layer: 0
   m_Name: CrowAI_v3 + Anim
-  m_TagString: Untagged
+  m_TagString: Crow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   lookRadius: 10
   maxHealth: 50
   currHealth: 0
+  crowKillCount: 0
   wanderTimer: 1
   wanderRadius: 5
 --- !u!114 &1659319499

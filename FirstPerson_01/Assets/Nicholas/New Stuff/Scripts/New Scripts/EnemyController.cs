@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
     public float maxHealth = 50f;
     //[HideInInspector]
     public float currHealth;
+    public int crowKillCount;
+
     [SerializeField] private float wanderTimer = 1.0f;
     [SerializeField] private float wanderRadius = 1.0f;
 
@@ -81,6 +83,10 @@ public class EnemyController : MonoBehaviour
                 agent.isStopped = true;
                 Destroy(agent);
                 transform.position = new Vector3(transform.position.x, -2, transform.position.z);
+
+                // add 1 to kill count
+                KillCount.instance.totalKillCount++;
+                Debug.Log("Killed " + KillCount.instance.totalKillCount);
             }
         }     
 
