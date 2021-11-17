@@ -10,6 +10,9 @@ TagManager:
   - Enemy
   - Explosion
   - Crow
+  - EnemyCollider
+  - EnemyAttack
+  - SpawnerLocation
   layers:
   - Default
   - TransparentFX

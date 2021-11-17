@@ -20,9 +20,13 @@ public class Objectives : MonoBehaviour
     public int secondObjectiveCompletedCount = 0; //get this to determine is all completed
     private int LastObjective = 0;
     private bool isFirstTime = false;
+
+    // crow spawner
+    [SerializeField] private GameObject[] spawnerLocations;
     
     void Start()
     {
+        spawnerLocations = GameObject.FindGameObjectsWithTag("SpawnerLocation");
         LastObjective = 0;
         isFirstTime = false;
         isCompletedFirstObjective = false;
@@ -53,6 +57,12 @@ public class Objectives : MonoBehaviour
     {
         if(isCompletedFirstObjective == true)
         {
+            // spawn crows after first objective
+            for (int i = 0; i < spawnerLocations.Length; i++)
+            {
+                spawnerLocations[i].SetActive(true);
+            }
+
             //checking for second objective
             float LatestDistance = 0.0f;
             for(int i = 1;i < PlayerObjectives.Length; i++)
