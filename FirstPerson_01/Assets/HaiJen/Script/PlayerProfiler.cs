@@ -15,9 +15,9 @@ public class PlayerProfiler : MonoBehaviour
     [SerializeField]
     GameObject bloodUI;
 
-    [SerializeField]
-    float throwForce = 30f;
-    public GameObject molotovPrefab;
+    //[SerializeField]
+    //float throwForce = 30f;
+    //public GameObject molotovPrefab;
 
     [SerializeField]
     GameObject playerCam;
@@ -46,10 +46,10 @@ public class PlayerProfiler : MonoBehaviour
                 usingMedkit = false;
             }
         }
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            ThrowUtility();
-        }
+        //if(Input.GetKeyDown(KeyCode.G))
+        //{
+        //    ThrowUtility();
+        //}
         if(usingMedkit)
         {
             if(Input.GetKeyDown(KeyCode.Mouse0))
@@ -169,10 +169,10 @@ public class PlayerProfiler : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    void ThrowUtility()
-    {
-        GameObject molotov = Instantiate(molotovPrefab, playerCam.transform.position, transform.rotation);
-        Rigidbody rb = molotov.GetComponent<Rigidbody>();
-        rb.AddForce(playerCam.transform.forward * throwForce);
-    }
+    //void ThrowUtility()
+    //{
+    //    GameObject molotov = Instantiate(molotovPrefab, playerCam.transform.position, transform.rotation);
+    //    Rigidbody rb = molotov.GetComponent<Rigidbody>();
+    //    rb.AddForce(playerCam.transform.forward * throwForce);
+    //}
 }
