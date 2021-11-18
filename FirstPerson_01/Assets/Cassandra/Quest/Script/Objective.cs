@@ -106,8 +106,23 @@ public class Objective : MonoBehaviour
             {
                 if (Inventory.instance.CheckHaveItem(i) == true) //this also work for multiple item, because if not enough item will break and return false.
                 {
-                    //means have item
-                    CheckIsEnough = true;
+                    if(i.name == "Meteor")
+                    {
+                        if (Inventory.instance.getItemStackAmount(i) > this.ParentScript.secondObjectiveCompletedCount || Inventory.instance.getItemStackAmount(i) == 5)
+                        {
+                            CheckIsEnough = true;
+                        }
+                        else
+                        {
+                            CheckIsEnough = false;
+                            break; //not enough
+                        }
+                    }
+                    else
+                    {
+                        CheckIsEnough = true;
+                        //means have item
+                    }
                 }
                 else
                 {
