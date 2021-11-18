@@ -41,6 +41,7 @@ public class RadarSystem : MonoBehaviour
             dogTagObjectStatus(true);
             if (Input.GetKeyDown(key))
             {
+                Debug.Log("Perform Scan");
                 Scan();
             }
         }

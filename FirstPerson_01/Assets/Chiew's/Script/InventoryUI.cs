@@ -59,7 +59,10 @@ public class InventoryUI : MonoBehaviour
                             CraftingUI_OBJ.GetComponent<CraftingUI>().AssignToSlots();
                             for (int j = 0; j < questObjects.Length; j++)
                             {
-                                questObjects[j].SetActive(false);
+                                if(questObjects[j] != null)
+                                {
+                                    questObjects[j].SetActive(false);
+                                }
                             }
                             PauseManager.instance.ChangeUISTATE(PAUSEUI.INVENTORYUI);
                         }
@@ -71,7 +74,10 @@ public class InventoryUI : MonoBehaviour
                             }
                             for (int j = 0; j < questObjects.Length; j++)
                             {
-                                questObjects[j].SetActive(true);
+                                if (questObjects[j] != null)
+                                {
+                                    questObjects[j].SetActive(true);
+                                }
                             }
                             PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
                         }
@@ -94,7 +100,10 @@ public class InventoryUI : MonoBehaviour
                                 }
                                 for (int j = 0; j < questObjects.Length; j++)
                                 {
-                                    questObjects[j].SetActive(true);
+                                    if (questObjects[j] != null)
+                                    {
+                                        questObjects[j].SetActive(true);
+                                    }
                                 }
                             }
                             PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);

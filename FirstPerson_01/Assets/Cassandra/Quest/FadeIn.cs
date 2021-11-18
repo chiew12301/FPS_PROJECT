@@ -10,7 +10,10 @@ public class FadeIn : MonoBehaviour
 
     public void fadeIn()
     {
-        StartCoroutine(FadeInRoutine());
+        if(this.gameObject.activeSelf != false)
+        {
+            StartCoroutine(FadeInRoutine());
+        }
     }
 
     private IEnumerator FadeInRoutine()

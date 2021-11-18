@@ -10,7 +10,10 @@ public class FadeOut : MonoBehaviour
 
     public void fadeout()
     {
-        StartCoroutine(FadeOutRoutine());
+        if (this.gameObject.activeSelf != false)
+        {
+            StartCoroutine(FadeOutRoutine());
+        }
     }
 
     private IEnumerator FadeOutRoutine()

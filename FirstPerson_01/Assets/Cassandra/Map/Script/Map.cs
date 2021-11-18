@@ -37,6 +37,16 @@ public class Map : MonoBehaviour
                         PauseManager.instance.ChangeUISTATE(PAUSEUI.MAPUI);
                     }
                 }
+                if(PauseManager.instance.getUISTATE() == PAUSEUI.MAPUI)
+                {
+                    if(Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        PauseManager.instance.setIsPause(false);
+                        MapCanvas.enabled = false;
+
+                        PauseManager.instance.ChangeUISTATE(PAUSEUI.NONEPAUSE);
+                    }
+                }
             }
         }
 
