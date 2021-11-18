@@ -7,7 +7,7 @@ public class KillCount : MonoBehaviour
     public int totalKillCount;
 
     #region Singleton
-    public static KillCountTest instance;
+    public static KillCount instance;
 
     private void Awake()
     {
