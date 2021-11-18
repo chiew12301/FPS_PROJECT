@@ -88,6 +88,11 @@ public class Cutscene : MonoBehaviour
     Gun playerGun;
     Objectives obj;
 
+    bool firstTutorialEnd;
+    bool secondTutorialEnd;
+    bool thirdTutorialEnd;
+    bool fourthTutorialEnd;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -299,23 +304,27 @@ public class Cutscene : MonoBehaviour
                 tutorialList[0].SetActive(true);
                 tutorialList[4].SetActive(true);
                 firstTrigger = true;
+                StartCoroutine(firstTutorial());
             }
-            else if (tutorialList[0].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            else if (tutorialList[0].activeSelf && (Input.GetKeyDown(KeyCode.Space) || firstTutorialEnd))
             {
+                StartCoroutine(secondTutorial());
                 tutorialList[0].SetActive(false);
                 tutorialList[1].SetActive(true);
             }
-            else if (tutorialList[1].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            else if (tutorialList[1].activeSelf && (Input.GetKeyDown(KeyCode.Space) || secondTutorialEnd))
             {
+                StartCoroutine(thirdTutorial());
                 tutorialList[1].SetActive(false);
                 tutorialList[2].SetActive(true);
             }
-            else if (tutorialList[2].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            else if (tutorialList[2].activeSelf && (Input.GetKeyDown(KeyCode.Space) || thirdTutorialEnd))
             {
+                StartCoroutine(fourthTutorial());
                 tutorialList[2].SetActive(false);
                 tutorialList[3].SetActive(true);
             }
-            else if (tutorialList[3].activeSelf && Input.GetKeyDown(KeyCode.Space))
+            else if (tutorialList[3].activeSelf && (Input.GetKeyDown(KeyCode.Space) || fourthTutorialEnd))
             {
                 tutorialList[3].SetActive(false);
                 tutorialList[4].SetActive(false);
@@ -458,10 +467,33 @@ public class Cutscene : MonoBehaviour
         c_State = CUTSCENE_STATE.TUTORIAL;
     }
 
-
     IEnumerator EndGameRestart()
     {
         yield return new WaitForSeconds(41.35f);
         SceneManager.LoadScene(0);
+    }
+
+    IEnumerator firstTutorial()
+    {
+        yield return new WaitForSeconds(5.0f);
+        firstTutorialEnd = true;
+    }
+
+    IEnumerator secondTutorial()
+    {
+        yield return new WaitForSeconds(5.0f);
+        secondTutorialEnd = true;
+    }
+
+    IEnumerator thirdTutorial()
+    {
+        yield return new WaitForSeconds(5.0f);
+        thirdTutorialEnd = true;
+    }
+
+    IEnumerator fourthTutorial()
+    {
+        yield return new WaitForSeconds(5.0f);
+        fourthTutorialEnd = true;
     }
 }
