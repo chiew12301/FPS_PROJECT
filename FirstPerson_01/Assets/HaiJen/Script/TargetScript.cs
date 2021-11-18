@@ -7,9 +7,11 @@ public class TargetScript : MonoBehaviour
     //public float maxHealth = 50f;
     public float currentHealth;
 
+    private EnemyCombat combat;
+
     private void Start()
     {
-        //currentHealth = EnemyController.instance.maxHealth;
+        combat = GetComponent<EnemyCombat>();
     }
 
     private void Update()
@@ -23,13 +25,7 @@ public class TargetScript : MonoBehaviour
 
         if (currentHealth <= 0f)
         {
-            Die();
+            combat.Die();
         }
-    }
-    
-    void Die()
-    {
-        Destroy(gameObject);
-        //gameObject.SetActive(false);
     }
 }

@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
                 combat.Die();
                 agent.isStopped = true;
                 Destroy(agent);
-                transform.position = new Vector3(transform.position.x, -2, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -4, transform.position.z);
 
                 GetComponent<AudioSource>().enabled = false;
             }
