@@ -26,7 +26,6 @@ public class Objectives : MonoBehaviour
     
     void Start()
     {
-        spawnerLocations = GameObject.FindGameObjectsWithTag("SpawnerLocation");
         LastObjective = 0;
         isFirstTime = false;
         isCompletedFirstObjective = false;

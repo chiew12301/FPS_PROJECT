@@ -5,19 +5,40 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject meteor;
     [SerializeField] private int numOfEnemy = 1;
     [SerializeField] private float spawnRadius = 1.0f;
+    [SerializeField] private List<GameObject> enemies;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemies = new List<GameObject>();
         Vector3 center = transform.position;
 
         for (int i = 0; i < numOfEnemy; i++)
         {
             Vector3 pos = RandomCircle(center, spawnRadius);
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
-            Instantiate(enemyPrefab, pos, rot);
+            enemies.Add(Instantiate(enemyPrefab, pos, rot, transform));
+        }
+    }
+
+    private void Update()
+    {
+        // check for enemies if theyre still alive
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].GetComponent<EnemyController>().currHealth <= 0)
+            {
+                enemies.RemoveAt(i);
+            }
+        }
+
+        if (enemies.Count <= 0)
+        {
+            // enable meteor
+            meteor.SetActive(true);
         }
     }
 

@@ -61,7 +61,7 @@ public class EnemyCombat : MonoBehaviour
     {
         animator.Play("CrowSuicide");
         yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        Die();
 
         GameObject cloneExplosionPrefab = Instantiate(explosionPrefab);
         cloneExplosionPrefab.transform.position = transform.position + transform.up + transform.forward;
