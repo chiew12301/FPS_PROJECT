@@ -8,31 +8,37 @@ public class EnemyCombat : MonoBehaviour
     [SerializeField] private GameObject explosionPrefab;
 
     private float attackCooldown = 0.0f;
-    private float currHealth;
+    private bool hasPlayed;
     private Animator animator;
 
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        hasPlayed = false;
     }
 
     private void Update()
     {
-        currHealth = EnemyController.instance.currHealth;
+        //currHealth = EnemyController.instance.currHealth;
         attackCooldown -= Time.deltaTime;
     }
 
-    public void Attack()
+    public void Attack01()
     {
         if (animator != null)
         {
-            if (currHealth >= EnemyController.instance.maxHealth / 2.0f)
+            ClawAttack();
+        }
+    }
+
+    public void Attack02()
+    {
+        if (animator != null)
+        {
+            if (!hasPlayed)
             {
-                ClawAttack();
-            }
-            else
-            {
-                StartCoroutine("SuicideAttack"); 
+                StartCoroutine(SuicideAttack());
+                hasPlayed = true;
             }
         }
     }
@@ -63,7 +69,7 @@ public class EnemyCombat : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Die();
 
-        GameObject cloneExplosionPrefab = Instantiate(explosionPrefab);
+        GameObject cloneExplosionPrefab = Instantiate(explosionPrefab, transform);
         cloneExplosionPrefab.transform.position = transform.position + transform.up + transform.forward;
         Destroy(cloneExplosionPrefab, 2);
     }

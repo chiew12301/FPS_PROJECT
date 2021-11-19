@@ -65,8 +65,17 @@ public class EnemyController : MonoBehaviour
                 if (distance <= agent.stoppingDistance)
                 {
                     // attack the player
-                    combat.Attack();
-                    LookAtPlayer();
+                    if (currHealth <= maxHealth / 2)
+                    {
+                        // suicide attack
+                        combat.Attack02();
+                    }
+                    else
+                    {
+                        // claw attack
+                        combat.Attack01();
+                        LookAtPlayer();
+                    }                  
                 }
             }
             else
@@ -74,19 +83,22 @@ public class EnemyController : MonoBehaviour
                 isChasingPlayer = false;
             }
 
-            if (currHealth <= 0)
-            {
-                // die
-                combat.Die();
-                agent.isStopped = true;
-                Destroy(agent);
-                transform.position = new Vector3(transform.position.x, -4, transform.position.z);
+            CheckIsDead();
+        }            
+    }
 
-                GetComponent<AudioSource>().enabled = false;
-            }
-        }     
+    public void CheckIsDead()
+    {
+        if (currHealth <= 0)
+        {
+            // die
+            combat.Die();
+            agent.isStopped = true;
+            Destroy(agent);
+            transform.position = new Vector3(transform.position.x, -4, transform.position.z);
 
-        
+            GetComponent<AudioSource>().enabled = false;
+        }
     }
 
     void LookAtPlayer()

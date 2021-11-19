@@ -197,6 +197,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5760597284365202859, guid: 79ef9bb313820d549a3437f504a40d7a,
         type: 3}
+      propertyPath: meteor
+      value: 
+      objectReference: {fileID: 1364537333}
+    - target: {fileID: 5760597284365202859, guid: 79ef9bb313820d549a3437f504a40d7a,
+        type: 3}
       propertyPath: enemyPrefab
       value: 
       objectReference: {fileID: 2853269794779112403, guid: 12b3f1afc324a4641afcdfe0283e12bc,
@@ -555,7 +560,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalKillCount: 0
-  meteorObjects: []
 --- !u!1001 &853445580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -957,6 +961,36 @@ Transform:
   m_Father: {fileID: 1053150527}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1364537333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1364537334}
+  m_Layer: 0
+  m_Name: Meteor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1364537334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364537333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.98447, y: 4.990174, z: 20.015152}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3776424283766883085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1103,6 +1137,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5760597284365202859, guid: 79ef9bb313820d549a3437f504a40d7a,
+        type: 3}
+      propertyPath: meteor
+      value: 
+      objectReference: {fileID: 1364537333}
     - target: {fileID: 5760597284365202859, guid: 79ef9bb313820d549a3437f504a40d7a,
         type: 3}
       propertyPath: enemyPrefab
