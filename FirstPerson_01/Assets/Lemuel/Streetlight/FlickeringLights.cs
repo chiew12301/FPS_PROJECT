@@ -5,8 +5,8 @@ using UnityEngine;
 public class FlickeringLights : MonoBehaviour
 {
     public new Light light;
-    public GameObject lightBulb;
-    Renderer lightBulbMat;
+    //public GameObject lightBulb;
+    //Renderer lightBulbMat;
     public float minIntensity = 0.0f;
     public float maxIntensity = 1.0f;
     public int smoothing = 5;
@@ -27,7 +27,7 @@ public class FlickeringLights : MonoBehaviour
         {
             light = GetComponent<Light>();
         }
-        lightBulbMat = lightBulb.GetComponent<Renderer>(); 
+        //lightBulbMat = lightBulb.GetComponent<Renderer>(); 
     }
 
     // Update is called once per frame
@@ -46,6 +46,7 @@ public class FlickeringLights : MonoBehaviour
         lastSum += newVal;
 
         light.intensity = lastSum / (float)smoothQueue.Count;
+        /*
         if(newVal <= maxIntensity/2)
         {
             lightBulbMat.material.SetColor("_EmissionColor", Color.black);
@@ -54,6 +55,7 @@ public class FlickeringLights : MonoBehaviour
         {
             lightBulbMat.material.SetColor("_EmissionColor", Color.yellow);
         }
+        */
     }
    
 }
