@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyCombat : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class EnemyCombat : MonoBehaviour
     private float attackCooldown = 0.0f;
     private bool hasPlayed;
     private Animator animator;
+    private NavMeshAgent agent;
 
     private void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
         hasPlayed = false;
     }
@@ -48,6 +51,15 @@ public class EnemyCombat : MonoBehaviour
         if (animator != null)
         {
             animator.Play("DeathAnim");
+
+            if (agent != null)
+            {
+                agent.isStopped = true;
+                Destroy(agent);
+                transform.position = new Vector3(transform.position.x, -4, transform.position.z);
+
+                GetComponent<AudioSource>().enabled = false;
+            }           
         }
     }
 

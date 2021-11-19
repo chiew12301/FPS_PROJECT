@@ -93,11 +93,11 @@ public class EnemyController : MonoBehaviour
         {
             // die
             combat.Die();
-            agent.isStopped = true;
-            Destroy(agent);
-            transform.position = new Vector3(transform.position.x, -4, transform.position.z);
+            //agent.isStopped = true;
+            //Destroy(agent);
+            //transform.position = new Vector3(transform.position.x, -4, transform.position.z);
 
-            GetComponent<AudioSource>().enabled = false;
+            //GetComponent<AudioSource>().enabled = false;
         }
     }
 
