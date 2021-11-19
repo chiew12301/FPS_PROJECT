@@ -83,12 +83,23 @@ public class Objective : MonoBehaviour
             }
 
             if (this.ActionsOnReach.Contains(ActionOnReach.MarkAsAchieved))
+            {
                 this.Status = ObjectiveStatus.Achieved;
+                if (AudioManager.instance.FindIsPlaying("ObjectiveComplete", "SFX") == false)
+                {
+                    AudioManager.instance.Play("ObjectiveComplete", "SFX");
+                }
+            }
+                
 
             if (this.ActionsOnReach.Contains(ActionOnReach.Count)) //this work because is only apply for our second objective, is not flexible
             {
                 this.Status = ObjectiveStatus.Achieved;
                 this.ParentScript.secondObjectiveCompletedCount++;
+                if (AudioManager.instance.FindIsPlaying("ObjectiveComplete", "SFX") == false)
+                {
+                    AudioManager.instance.Play("ObjectiveComplete", "SFX");
+                }
             }
 
 
@@ -138,6 +149,10 @@ public class Objective : MonoBehaviour
                 {
                     this.Status = ObjectiveStatus.Achieved;
                     this.ParentScript.secondObjectiveCompletedCount++;
+                    if (AudioManager.instance.FindIsPlaying("ObjectiveComplete", "SFX") == false)
+                    {
+                        AudioManager.instance.Play("ObjectiveComplete", "SFX");
+                    }
                 }        
 
                 if (this.ActionsOnReach.Contains(ActionOnReach.PlayCinematic))

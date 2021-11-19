@@ -63,13 +63,13 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   SFXsounds:
-  - name: Run
+  - name: Walk
     clip: {fileID: 8300000, guid: b9e156fb58bb91e45b8762a3d5b10816, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: Walk
+  - name: Run
     clip: {fileID: 8300000, guid: 82fd37e58c84f304fb22f8b8b1093586, type: 3}
     volume: 0.5
     pitch: 1
@@ -139,7 +139,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 84fbab32c4c57464bb2384fb926958e3, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: HelicopterExplosion
     clip: {fileID: 8300000, guid: f82a6633c065f0848918d65a6222aa03, type: 3}
@@ -155,6 +155,36 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: OpenUI
     clip: {fileID: 8300000, guid: 1a60423600389ab47a3d5512efd09ce2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hurt01
+    clip: {fileID: 8300000, guid: 2e711f9ba2c90d44ab6c335ed98014a3, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hurt02
+    clip: {fileID: 8300000, guid: a898998027e439b469d7573724d5bbb6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Dead
+    clip: {fileID: 8300000, guid: 9125e0dc6bbaac341abd34fa44f3ed83, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LostSignal
+    clip: {fileID: 8300000, guid: dd16e03cbc14d1e44aeeb3580f8fb35c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ObjectiveComplete
+    clip: {fileID: 8300000, guid: 67fd53f41e3256647a16d1852c40dfd3, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
