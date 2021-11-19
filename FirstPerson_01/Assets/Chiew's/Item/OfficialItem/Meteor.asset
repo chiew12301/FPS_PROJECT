@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Meteor
   m_EditorClassIdentifier: 
   name: Meteor
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 10701d5ab4645a742afa0bd3d14d9775, type: 3}
   isDefaultItem: 0
   description: Fragmented unknown meteorite
   maxStackAmount: 5
