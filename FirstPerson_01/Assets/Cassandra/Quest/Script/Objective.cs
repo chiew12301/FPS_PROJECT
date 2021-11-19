@@ -111,66 +111,80 @@ public class Objective : MonoBehaviour
         }
         else if (Kind == ObjectiveType.Pick) //pick up the item only complete
         {//objective 2
-            bool CheckIsEnough = false;
-            forPickQuestLoop = true;
-            foreach (Item i in itemData)
+            if (this.Status != ObjectiveStatus.Achieved)
             {
-                if (Inventory.instance.CheckHaveItem(i) == true) //this also work for multiple item, because if not enough item will break and return false.
+                bool CheckIsEnough = false;
+                forPickQuestLoop = true;
+                foreach (Item i in itemData)
                 {
-                    if(i.name == "Meteor")
+                    if (Inventory.instance.CheckHaveItem(i) == true) //this also work for multiple item, because if not enough item will break and return false.
                     {
-                        if (Inventory.instance.getItemStackAmount(i) > this.ParentScript.secondObjectiveCompletedCount || Inventory.instance.getItemStackAmount(i) == 5)
+                        if (i.name == "Meteor")
                         {
-                            CheckIsEnough = true;
+                            Debug.Log("Metoer stack amount " + Inventory.instance.getItemStackAmount(i) + " and secondobjcount: " + this.ParentScript.secondObjectiveCompletedCount);
+                            if (Inventory.instance.getItemStackAmount(i) > this.ParentScript.secondObjectiveCompletedCount || Inventory.instance.getItemStackAmount(i) == 5)
+                            {
+                                CheckIsEnough = true;
+                            }
+                            else
+                            {
+                                CheckIsEnough = false;
+                                break; //not enough
+                            }
                         }
                         else
                         {
-                            CheckIsEnough = false;
-                            break; //not enough
+                            CheckIsEnough = true;
+                            //means have item
                         }
                     }
                     else
                     {
-                        CheckIsEnough = true;
-                        //means have item
+                        //means don't have
+                        CheckIsEnough = false;
+                        break; //break to say not enough
                     }
+                    Debug.Log("ITEM FOUND STATUS IN OBJECTIVE" + CheckIsEnough);
                 }
-                else
+                if (CheckIsEnough == true) //means enough item, objective completed
                 {
-                    //means don't have
-                    CheckIsEnough = false;
-                    break; //break to say not enough
-                }
-                Debug.Log("ITEM FOUND STATUS IN OBJECTIVE" + CheckIsEnough);
-            }
-            if (CheckIsEnough == true) //means enough item, objective completed
-            {
-                if (this.ActionsOnReach.Contains(ActionOnReach.Count)) //this work because is only apply for our second objective, is not flexible
-                {
-                    this.Status = ObjectiveStatus.Achieved;
-                    this.ParentScript.secondObjectiveCompletedCount++;
-                    if (AudioManager.instance.FindIsPlaying("ObjectiveComplete", "SFX") == false)
+                    if (this.ActionsOnReach.Contains(ActionOnReach.MarkAsAchieved))
                     {
-                        AudioManager.instance.Play("ObjectiveComplete", "SFX");
+                        this.Status = ObjectiveStatus.Achieved;
+                        if (AudioManager.instance.FindIsPlaying("ObjectiveComplete", "SFX") == false)
+                        {
+                            AudioManager.instance.Play("ObjectiveComplete", "SFX");
+                        }
                     }
-                }        
 
-                if (this.ActionsOnReach.Contains(ActionOnReach.PlayCinematic))
-                {
-                    this.PlayCinematic();
+
+                    if (this.ActionsOnReach.Contains(ActionOnReach.Count)) //this work because is only apply for our second objective, is not flexible
+                    {
+                        this.Status = ObjectiveStatus.Achieved;
+                        this.ParentScript.secondObjectiveCompletedCount++;
+                        if (AudioManager.instance.FindIsPlaying("ObjectiveComplete", "SFX") == false)
+                        {
+                            AudioManager.instance.Play("ObjectiveComplete", "SFX");
+                        }
+                    }
+
+                    if (this.ActionsOnReach.Contains(ActionOnReach.PlayCinematic))
+                    {
+                        this.PlayCinematic();
+                    }
+
+
+                    if (this.ActionsOnReach.Contains(ActionOnReach.PlayAnimation))
+                    {
+                        this.PlayAnimation();
+                    }
+
                 }
-
-
-                if (this.ActionsOnReach.Contains(ActionOnReach.PlayAnimation))
+                else //means not enough, objective not complete
                 {
-                    this.PlayAnimation();
+                    this.Status = ObjectiveStatus.Pending;
                 }
-                    
-            }
-            else //means not enough, objective not complete
-            {
-                this.Status = ObjectiveStatus.Pending;
-            }       
+            }      
 
         }
         else if(Kind == ObjectiveType.Defeat) //defeat = complete
