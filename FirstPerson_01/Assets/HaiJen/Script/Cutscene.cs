@@ -20,7 +20,8 @@ public class Cutscene : MonoBehaviour
         PARACHUTE,
         LAST_FALL,
         END,
-        TUTORIAL
+        MAPTUTORIAL,
+        TUTORIALTEXT
     }
 
     [SerializeField]
@@ -37,6 +38,8 @@ public class Cutscene : MonoBehaviour
     [SerializeField]
     Text parachuteText;
     [SerializeField]
+    Text mapText;
+    [SerializeField]
     Camera playerCam;
     [SerializeField]
     GameObject mainMenu;
@@ -52,6 +55,7 @@ public class Cutscene : MonoBehaviour
     bool creditDone;
     bool firstTrigger;
     bool dialoguePlayed;
+    bool objAudioTrigger;
 
     //GameObject to destroy to proceed
     [SerializeField]
@@ -81,6 +85,9 @@ public class Cutscene : MonoBehaviour
     public bool thirdFall;
     public bool parachute;
     public bool lastFall;
+    public bool firstTime;
+
+    public bool isQuestShowed;
 
     public Animator endCreditAnim;
     public Animator cutsceneCreditAnim;
@@ -92,6 +99,11 @@ public class Cutscene : MonoBehaviour
     bool secondTutorialEnd;
     bool thirdTutorialEnd;
     bool fourthTutorialEnd;
+
+    [SerializeField]
+    GameObject tutorialTextBorder;
+    [SerializeField]
+    GameObject questText;
 
     // Start is called before the first frame update
     void Start()
@@ -291,16 +303,41 @@ public class Cutscene : MonoBehaviour
             }
             else if (c_State == CUTSCENE_STATE.END)
             {
-                isCutscene = false;
-                canMoveCamera = true;
-                dialogueScript.PlayDialogue_4_5();
-                StartCoroutine(TutorialStart());
+                if(!firstTrigger)
+                {
+                    dialogueScript.PlayDialogue_4_5();
+                    firstTrigger = true;
+                    StartCoroutine(TutorialStart());
+                }
             }
         }
-        if (c_State == CUTSCENE_STATE.TUTORIAL)
+        if(c_State == CUTSCENE_STATE.MAPTUTORIAL)
         {
-            if(!firstTrigger)
+            firstTrigger = false;
+            mapText.gameObject.SetActive(true);
+            isCutscene = false;
+            canMoveCamera = true;
+            questText.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.M))
             {
+                if(!firstTime)
+                {
+                    firstTime = true;
+                }
+                else
+                {
+                    questText.SetActive(true);
+                    c_State = CUTSCENE_STATE.TUTORIALTEXT;
+                }
+            }
+        }
+        if (c_State == CUTSCENE_STATE.TUTORIALTEXT)
+        {
+            mapText.gameObject.SetActive(false);
+            isQuestShowed = true;
+            if (!firstTrigger)
+            {
+                tutorialTextBorder.SetActive(true);
                 tutorialList[0].SetActive(true);
                 tutorialList[4].SetActive(true);
                 firstTrigger = true;
@@ -328,6 +365,17 @@ public class Cutscene : MonoBehaviour
             {
                 tutorialList[3].SetActive(false);
                 tutorialList[4].SetActive(false);
+                tutorialTextBorder.SetActive(false);
+            }
+
+            if(obj.isCompletedFirstObjective)
+            {
+                if(!objAudioTrigger)
+                {
+                    AudioManager.instance.Play("ObjectiveComplete", "SFX");
+                    dialogueScript.PlayDialogue_6();
+                    objAudioTrigger = true;
+                }
             }
 
             if(obj.secondObjectiveCompletedCount >= 5)
@@ -464,7 +512,7 @@ public class Cutscene : MonoBehaviour
     IEnumerator TutorialStart()
     {
         yield return new WaitForSeconds(7.5f);
-        c_State = CUTSCENE_STATE.TUTORIAL;
+        c_State = CUTSCENE_STATE.MAPTUTORIAL;
     }
 
     IEnumerator EndGameRestart()
