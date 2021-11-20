@@ -382,6 +382,7 @@ public class Cutscene : MonoBehaviour
             {
                 if (endCreditAnim.GetCurrentAnimatorStateInfo(0).IsName("Credit") != true)
                 {
+                    isCutscene = true;
                     endCreditAnim.Play("Credit");
                     StartCoroutine(EndGameRestart());
                 }
