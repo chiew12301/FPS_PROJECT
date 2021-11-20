@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b0c6aead88404d802619d65e84096, type: 3}
   m_Name: DogTag1
   m_EditorClassIdentifier: 
-  name: Dog Tag
+  name: Amdersen's Dog Tag
   Icon: {fileID: 21300000, guid: 358d2d8c576974b4cb6091970374efff, type: 3}
   isDefaultItem: 0
   description: 'ANDERSEN
