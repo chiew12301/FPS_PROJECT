@@ -1,3 +1,4 @@
+e
 using UnityEngine;
 using System.Collections;
 
@@ -138,7 +139,7 @@ public class Gun : MonoBehaviour
 
             if (isReloading)
                 return;
-            if (!Input.GetKey(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo)
+            if (!Input.GetKey(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo && ammoAmount > 0)
             {
                 StartCoroutine(Reload());
                 return;
