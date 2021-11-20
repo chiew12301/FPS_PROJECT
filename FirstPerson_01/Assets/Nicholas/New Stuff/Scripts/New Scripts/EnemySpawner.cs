@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         // check for enemies if theyre still alive
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemies[i].GetComponent<EnemyController>().currHealth <= 0)
+            if (enemies[i].GetComponent<EnemyController>().isDead)
             {
                 enemies.RemoveAt(i);
             }
@@ -38,7 +38,12 @@ public class EnemySpawner : MonoBehaviour
         if (enemies.Count <= 0)
         {
             // enable meteor
-            meteor.SetActive(true);
+            Debug.Log("All enemies from this spawnwer has been killed / died");
+
+            if (meteor != null)
+                meteor.SetActive(true);
+            else
+                Debug.Log("No meteor for this spawner");
         }
     }
 

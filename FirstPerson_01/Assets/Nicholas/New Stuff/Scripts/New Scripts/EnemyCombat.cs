@@ -57,6 +57,7 @@ public class EnemyCombat : MonoBehaviour
                 agent.isStopped = true;
                 Destroy(agent);
                 transform.position = new Vector3(transform.position.x, -4, transform.position.z);
+                GetComponent<EnemyController>().isDead = true;
 
                 GetComponent<AudioSource>().enabled = false;
             }           

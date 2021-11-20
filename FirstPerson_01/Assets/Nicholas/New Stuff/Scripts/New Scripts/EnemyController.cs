@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     public float maxHealth = 50f;
     //[HideInInspector]
     public float currHealth;
+    public bool isDead { get; set; }
     [SerializeField] private float wanderTimer = 1.0f;
     [SerializeField] private float wanderRadius = 1.0f;
 
@@ -38,6 +39,7 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         combat = GetComponent<EnemyCombat>();
 
+        isDead = false;
         currHealth = maxHealth;
     }
 
@@ -92,13 +94,14 @@ public class EnemyController : MonoBehaviour
         if (currHealth <= 0)
         {
             // die
+            currHealth = 0;
             combat.Die();
-            //agent.isStopped = true;
-            //Destroy(agent);
-            //transform.position = new Vector3(transform.position.x, -4, transform.position.z);
-
-            //GetComponent<AudioSource>().enabled = false;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currHealth -= damage;
     }
 
     void LookAtPlayer()

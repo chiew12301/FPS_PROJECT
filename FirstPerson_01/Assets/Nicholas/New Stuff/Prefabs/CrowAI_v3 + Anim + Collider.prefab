@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5217367239627389870}
   - component: {fileID: 5217367241406006915}
   - component: {fileID: 6699977493201567222}
-  - component: {fileID: -6087890879828049088}
   m_Layer: 0
   m_Name: CrowAI_v3 + Anim + Collider
   m_TagString: Crow
@@ -142,7 +141,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 150
+  MaxDistance: 120
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -217,19 +216,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-6087890879828049088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853269794779112403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6a8fa9c948f6f40a421d6dfcf713eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
 --- !u!54 &5217367240439715514
 Rigidbody:
   m_ObjectHideFlags: 0

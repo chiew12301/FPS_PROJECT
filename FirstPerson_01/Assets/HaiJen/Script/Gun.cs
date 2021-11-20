@@ -1,4 +1,3 @@
-e
 using UnityEngine;
 using System.Collections;
 
@@ -281,8 +280,7 @@ public class Gun : MonoBehaviour
             {
                 obj.transform.position = hit.point;
                 obj.SetActive(true);
-            }
-            TargetScript target = hit.transform.GetComponent<TargetScript>();
+            }           
             curAmmo--;
             bulletCount++;
             if(bulletCount % 2 == 0)
@@ -293,9 +291,11 @@ public class Gun : MonoBehaviour
             {
                 AudioManager.instance.Play("Shoot_1", "SFX");
             }
-            if (target != null)
+
+            EnemyController enemyController = hit.transform.GetComponent<EnemyController>();
+            if (enemyController != null)
             {
-                target.TakeDamage(damage);
+                enemyController.TakeDamage(damage);
                 StartCoroutine(HitFeedback());
             }
         }
