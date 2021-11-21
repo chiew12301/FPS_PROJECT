@@ -63,7 +63,8 @@ public class PlayerMovementNew : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameObject.GetComponent<Cutscene>().GetIsCutscene() && !PauseManager.instance.getIsPause() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus())
+        if (!gameObject.GetComponent<Cutscene>().GetIsCutscene() && !PauseManager.instance.getIsPause() && !mainMenu.GetComponent<MainMenu>().getMainMenuStatus() 
+            && gameObject.GetComponent<Cutscene>().GetCanMovePlayer())
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -144,6 +145,14 @@ public class PlayerMovementNew : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+            }
+            if (AudioManager.instance.FindIsPlaying("Run", "SFX"))
+            {
+                AudioManager.instance.Stop("Run", "SFX");
+            }
+            if (!AudioManager.instance.FindIsPlaying("Walk", "SFX"))
+            {
+                AudioManager.instance.Stop("Walk", "SFX");
             }
         }
     }

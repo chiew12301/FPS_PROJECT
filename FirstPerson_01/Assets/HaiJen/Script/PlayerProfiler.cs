@@ -59,6 +59,7 @@ public class PlayerProfiler : MonoBehaviour
         }
         if(currHealthPoint <= 0)
         {
+            gameObject.GetComponent<Cutscene>().isCutscene = true;
             StartCoroutine(Die());
         }
     }

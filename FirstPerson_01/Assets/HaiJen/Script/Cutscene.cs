@@ -48,7 +48,7 @@ public class Cutscene : MonoBehaviour
 
     //Determination
     float timer;
-    bool isCutscene;
+    public bool isCutscene;
     bool isCredit;
     bool canMoveCamera;
     bool creditStart;
@@ -56,6 +56,7 @@ public class Cutscene : MonoBehaviour
     bool firstTrigger;
     bool dialoguePlayed;
     bool objAudioTrigger;
+    bool canMovePlayer;
 
     //GameObject to destroy to proceed
     [SerializeField]
@@ -333,6 +334,7 @@ public class Cutscene : MonoBehaviour
         }
         if (c_State == CUTSCENE_STATE.TUTORIALTEXT)
         {
+            canMovePlayer = true;
             mapText.gameObject.SetActive(false);
             isQuestShowed = true;
             if (!firstTrigger)
@@ -398,6 +400,11 @@ public class Cutscene : MonoBehaviour
     public bool GetCanMoveCamera()
     {
         return canMoveCamera;
+    }
+
+    public bool GetCanMovePlayer()
+    {
+        return canMovePlayer;
     }
 
     //Player Position
