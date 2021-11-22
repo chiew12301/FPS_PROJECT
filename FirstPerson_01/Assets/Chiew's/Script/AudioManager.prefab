@@ -76,13 +76,13 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: Shoot
-    clip: {fileID: 8300000, guid: eee392c8db9801943894008fd0ef545e, type: 3}
+    clip: {fileID: 8300000, guid: 4dbeaeb52fa8cb445b484f2ea739fd47, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Shoot_1
-    clip: {fileID: 8300000, guid: eee392c8db9801943894008fd0ef545e, type: 3}
+    clip: {fileID: 8300000, guid: 4dbeaeb52fa8cb445b484f2ea739fd47, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -185,6 +185,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ObjectiveComplete
     clip: {fileID: 8300000, guid: 67fd53f41e3256647a16d1852c40dfd3, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pickup
+    clip: {fileID: 8300000, guid: 8e0bb84ad748aa24099d88158d226985, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0

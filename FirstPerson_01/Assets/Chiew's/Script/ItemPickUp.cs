@@ -17,6 +17,10 @@ public class ItemPickUp : Interactable
         bool wasPickedUp = Inventory.instance.Add(item);
         if(wasPickedUp)
         {
+            if (AudioManager.instance.FindIsPlaying("Pickup", "SFX") == false)
+            {
+                AudioManager.instance.Play("Pickup", "SFX");
+            }
             Destroy(gameObject);
         }
     }
