@@ -1,6 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+public enum GUN_STATE
+{
+    G_IDLE = 0,
+    G_SHOOTING,
+    G_RELOADING
+}
+
 public class Gun : MonoBehaviour
 {
     public float damage = 5f;
@@ -36,6 +43,8 @@ public class Gun : MonoBehaviour
     private Cutscene cs;
     [SerializeField]
     private GameObject mainMenu;
+
+    public GUN_STATE g_State;
 
     /*public Vector3[] recoilPattern { get; private set; } = new Vector3[30]
     {
@@ -137,7 +146,18 @@ public class Gun : MonoBehaviour
             }
 
             if (isReloading)
-                return;
+            {
+                g_State = GUN_STATE.G_RELOADING;
+            }
+            else if(isShooting)
+            {
+                g_State = GUN_STATE.G_SHOOTING;
+            }
+            else
+            {
+                g_State = GUN_STATE.G_IDLE;
+            }
+
             if (!Input.GetKey(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.R) && curAmmo < maxAmmo && ammoAmount > 0)
             {
                 StartCoroutine(Reload());
@@ -171,6 +191,7 @@ public class Gun : MonoBehaviour
             }
             else if (!Input.GetKey(KeyCode.Mouse0) || isReloading)
             {
+                isShooting = false;
                 bulletCount = 0;
                 fpsCam.GetComponent<CameraControl>().SetGunRotation(Vector3.Lerp(fpsCam.GetComponent<CameraControl>().gunRotation, Vector3.zero, fireRate * Time.deltaTime));
             }
@@ -235,6 +256,7 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
+        isShooting = true;
         RaycastHit hit;
         //bloom
         Vector3 bloom = fpsCam.transform.position + fpsCam.transform.forward * 500f;
