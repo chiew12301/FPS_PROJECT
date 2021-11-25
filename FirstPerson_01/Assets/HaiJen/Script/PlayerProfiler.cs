@@ -24,6 +24,8 @@ public class PlayerProfiler : MonoBehaviour
 
     public Animator dieScene;
 
+    bool isInvulnerable;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +52,7 @@ public class PlayerProfiler : MonoBehaviour
         //{
         //    ThrowUtility();
         //}
-        if(usingMedkit)
+        if (usingMedkit)
         {
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -115,17 +117,21 @@ public class PlayerProfiler : MonoBehaviour
 
     void TakeDamage(int damage)
     {
-        currHealthPoint -= damage;
-        int rand = Random.Range(0, 2);
-        if(rand == 0)
+        if(!isInvulnerable)
         {
-            AudioManager.instance.Play("Hurt01", "SFX");
+            currHealthPoint -= damage;
+            int rand = Random.Range(0, 2);
+            if (rand == 0)
+            {
+                AudioManager.instance.Play("Hurt01", "SFX");
+            }
+            else
+            {
+                AudioManager.instance.Play("Hurt02", "SFX");
+            }
+            StartCoroutine(bleed());
+            StartCoroutine(InvulnerableTime());
         }
-        else
-        {
-            AudioManager.instance.Play("Hurt02", "SFX");
-        }
-        StartCoroutine(bleed());
     }
 
     IEnumerator bleed()
@@ -133,6 +139,13 @@ public class PlayerProfiler : MonoBehaviour
         bloodUI.SetActive(true);
         yield return new WaitForSeconds(3.0f);
         bloodUI.SetActive(false);
+    }
+
+    IEnumerator InvulnerableTime()
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(3.0f);
+        isInvulnerable = false;
     }
 
     void OnTriggerEnter(Collider collision)
