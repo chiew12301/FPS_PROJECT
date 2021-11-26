@@ -326,14 +326,16 @@ public class Gun : MonoBehaviour
     public void Zoom()
     {
         Camera.main.fieldOfView = zoomValue;
-        //gun.localPosition = new Vector3(0, -0.168f, gun.localPosition.z);
-        gun.localPosition = new Vector3(0.723f, -0.1835f, 1.346f);
+        //gun.localPosition = new Vector3(0, -0.168f, gun.localPosition.z); - Old Gun Model
+        //gun.localPosition = new Vector3(0.723f, -0.1835f, 1.346f); - New Gun Model
+        gun.localPosition = new Vector3(-0.0872f, -1.5577f, 0.04f); //- Shoulder animation + Gun Model
     }
 
      public void UnZoom()
     {
         Camera.main.fieldOfView = unZoomValue;
         //gun.localPosition = new Vector3(0.38f, -0.244f, gun.localPosition.z);
-        gun.localPosition = new Vector3(1.101f, -0.315f, 1.388f);
+        //gun.localPosition = new Vector3(1.101f, -0.315f, 1.388f);
+        gun.localPosition = new Vector3(0.28f, -1.68f, 0.17f);
     }
 }

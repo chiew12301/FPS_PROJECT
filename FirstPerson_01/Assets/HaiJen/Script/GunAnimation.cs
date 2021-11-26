@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GunAnimation : MonoBehaviour
 {
-    [SerializeField] Animator obj_Anim;
+    [SerializeField] Animator ModelOne_Anim;
+    [SerializeField] Animator ModelTwo_Anim;
     [SerializeField] Gun gun_Script;
 
     public const string SHOOTINGONE_ANIMATION = "ShootingOne";
@@ -38,9 +39,23 @@ public class GunAnimation : MonoBehaviour
 
     public void ChangeAnimationState(string AniState) //Remember to use Const String
     {
-        if (obj_Anim.GetCurrentAnimatorStateInfo(0).IsName(AniState) != true)
+        if(AniState == RELOAD_ANIMATION)
         {
-            obj_Anim.Play(AniState);
+            ModelTwo_Anim.gameObject.SetActive(true);
+            ModelOne_Anim.gameObject.SetActive(false);
+            if (ModelTwo_Anim.GetCurrentAnimatorStateInfo(0).IsName(AniState) != true)
+            {
+                ModelTwo_Anim.Play(AniState);
+            }
+        }
+        else
+        {
+            ModelOne_Anim.gameObject.SetActive(true);
+            ModelTwo_Anim.gameObject.SetActive(false);
+            if (ModelOne_Anim.GetCurrentAnimatorStateInfo(0).IsName(AniState) != true)
+            {
+                ModelOne_Anim.Play(AniState);
+            }
         }
     }
 }

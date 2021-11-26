@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public float mouseSensitivity = 100.0f;
+    public float mouseSensitivity = 50.0f;
 
     public Transform playerObject;
 
@@ -28,11 +28,11 @@ public class CameraControl : MonoBehaviour
         {
             if(gun.isZoom)
             {
-                mouseSensitivity = 25.0f;
+                mouseSensitivity = 10.0f;
             }
             else
             {
-                mouseSensitivity = 100.0f;
+                mouseSensitivity = 50.0f;
             }
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
