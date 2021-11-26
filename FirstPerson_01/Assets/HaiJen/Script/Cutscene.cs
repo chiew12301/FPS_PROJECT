@@ -525,7 +525,7 @@ public class Cutscene : MonoBehaviour
 
     IEnumerator EndGameRestart()
     {
-        yield return new WaitForSeconds(41.35f);
+        yield return new WaitForSeconds(46f);
         SceneManager.LoadScene(0);
     }
 
