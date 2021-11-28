@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5092059525863671848}
   - component: {fileID: 8144050456158570381}
   - component: {fileID: 6260441037242659655}
+  - component: {fileID: 2754188009774373698}
   m_Layer: 0
   m_Name: "Traffic Light \uFF08LowPoly_UVW)"
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2754188009774373698
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5611891424385553042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3557143, y: 0.13267158, z: 3.6123679}
+  m_Center: {x: 0.000008556673, y: -0.008764033, z: 1.806184}

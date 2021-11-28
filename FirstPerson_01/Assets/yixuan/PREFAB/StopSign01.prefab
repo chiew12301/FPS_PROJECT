@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &7197726500786442501
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3614306050171603356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.025999716, y: 0.00090423535, z: 0.0007733028}
+  m_Center: {x: 0.012999858, y: 0.000072631614, z: 0.00019506692}
 --- !u!1 &4963183338251697704
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +22,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5059380629639032503}
-  - component: {fileID: 4292999675644731702}
   m_Layer: 0
   m_Name: StopSign01
   m_TagString: Untagged
@@ -32,20 +44,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &4292999675644731702
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4963183338251697704}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1001 &4533420469567304909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,6 +118,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ab9787d34fd0d040971a2185cc30118, type: 3}
+--- !u!1 &3614306050171603356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ab9787d34fd0d040971a2185cc30118,
+    type: 3}
+  m_PrefabInstance: {fileID: 4533420469567304909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4135228703157670694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9ab9787d34fd0d040971a2185cc30118,

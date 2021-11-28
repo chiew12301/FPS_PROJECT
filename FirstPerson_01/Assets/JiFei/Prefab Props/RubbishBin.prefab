@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7538482881127583228}
   - component: {fileID: 6859485431473767001}
   - component: {fileID: 8706934594150528659}
+  - component: {fileID: 8475183459544623980}
   m_Layer: 0
-  m_Name: LowPoly_RubbishBin (UVW)
+  m_Name: RubbishBin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8475183459544623980
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193869911985837894}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6782741, y: 0.66796994, z: 0.9601198}
+  m_Center: {x: -0.30133596, y: -0.000000013244622, z: 0.4800599}

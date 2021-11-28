@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1598533525709522039}
   - component: {fileID: 2414204625926687698}
   - component: {fileID: 460507463417331480}
+  - component: {fileID: 2525276404249061669}
   m_Layer: 0
   m_Name: StreetLight (LowPoly_UVW)
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2525276404249061669
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118083158779387597}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20379949, y: 0.30507794, z: 8.000002}
+  m_Center: {x: -0.098100305, y: -0.00048851967, z: 4.000001}
