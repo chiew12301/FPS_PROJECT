@@ -14,13 +14,13 @@ public class QuestIcon : MonoBehaviour
         {
             target = player.GetComponent<Objectives>().CurrentObjective.Target;
 
-            gameObject.SetActive(true);
+            this.gameObject.SetActive(true);
 
-            transform.position = new Vector3(target.transform.position.x, 250, target.transform.position.z);
+            this.transform.position = new Vector3(target.transform.position.x, 250, target.transform.position.z);
         }
         else
         {
-            gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
         }
      
         
