@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSpeed: 5
-  explosionPrefab: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4,
+  explosionPrefab: {fileID: 1337198075554910, guid: 5b94d9d696478da4c8cc46a1e21fb4d7,
     type: 3}
 --- !u!65 &5217367241406006915
 BoxCollider:
