@@ -16,7 +16,7 @@ public class QuestIcon : MonoBehaviour
 
             gameObject.SetActive(true);
 
-            transform.position = new Vector3(target.transform.position.x, 168, target.transform.position.z);
+            transform.position = new Vector3(target.transform.position.x, 250, target.transform.position.z);
         }
         else
         {
