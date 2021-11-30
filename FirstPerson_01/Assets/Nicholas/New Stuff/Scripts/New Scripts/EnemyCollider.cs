@@ -15,4 +15,13 @@ public class EnemyCollider : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         collider.enabled = false;
     }
+
+    private void Update()
+    {
+        if (GetComponentInParent<EnemyController>().isDead)
+        {
+            Collider collider = GetComponent<Collider>();
+            collider.enabled = false;
+        }
+    }
 }
