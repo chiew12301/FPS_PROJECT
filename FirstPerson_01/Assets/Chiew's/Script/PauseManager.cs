@@ -55,7 +55,7 @@ public class PauseManager : MonoBehaviour
         {
             if (cs_OBJ.GetIsCutscene() == false)
             {
-                UIObjectStatus(true);
+                UIObjectStatus(false);
             }
             else
             {
@@ -109,7 +109,7 @@ public class PauseManager : MonoBehaviour
             }
             else //NONEPAUSE
             {
-                UIObjectStatus(true);
+                UIObjectStatus(false);
                 ChangeAnimationState("Empty");
                 setIsPause(false);
                 isPlayingAni = false;

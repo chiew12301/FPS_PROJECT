@@ -28,6 +28,7 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     public GameObject impactEffect;
     public GameObject crosshair;
+    public GameObject shoulderAndGun;
     public Transform player;
     public Transform gun;
 
@@ -128,8 +129,17 @@ public class Gun : MonoBehaviour
     void Update()
     {
         if (!pM.pauseMenuUI.activeSelf && !iui.inventoryUI.activeSelf && !PauseManager.instance.getIsPause() && 
-            !mainMenu.GetComponent<MainMenu>().getMainMenuStatus() && !pp.GetUsingMedkit() && !cs.GetIsCutscene())
+            !mainMenu.GetComponent<MainMenu>().getMainMenuStatus() && !pp.GetUsingMedkit()/* && !cs.GetIsCutscene()*/)
         {
+            if(Input.GetKeyDown(KeyCode.T) && shoulderAndGun.activeSelf)
+            {
+                shoulderAndGun.SetActive(false);
+            }
+            else if(Input.GetKeyDown(KeyCode.T) && !shoulderAndGun.activeSelf)
+            {
+                shoulderAndGun.SetActive(true);
+            }
+
             crosshair.SetActive(true);
             shootAble = true;
             if (player.GetComponent<PlayerMovementNew>().isRunning)

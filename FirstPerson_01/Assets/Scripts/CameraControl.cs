@@ -24,7 +24,7 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerObject.GetComponent<Cutscene>().GetCanMoveCamera() && !PauseManager.instance.getIsPause())
+        if (/*playerObject.GetComponent<Cutscene>().GetCanMoveCamera() && */!PauseManager.instance.getIsPause())
         {
             if(gun.isZoom)
             {
