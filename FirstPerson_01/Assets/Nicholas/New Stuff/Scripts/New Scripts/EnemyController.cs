@@ -17,8 +17,6 @@ public class EnemyController : MonoBehaviour
     public float maxHealth = 50f;
     //[HideInInspector]
     public float currHealth;
-    public int crowKillCount;
-
     [SerializeField] private float wanderTimer = 1.0f;
     [SerializeField] private float wanderRadius = 1.0f;
 
@@ -46,51 +44,33 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (agent != null)
+        // wander
+        timer += Time.deltaTime;
+        if (timer >= wanderTimer && isChasingPlayer == false)
         {
-            // wander
-            timer += Time.deltaTime;
-            if (timer >= wanderTimer && isChasingPlayer == false)
+            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            agent.SetDestination(newPos);
+            timer = 0.0f;
+        }
+
+        // chase
+        float distance = Vector3.Distance(target.position, transform.position);
+        if (distance <= lookRadius)
+        {
+            isChasingPlayer = true;
+            agent.SetDestination(target.position);
+
+            if (distance <= agent.stoppingDistance)
             {
-                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-                agent.SetDestination(newPos);
-                timer = 0.0f;
+                // attack the player
+                combat.Attack();
+                LookAtPlayer();
             }
-
-            // chase
-            float distance = Vector3.Distance(target.position, transform.position);
-            if (distance <= lookRadius)
-            {
-                isChasingPlayer = true;
-                agent.SetDestination(target.position);
-
-                if (distance <= agent.stoppingDistance)
-                {
-                    // attack the player
-                    combat.Attack();
-                    LookAtPlayer();
-                }
-            }
-            else
-            {
-                isChasingPlayer = false;
-            }
-
-            if (currHealth <= 0)
-            {
-                // die
-                combat.Die();
-                agent.isStopped = true;
-                Destroy(agent);
-                transform.position = new Vector3(transform.position.x, -2, transform.position.z);
-
-                // add 1 to kill count
-                KillCount.instance.totalKillCount++;
-                Debug.Log("Killed " + KillCount.instance.totalKillCount);
-            }
-        }     
-
-        
+        }
+        else
+        {
+            isChasingPlayer = false;
+        }
     }
 
     void LookAtPlayer()

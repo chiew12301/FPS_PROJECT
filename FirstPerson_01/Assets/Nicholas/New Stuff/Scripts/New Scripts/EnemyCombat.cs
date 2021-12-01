@@ -37,22 +37,13 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public void Die()
-    {
-        if (animator != null)
-        {
-            animator.Play("DeathAnim");
-        }
-    }
-
     void ClawAttack()
     {
         if (attackCooldown <= 0)
         {
             // do damage
             Debug.Log("Hitting Player");
-            animator.Play("ClawAttackAnim");
-            //animator.SetTrigger("Attack");
+            animator.Play("CrowAttackAnim");
             attackCooldown = 1f / attackSpeed;  // higher attack speed, lower attack cooldown
         }
     }
@@ -65,6 +56,6 @@ public class EnemyCombat : MonoBehaviour
 
         GameObject cloneExplosionPrefab = Instantiate(explosionPrefab);
         cloneExplosionPrefab.transform.position = transform.position + transform.up + transform.forward;
-        Destroy(cloneExplosionPrefab, 2);
+        Destroy(cloneExplosionPrefab, 1);
     }
 }
