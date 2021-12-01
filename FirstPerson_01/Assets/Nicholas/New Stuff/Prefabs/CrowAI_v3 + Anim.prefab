@@ -108,7 +108,7 @@ MonoBehaviour:
   maxHealth: 50
   currHealth: 0
   crowKillCount: 0
-  wanderTimer: 1
+  wanderTimer: 0.2
   wanderRadius: 5
 --- !u!114 &1659319499
 MonoBehaviour:
