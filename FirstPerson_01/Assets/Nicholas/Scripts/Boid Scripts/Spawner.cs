@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour {
             boid.transform.position = pos;
             boid.transform.forward = Random.insideUnitSphere;
 
-            boid.SetColour (colour);
+            //boid.SetColour (colour);
         }
     }
 

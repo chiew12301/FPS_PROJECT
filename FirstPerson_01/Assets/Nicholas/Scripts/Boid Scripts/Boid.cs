@@ -61,20 +61,20 @@ public class Boid : MonoBehaviour {
 
         if (target != null && IsInRange())
         {
-            SetColour(Color.yellow);
+            //SetColour(Color.yellow);
             Vector3 offsetToTarget = (target.position - position);
             //Debug.DrawRay(position, offsetToTarget, Color.black);
             acceleration += SteerTowards(offsetToTarget) * defaultSettings.targetWeight;
 
-            if (IsInAttackRange())
-            {
-                SetColour(Color.red);
-            }
+            //if (IsInAttackRange())
+            //{
+            //    SetColour(Color.red);
+            //}
         }
-        else
-        {
-            SetColour(Color.blue);
-        }       
+        //else
+        //{
+        //    SetColour(Color.blue);
+        //}       
 
         if (numPerceivedFlockmates != 0) {
             centreOfFlockmates /= numPerceivedFlockmates;
@@ -105,12 +105,12 @@ public class Boid : MonoBehaviour {
         //    Debug.DrawRay(position, settings.boundTarget.transform.position - position, Color.black);
         //    acceleration += move;
         //}
-        if (position.y < defaultSettings.yMinMax.x || position.y > defaultSettings.yMinMax.y)
-        {
-            var newPos = position;
-            newPos.y = Mathf.Clamp(newPos.y, defaultSettings.yMinMax.x, defaultSettings.yMinMax.y);
-            position = newPos;           
-        }
+        //if (position.y < defaultSettings.yMinMax.x || position.y > defaultSettings.yMinMax.y)
+        //{
+        //    var newPos = position;
+        //    newPos.y = Mathf.Clamp(newPos.y, defaultSettings.yMinMax.x, defaultSettings.yMinMax.y);
+        //    position = newPos;           
+        //}
 
         //Debug.Log("Pos Y = " + position.y + ". Cached Y = " + cachedTransform.position.y);
 
