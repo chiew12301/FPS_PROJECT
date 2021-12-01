@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - EnemyAttack
+  - EnemyCollider
+  - Crow
   layers:
   - Default
   - TransparentFX
