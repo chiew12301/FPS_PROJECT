@@ -49,8 +49,10 @@ public class PlayerMovementNew : MonoBehaviour
     public Camera fpsCam;
     public float bobbingSpeed;
     public float bobbingAmount;
+    float defaultPosX = 0;
     float defaultPosY = 0;
     float timer = 0;
+    float secTimer = 0;
 
     [SerializeField]
     GameObject mainMenu;
@@ -58,6 +60,7 @@ public class PlayerMovementNew : MonoBehaviour
     {
         p_Direction = 0;
         defaultPosY = fpsCam.transform.localPosition.y;
+        defaultPosX = fpsCam.transform.localPosition.x;
     }
 
     // Update is called once per frame
@@ -284,12 +287,14 @@ public class PlayerMovementNew : MonoBehaviour
         if (isMoving)
         {
             timer += Time.deltaTime * bobbingSpeed;
-            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, defaultPosY + Mathf.Sin(timer) * bobbingAmount, fpsCam.transform.localPosition.z);
+            secTimer += Time.deltaTime * (bobbingSpeed / 2);
+            fpsCam.transform.localPosition = new Vector3(defaultPosX + Mathf.Cos(timer) * bobbingAmount, defaultPosY + (Mathf.Sin(timer * 2) * bobbingAmount), fpsCam.transform.localPosition.z);
         }
         else
         {
             timer = 0;
-            fpsCam.transform.localPosition = new Vector3(fpsCam.transform.localPosition.x, Mathf.Lerp(fpsCam.transform.localPosition.y, defaultPosY, Time.deltaTime * bobbingSpeed), fpsCam.transform.localPosition.z);
+            secTimer = 0;
+            fpsCam.transform.localPosition = new Vector3(Mathf.Lerp(fpsCam.transform.localPosition.x, defaultPosX, Time.deltaTime * bobbingSpeed), Mathf.Lerp(fpsCam.transform.localPosition.y, defaultPosY, Time.deltaTime * bobbingSpeed), fpsCam.transform.localPosition.z);
         }
     }
 }
